@@ -1,0 +1,116 @@
+doctype basic
+html
+  head
+    meta(charset="utf-8")
+    meta(name="keywords" content="")
+    meta(name="description" content="")
+    //- meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    
+    //- JQuery
+    script(src="js/vendor/jquery.min.js")
+    //- Bootstrap
+    link(rel="stylesheet" href="css/vendor/bootstrap.min.css")
+    //- link(rel="stylesheet" href="css/vendor/bootstrap-theme.min.css")
+    script(src="js/vendor/bootstrap.min.js")
+    //- Material Design Lite
+    script(src="js/vendor/material.min.js")
+    link(rel="stylesheet" href="css/vendor/material.min.css")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
+    link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css") 
+
+    //- Partials
+    link(rel="stylesheet" href="css/style.min.css")
+
+    title Сундучок игрушек
+  body
+    //- //- carousel
+    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
+      //- header.mdl-layout__header
+        div.mdl-layout__header-row
+          //- span.mdl-layout-title «Сундучок игрушек»
+          a.material-icons.mdl-navigation__link(href="#") shopping_cart
+          div.mdl-layout-spacer
+          nav.mdl-navigation.mdl-layout--large-screen-only
+            a.material-icons.mdl-navigation__link(href="#") shopping_cart
+            a.mdl-navigation__link(href="#") Item
+            a.mdl-navigation__link(href="#") Item
+            a.mdl-navigation__link(href="#") Item
+            a.mdl-navigation__link(href="#") Item
+
+      div.mdl-layout__drawer
+        //- span.mdl-layout-title «Сундучок игрушек»
+        nav.mdl-navigation
+          - var links = [{name:"Памятка", url:"#"}, {name:"Вопросы и ответы", url: "#"}, {name:"Гарантия чистоты", url:"#"}, {name:"Условия проката", url:"#"}]
+          each link in links
+            a.mdl-navigation__link(href="#{link.url}") #{link.name}
+        hr
+        nav.mdl-navigation
+          - var links = [{name:"Категория 1", url:"#cat1"}, {name:"Категория 2", url: "#cat2"}, {name:"Категория 3", url:"#cat3"}, {name:"Категория 4", url:"#cat4"}]
+          each link in links
+            a.mdl-navigation__link(href="#{link.url}") #{link.name}
+        div.mdl-layout-spacer
+        nav.mdl-navigation
+          a.mdl-navigation__link Корзина
+              div.material-icons.mdl-badge(data-badge="61") shopping_cart
+
+      div.mdl-layout__content
+        div#main-carousel.carousel.slide(data-ride="carousel")
+              //- <!-- Indicators -->
+              ol.carousel-indicators
+                li.active(data-target="#main-carousel", data-slide-to="0")
+                li(data-target="#main-carousel", data-slide-to="1")
+
+              //- <!-- Wrapper for slides -->
+              div.carousel-inner(role="listbox")
+                div.item.active
+                  img(src="img/img (5).jpg", alt="IMG2")
+                div.item
+                  img(src="img/img (4).jpg", alt="IMG2")
+                  //- div.carousel-caption Caption 2
+
+              //- <!-- Controls -->
+              //- a.left.carousel-control(href="#main-carousel", role="button", data-slide="prev")
+                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+                //- span.sr-only Previous
+              //- a.right.carousel-control(href="#main-carousel", role="button", data-slide="next")
+                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+                //- span.sr-only Next
+        //- carousel
+        //- div.container-fluid
+
+        //- div.jumbotron
+          h1 Hello
+          <i class="material-icons">shopping_cart</i>
+
+        div.mdl-grid
+          - var m = 1
+          while m <= 2
+            div.mdl-cell.mdl-cell--12-col
+              h1(id="cat#{m}")
+                |Категория 
+                = m++
+            - var n = 1
+            while n <= 10
+              div.mdl-cell.mdl-cell--4-col
+                div.demo-card-wide.mdl-card.mdl-shadow--2dp
+                  div.mdl-card__title
+                    h2.mdl-card__title-text
+                      |Игрушка 
+                      = n++
+                  div.mdl-card__supporting-text
+                    |Краткое описание.
+                  div.mdl-card__actions.mdl-card--border
+                    button.mdl-button.mdl-js-button.mdl-js-ripple-effect Подробнее
+                  div.mdl-card__menu
+                    button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect: i.material-icons add
+
+        footer.mdl-mini-footer
+          .mdl-mini-footer--left-section
+            .mdl-logo «Сундучок игрушек»
+          .mdl-mini-footer--right-section
+            //- .mdl-logo «Сундучок игрушек»
+            ul.mdl-mini-footer--link-list
+              - var links = [{name:"Памятка", url:"#"}, {name:"Вопросы и ответы", url: "#"}, {name:"Гарантия чистоты", url:"#"}, {name:"Условия проката", url:"#"}]
+              each link in links
+                li: a(href="#{link.url}") #{link.name}

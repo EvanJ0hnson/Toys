@@ -1,0 +1,64 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="keywords" content="Форекс, рынок форекс, учебник по форекс, форекс для чайников, обучение форекс")
+    meta(name="description" content="Форекс для чайников")
+    link(rel="stylesheet" href="css/style.min.css")
+    title Forex
+    block vars
+  body
+    .container
+      .header
+        span.header__title<strong>Forex</strong> для чайников
+        ul.topNavigation
+          - var links = [{name:"Главная", url:"index.html"}, {name:"Словарь", url: "slovar.php"}, {name:"Литература", url:"literatura.html"}, {name:"Скачать MetaTrader 4", url:"http://www.metaquotes.net/ru/metatrader4/trading_terminal"}, {name:"Торговая стратегия", url:"torg.php"}]
+          each link in links
+            li.topNavigation__item
+              a(class="topNavigation__link" href="#{link.url}") #{link.name}
+      .leftNavigation
+        ul.leftNavigation__block
+          li.leftNavigation__blockTitle Технический анализ
+          - var links = [{name:"Ocновные понятия", url:"osnova.html"}, {name:"Маржинальная торговля", url: "marg_torg.php"}, {name:"Тренд", url:"trend.php"}, {name:"Каналы трендов", url:"canal.php"}, {name:"Уровни S и R", url:"SR_4.php"}, {name:"Графические модели", url:"Gra_model_5.php"}]
+          each link in links
+            li
+              a(class="leftNavigation__item" href="#{link.url}") #{link.name}
+        ul.leftNavigation__block
+          li.leftNavigation__blockTitle Индикаторы
+          - var links = [{url:"indikator_6.php", name:"Индикаторы"}, {url:"ss_7.php", name:"Скользящие средние"}, {url:"macd_8.php", name:"Индикатор MACD"}, {url:"ds_9.php", name:"Дирекционная система"}, {url:"prb.php", name:"Parabolic Sar"}, {url:"ind_10.php", name:"Индикатор RSI"}, {url:"sto_11.php", name:"Стохастический осциллятор"}, {url:"momentum15.php", name:"Momentum"}, {url:"Force.php", name:"Индекс силы"}, {url:"bv16.php", name:"Индикатор балансового объема"}, {url:"pivotnye_tochki.php", name:"Пивотные точки"}]
+          each link in links
+            li
+              a(class="leftNavigation__item" href="#{link.url}") #{link.name}
+        ul.leftNavigation__block
+          li.leftNavigation__blockTitle Японские свечи
+          - var links = [{url:"jpn_12.php", name:"Японские свечи"}, {url:"jmod_13.php", name:"Модели разворота"}, {url:"zvezda_14.php", name:"Звезды"}, {url:"hor_15.php", name:"Харами"}, {url:"dojy_17.php", name:"Магический дожи"}, {url:"okna_18.php", name:"Модели продолжения"}, {url:"pravilo_19.php", name:"Правило совокупного анализа"}, {url:"si_20.php", name:"Свечи и индикаторы"}]
+          each link in links
+            li
+              a(class="leftNavigation__item" href="#{link.url}") #{link.name}
+        ul.leftNavigation__block
+          li.leftNavigation__blockTitle Эллиотт и Фибоначчи
+          - var links = [{url:"posled_chisel_fibonachi.php", name:"Последовательность чисел Фибоначчи"}, {url:"urovni_fibonachi.php", name:"Уровни Фибоначчи"}, {url:"zakon_voln_elliota.php", name:"Закон волн Эллиота"}]
+          each link in links
+            li
+              a(class="leftNavigation__item" href="#{link.url}") #{link.name}
+        ul.leftNavigation__block
+          li.leftNavigation__blockTitle Фундаментальный анализ
+          - var links = [{url:"fa.php", name:"Фундаментальный анализ"}, {url:"sessii.php", name:"Торговые сессии"}]
+          each link in links
+            li
+              a(class="leftNavigation__item" href="#{link.url}") #{link.name}
+        ul.leftNavigation__block
+          li.leftNavigation__blockTitle Торговые стратегии
+          - var links = [{url:"torg.php", name:"Торговая система. Понятие"}, {url:"tri_ekrana.php", name:"Три экрана"}, {url:"torg1.php", name:"Торговая система №1"}, {url:"torg2.php", name:"Торговая система №2"}, {url:"torg3.php", name:"Торговая система №3"}, {url:"torg4.php", name:"Торговая система №4"}, {url:"torg5.php", name:"Торговая система №5"}, {url:"zolotaya_strategiya.php", name:"Золотая стратегия"},]
+          each link in links
+            li
+              a(class="leftNavigation__item" href="#{link.url}") #{link.name}
+      .articleWrapper
+        block article
+        .pagination
+          //- page_prev and page_next are taken from the page
+          if page_prev
+            a.pagination__link.pagination__page-prev(href="#{page_prev}")
+          if page_next
+            a.pagination__link.pagination__page-next(href="#{page_next}")
+        .footer ©2010 Copyright

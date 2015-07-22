@@ -1,0 +1,28 @@
+{
+  "name": "toys.loc.ru",
+  "version": "0.0.1",
+  "authors": [
+    "Ivan Gerasimow <ivangerasimow@gmail.com>"
+  ],
+  "description": "Web site for toys-rent company",
+  "main": "bower.json",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "homepage": "toys.loc.ru",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11",
+    "material-design-lite": "~1.0.0"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}

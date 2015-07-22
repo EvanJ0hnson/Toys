@@ -1,0 +1,1 @@
+npm i --save-dev gulp del browser-sync gulp-autoprefixer gulp-concat gulp-changed gulp-csscomb gulp-htmlmin gulp-imagemin gulp-jade gulp-load-plugins gulp-newer gulp-plumber gulp-rename gulp-stylus markdown run-sequence
