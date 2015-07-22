@@ -3,16 +3,16 @@ var $ = require('gulp-load-plugins')({
       pattern: ['*']
     });
 
-var proxyAdress = 'toys.loc.ru';
 var bs = $.browserSync.create();
 var config = {
   buildRoot: './www/',
-  srcRoot: './src/'
+  srcRoot: './src/',
+  proxyAdress: 'toys.loc.ru'
 }
 
 gulp.task('sync', function() {
   bs.init({
-    proxy: proxyAdress,
+    proxy: config.proxyAdress,
     notify: false
   });
 });
