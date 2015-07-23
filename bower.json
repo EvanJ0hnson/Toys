@@ -20,7 +20,8 @@
   ],
   "dependencies": {
     "jquery": "1.11",
-    "material-design-lite": "~1.0.0"
+    "material-design-lite": "~1.0.0",
+    "OwlCarousel2": "~2.0.0-beta.3"
   },
   "devDependencies": {
     "bootstrap": "~3.3.5"

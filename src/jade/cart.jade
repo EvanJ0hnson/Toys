@@ -9,9 +9,9 @@ html
     //- JQuery
     script(src="js/vendor/jquery.min.js")
     //- Bootstrap
-    link(rel="stylesheet" href="css/vendor/bootstrap.min.css")
+    //- link(rel="stylesheet" href="css/vendor/bootstrap.min.css")
     //- link(rel="stylesheet" href="css/vendor/bootstrap-theme.min.css")
-    script(src="js/vendor/bootstrap.min.js")
+    //- script(src="js/vendor/bootstrap.min.js")
     //- Material Design Lite
     script(src="js/vendor/material.min.js")
     link(rel="stylesheet" href="css/vendor/material.min.css")
@@ -49,6 +49,7 @@ html
       $(function(){
           cart = new WICard("cart");
           cart.init("cart-widjet");
+          cart.renderBasketTable();
         });
     //- script.
       $(document).ready(function(){
@@ -71,17 +72,20 @@ html
             a.mdl-navigation__link(href="#") Item
 
       div.mdl-layout__drawer
-        nav.mdl-navigation 
+        nav.mdl-navigation
+          a.mdl-navigation__link(href="index.html") Главная страница
+        hr
+        nav.mdl-navigation
           - var links = [{name:"Памятка", url:"#"}, {name:"Вопросы и ответы", url: "#"}, {name:"Гарантия чистоты", url:"#"}, {name:"Условия проката", url:"#"}]
           each link in links
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
-        hr
-        nav.mdl-navigation
+        
+        //- nav.mdl-navigation
           - var links2 = [{name:"Категория 1", url:"#cat1"}, {name:"Категория 2", url: "#cat2"}, {name:"Категория 3", url:"#cat3"}, {name:"Категория 4", url:"#cat4"}]
           each link in links2
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
-        div.mdl-layout-spacer
-        nav.mdl-navigation
+        //- div.mdl-layout-spacer
+        //- nav.mdl-navigation
           a.mdl-navigation__link(href="cart.html")
             div#cart-widjet.material-icons.mdl-badge(data-badge="61") shopping_cart
     
@@ -93,7 +97,7 @@ html
           div: img(src="img/img (4).jpg", alt="IMG2")
           div: img(src="img/img (4).jpg", alt="IMG2")
           div: img(src="img/img (4).jpg", alt="IMG2")
-        div#main-carousel.carousel.slide(data-ride="carousel")
+        //- div#main-carousel.carousel.slide(data-ride="carousel")
               //- <!-- Indicators -->
               ol.carousel-indicators
                 li.active(data-target="#main-carousel", data-slide-to="0")
@@ -117,27 +121,21 @@ html
         //- carousel
 
         div.mdl-grid
-          - var m = 1
-          while m <= 2
-            div.mdl-cell.mdl-cell--12-col
-              h1(id="cat#{m}")
-                |Категория 
-                = m++
-            - var n = 1
-            while n <= 10
-              div.mdl-cell.mdl-cell--4-col
-                div.mdl-card.mdl-shadow--2dp
-                  div.mdl-card__title
-                    h2.mdl-card__title-text
-                      |Игрушка 
-                      = n++
-                  div.mdl-card__supporting-text
-                    |Краткое описание.
-                  div.mdl-card__actions.mdl-card--border
-                    button.mdl-button.mdl-js-button.mdl-js-ripple-effect Подробнее
-                  div.mdl-card__menu
-                    button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(onclick="cart.addToCart(this, '#{m-1}#{n-1}', 'Игрушка #{m-1}.#{n-1}', '100', 'false')")
-                      i.material-icons add
+          div.mdl-cell.mdl-cell--2-col
+          div.mdl-cell.mdl-cell--8-col
+            div.mdl-card.mdl-shadow--2dp
+              div.mdl-card__title
+                h2.mdl-card__title-text
+                  |Корзина
+              div#popup_cart.mdl-card__supporting-text
+                //- |Краткое описание.
+              div.mdl-card__actions.mdl-card--border
+                form#fMenuReservation
+                  div.mdl-textfield.mdl-js-textfield
+                    input.mdl-textfield__input(type="text" id="userContact" name="message" required)
+                    label.mdl-textfield__label(for="userContact") Ваше имя и телефон
+                    span.mdl-textfield__error Не забудьте оставить контактные данные
+                  button.mdl-button.mdl-js-button.mdl-js-ripple-effect Оформить заказ
 
         footer.mdl-mini-footer
           .mdl-mini-footer--left-section

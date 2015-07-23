@@ -55,6 +55,16 @@ gulp.task('jade-watch', function() {
   $.runSequence('jade', bs.reload);
 });
 
+gulp.task('js', function() {
+  gulp.src(config.srcRoot + 'js/*.js')
+    .pipe($.plumber())
+    .pipe(gulp.dest(config.buildRoot + 'js/partials'));
+});
+
+gulp.task('js-watch', function() {
+  $.runSequence('js', bs.reload);
+});
+
 gulp.task('copy:php', function() {
     gulp.src(config.srcRoot + 'php/*.php')
     .pipe($.newer('./www'))
@@ -65,9 +75,10 @@ gulp.task('copy:vendor__js', function () {
   var lib = {
     jquery: './bower_components/jquery/dist/jquery.min.js',
     material: './bower_components/material-design-lite/material.min.js',
-    bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js'
+    bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
+    owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js'
     };
-  gulp.src([lib.jquery, lib.material, lib.bootstrap])
+  gulp.src([lib.jquery, lib.material, lib.bootstrap, lib.owlcarousel])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
 });
@@ -76,9 +87,17 @@ gulp.task('copy:vendor__css', function () {
   var lib = {
     material: './bower_components/material-design-lite/material.min.css',
     bootstrap_core: './bower_components/bootstrap/dist/css/bootstrap.min.css',
-    bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
+    bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+    owlcarousel_core: './bower_components/OwlCarousel2/dist/assets/owl.carousel.min.css',
+    owlcarousel_theme: './bower_components/OwlCarousel2/dist/assets/owl.theme.default.min.css',
+    owlcarousel_ajaxLoader: './bower_components/OwlCarousel2/dist/assets/ajax-loader.gif'
     };
-  gulp.src([lib.material, lib.bootstrap_core, lib.bootstrap_theme])
+  gulp.src([lib.material, 
+           lib.bootstrap_core, 
+           lib.bootstrap_theme, 
+           lib.owlcarousel_core, 
+           lib.owlcarousel_theme, 
+           lib.owlcarousel_ajaxLoader])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'css/vendor'));
 });
@@ -107,6 +126,7 @@ gulp.task('images', function() {
 gulp.task('watch', ['sync'], function() {
   gulp.watch(config.srcRoot + 'styl/**/[^!]*.styl', ['stylus-watch']);
   gulp.watch([config.srcRoot + 'jade/**/[^!]*.jade', config.srcRoot + 'jade/articles/[^!]*.md'], ['jade-watch']);
+  gulp.watch(config.srcRoot + 'js/**/[^!]*.js', ['js-watch']);
   // gulp.watch(config.srcRoot + 'img/*', ['images']);
   // gulp.watch('src/php/[^!]*.php', ['php']);
   // gulp.watch('www/**/*').on('change', bs.reload);
@@ -136,7 +156,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', function () {
-  $.runSequence('clean', ['copy:vendor__js', 'copy:vendor__css', 'copy:vendor__fonts', 'jade', 'stylus', 'images']);
+  $.runSequence('clean', ['copy:vendor__js', 'copy:vendor__css', 'copy:vendor__fonts', 'jade', 'stylus', 'images', 'js']);
 });
 
 gulp.task('default', ['watch']);
