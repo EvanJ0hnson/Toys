@@ -1,5 +1,6 @@
 'use strict';
 
+
 function WICard(obj) {
   this.objNAME = obj;
   this.DATA = null;
@@ -7,7 +8,7 @@ function WICard(obj) {
   this.widjetObj = null;
   this.widjetID = null;
 
-  this.init = function(widjetID) {
+  this.init = function (widjetID) {
     this.DATA = JSON.parse(localStorage.getItem(widjetID)) || {};
 
     this.IDS = JSON.parse(localStorage.getItem(widjetID + "_ids")) || [];
@@ -22,7 +23,7 @@ function WICard(obj) {
     }
   };
 
-  this.addToCart = function(curObj, id, name, price, render) {
+  this.addToCart = function (id, name, price, render) {
     id = ($.isNumeric(id)) ? 'ID' + id.toString() : id;
 
     // Нужно убрать проверку  === true и передавать '' вместо false
@@ -64,34 +65,34 @@ function WICard(obj) {
     }
   };
 
-  this.delItem = function(id, count) {
+  this.delItem = function (id, count) {
     id = ($.isNumeric(id)) ? 'ID' + id.toString() : id;
     switch (count) {
-      case "all":
-        delete this.DATA[id];
-        var ind = $.inArray(id, this.IDS);
-        if (ind >= 0) {
-          this.IDS.splice(ind, 1);
-        }
-        break;
-      case "one":
-        var idKey;
-        for (idKey in this.DATA) {
-          if (this.DATA.hasOwnProperty(idKey)) {
-            if (idKey === id) {
-              if (this.DATA[idKey].num === 1) {
-                delete this.DATA[id];
-                this.IDS.splice($.inArray(id, this.IDS), 1);
-              } else {
-                this.DATA[idKey].num -= 1;
-              }
+    case "all":
+      delete this.DATA[id];
+      var ind = $.inArray(id, this.IDS);
+      if (ind >= 0) {
+        this.IDS.splice(ind, 1);
+      }
+      break;
+    case "one":
+      var idKey;
+      for (idKey in this.DATA) {
+        if (this.DATA.hasOwnProperty(idKey)) {
+          if (idKey === id) {
+            if (this.DATA[idKey].num === 1) {
+              delete this.DATA[id];
+              this.IDS.splice($.inArray(id, this.IDS), 1);
+            } else {
+              this.DATA[idKey].num -= 1;
             }
           }
         }
-        break;
-      default:
-        console.log('Error, please add one/all');
-        break;
+      }
+      break;
+    default:
+      console.log('Error, please add one/all');
+      break;
     }
 
     this.reCalc();
@@ -101,9 +102,9 @@ function WICard(obj) {
     localStorage.setItem(this.widjetID + "_ids", JSON.stringify(this.IDS));
   };
 
-  this.reCalc = function() {
+  this.reCalc = function () {
     var num = 0,
-      sum = 0,
+      // sum = 0,
       counter = 0,
       idkey = null;
 
@@ -111,7 +112,7 @@ function WICard(obj) {
       if (this.DATA.hasOwnProperty(idkey)) {
         counter++;
         num += parseInt(this.DATA[idkey].num, 10);
-        sum += parseFloat(parseInt(this.DATA[idkey].num, 10) * parseFloat(this.DATA[idkey].price, 10));
+        // sum += parseFloat(parseInt(this.DATA[idkey].num, 10) * parseFloat(this.DATA[idkey].price, 10));
       }
     }
 
@@ -122,26 +123,26 @@ function WICard(obj) {
     }
   };
 
-  this.renderBasketTable = function() {
+  this.renderBasketTable = function () {
     var sum = 0,
       counter = 0,
       idkey = null,
-      productLine = null,
-      tableCaption = null;
+      productLine = null;
+      // tableCaption = null;
 
-      $('#popup_cart').html('');
+    $('#popup_cart').html('');
 
-    // if ($('#popup_cart').length === 0) {
-      $('#popup_cart').append(' \
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="cart-table"> \
-        <tr class="cart-table-caption"> \
-          <td>№</td><td>Название</td><td>Цена</td><td></td><td></td> \
-        </tr> \
-        </table> \
-        <div class="cart-footer"> \
-          <span id="cart-sum" class="cart-sum"></span> \
-        </div> \
-    ');
+  // if ($('#popup_cart').length === 0) {
+    $('#popup_cart').append(
+      '<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="cart-table"> \
+      <tr class="cart-table-caption"> \
+        <td>№</td><td>Название</td><td>Цена</td><td></td><td></td> \
+      </tr> \
+      </table> \
+      <div class="cart-footer"> \
+        <span id="cart-sum" class="cart-sum"></span> \
+      </div> \
+      ');
     // }
 
               // <button id="btnSubmitMenuReservation" class="mdl-button" name="btnSubmitMenuReservation">Отправить на утверждение</button> \
@@ -162,7 +163,7 @@ function WICard(obj) {
         <td>' + this.DATA[idkey].name + '</td> \
         <td class="wigoodprice">' + this.DATA[idkey].price + ' <span class="fa fa-rub"></span></td> \
         <td> \
-        <td><a id="btnDelItem'+ this.DATA[idkey].id +'" class="mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect" onclick="' + this.objNAME + '.delItem(\'' + this.DATA[idkey].id + '\', \'all\')"><i class="icon material-icons">delete</i></a><div class="mdl-tooltip" for="btnDelItem'+ this.DATA[idkey].id +'">Удалить</div></td> \
+        <td><a id="btnDelItem' + this.DATA[idkey].id + '" class="mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect" onclick="' + this.objNAME + '.delItem(\'' + this.DATA[idkey].id + '\', \'all\')"><i class="icon material-icons">delete</i></a><div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id +'">Удалить</div></td> \
         </tr>';
         $('#cart-table').append(productLine);
       }
@@ -171,7 +172,7 @@ function WICard(obj) {
     $('#cart-sum').html('Общая сумма: ' + sum + ' <span class="fa fa-rub"></span>');
   };
 
-  this.getItems = function() {
+  this.getItems = function () {
     var items = "",
       sum = 0,
       counter = 0,
@@ -190,8 +191,8 @@ function WICard(obj) {
     return items;
   };
 
-  this.showWinow = function() {
-    this.renderBasketTable();
-    $("#popup_cart").toggleClass("visible");
-  };
+  // this.showWinow = function () {
+  //   this.renderBasketTable();
+  //   $("#popup_cart").toggleClass("visible");
+  // };
 }

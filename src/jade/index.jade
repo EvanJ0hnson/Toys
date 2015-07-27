@@ -45,17 +45,54 @@ html
         
       });
     script.
+      function tplCatalogue () {
+        $.getJSON( 'json/items.json', function(menuItems) {
+          var tmp = '';
+          $.each(menuItems, function(key, value) {
+            $.each(value.items, function(key2, value2) {
+              tmp += '<div class="mdl-cell mdl-cell--4-col">';
+                tmp += '<div class="mdl-card mdl-shadow--2dp">';
+                  tmp += '<div class="mdl-card__title">';
+                    tmp += '<h2 class="mdl-card__title-text">'
+                      tmp += value2.title;
+                    tmp += '</h2>';
+                  tmp += '</div>';
+                  tmp += '<div class="mdl-card__supporting-text">';
+                    tmp += value2.price;
+                  tmp += '</div>';
+                  tmp += '<div class="mdl-card__actions mdl-card--border">';
+                    tmp += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect">';
+                      tmp += 'Подробнее';
+                    tmp += '</button>';
+                  tmp += '</div>';
+                tmp += '<div class="mdl-card__menu">';
+                  tmp += '<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price + '\', \'false\')">';
+                    tmp += '<i class="material-icons">';
+                      tmp += 'add';
+                    tmp += '</i>';
+                  tmp += '</button>';
+                tmp += '</div>';
+                tmp += '</div>';
+              tmp += '</div>';
+            });
+            $('#' + value.type).after(tmp);
+            tmp = '';
+          });
+        });
+      };
+    script.
       var cart;
       $(function(){
-          cart = new WICard("cart");
-          cart.init("cart-widjet");
-        });
+        tplCatalogue();
+        cart = new WICard("cart");
+        cart.init("cart-widjet");
+      });
     //- script.
       $(document).ready(function(){
                                   var cart = new WICard("cart");
                                   cart.init("toys-cart-widjet");
       });
-    title Сундучок игрушек
+    title «Сундучок игрушек»
   body
     div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--fixed-header
       //- header.mdl-layout__header
@@ -72,14 +109,17 @@ html
 
       div.mdl-layout__drawer
         nav.mdl-navigation 
-          - var links = [{name:"Памятка", url:"#"}, {name:"Вопросы и ответы", url: "#"}, {name:"Гарантия чистоты", url:"#"}, {name:"Условия проката", url:"#"}]
+          a.mdl-navigation__link(href="/") «Сундучок игрушек»
+        hr
+        nav.mdl-navigation 
+          include ./_includes/_incl--menu.jade
           each link in links
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
         hr
         nav.mdl-navigation
-          - var links2 = [{name:"Категория 1", url:"#cat1"}, {name:"Категория 2", url: "#cat2"}, {name:"Категория 3", url:"#cat3"}, {name:"Категория 4", url:"#cat4"}]
-          each link in links2
-            a.mdl-navigation__link(href="#{link.url}") #{link.name}
+          - var category = [{id:"cat__main", name:"Все игрушки"}, {id:"cat__sport", name:"Спорт и Активность"}, {id:"cat__world", name:"Познаю мир"}]
+          each link in category
+            a.mdl-navigation__link(href="##{link.id}") #{link.name}
         div.mdl-layout-spacer
         nav.mdl-navigation
           a.mdl-navigation__link(href="cart.html")
@@ -100,7 +140,7 @@ html
                 li(data-target="#main-carousel", data-slide-to="1")
 
               //- <!-- Wrapper for slides -->
-              div.carousel-inner(role="listbox")
+              div.carousel-inner.mdl-shadow--4dp(role="listbox")
                 div.item.active
                   img(src="img/img (5).jpg", alt="IMG2")
                 div.item
@@ -117,14 +157,12 @@ html
         //- carousel
 
         div.mdl-grid
-          - var m = 1
-          while m <= 2
-            div.mdl-cell.mdl-cell--12-col
-              h1(id="cat#{m}")
-                |Категория 
-                = m++
-            - var n = 1
-            while n <= 10
+          //- - var category = [{id:"cat__main", name:"Все игрушки"}, {id:"cat__sport", name:"Спорт и Активность"}, {id:"cat__world", name:"Познаю мир"}]
+          each val in category
+            div(id="#{val.id}").mdl-cell.mdl-cell--12-col
+              h1 #{val.name}
+            //- - var n = 1
+            //- while n <= 10
               div.mdl-cell.mdl-cell--4-col
                 div.mdl-card.mdl-shadow--2dp
                   div.mdl-card__title
@@ -136,7 +174,7 @@ html
                   div.mdl-card__actions.mdl-card--border
                     button.mdl-button.mdl-js-button.mdl-js-ripple-effect Подробнее
                   div.mdl-card__menu
-                    button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(onclick="cart.addToCart(this, '#{m-1}#{n-1}', 'Игрушка #{m-1}.#{n-1}', '100', 'false')")
+                    button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(onclick="cart.addToCart('#{n-1}', 'Игрушка #{n-1}', '100', 'false')")
                       i.material-icons add
 
         footer.mdl-mini-footer
@@ -145,6 +183,6 @@ html
           .mdl-mini-footer--right-section
             //- .mdl-logo «Сундучок игрушек»
             ul.mdl-mini-footer--link-list
-              - var links = [{name:"Памятка", url:"#"}, {name:"Вопросы и ответы", url: "#"}, {name:"Гарантия чистоты", url:"#"}, {name:"Условия проката", url:"#"}]
+              include ./_includes/_incl--menu.jade
               each link in links
                 li: a(href="#{link.url}") #{link.name}

@@ -1,0 +1,55 @@
+[{
+  "title": "Все игрушки",
+  "type": "cat__main",
+  "items": [{
+    "id": "001",
+    "photo": "xxx",
+    "title": "xxx",
+    "calories": "xxx",
+    "ingredients": "xxx",
+    "price": "xxx"
+  }, {
+    "id": "002",
+    "photo": "xxx",
+    "title": "xxx",
+    "calories": "xxx",
+    "ingredients": "xxx",
+    "price": "xxx"
+  }]
+}, {
+  "title": "Спорт и Активность",
+  "type": "cat__sport",
+  "items": [{
+    "id": "101",
+    "photo": "xxx",
+    "title": "xxx",
+    "calories": "xxx",
+    "ingredients": "xxx",
+    "price": "xxx"
+  }, {
+    "id": "102",
+    "photo": "xxx",
+    "title": "xxx",
+    "calories": "xxx",
+    "ingredients": "xxx",
+    "price": "xxx"
+  }]
+}, {
+  "title": "Познаю мир",
+  "type": "cat__world",
+  "items": [{
+    "id": "201",
+    "photo": "xxx",
+    "title": "xxx",
+    "calories": "xxx",
+    "ingredients": "xxx",
+    "price": "xxx"
+  }, {
+    "id": "202",
+    "photo": "xxx",
+    "title": "xxx",
+    "calories": "xxx",
+    "ingredients": "xxx",
+    "price": "xxx"
+  }]
+}]
