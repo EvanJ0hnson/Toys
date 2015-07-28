@@ -1,0 +1,9 @@
+footer.mdl-mini-footer
+  .mdl-mini-footer--left-section
+    .mdl-logo «Сундучок игрушек»
+  .mdl-mini-footer--right-section
+    //- .mdl-logo «Сундучок игрушек»
+    ul.mdl-mini-footer--link-list
+      include ./_incl--menu.jade
+      each link in links
+        li: a(href="#{link.url}") #{link.name}

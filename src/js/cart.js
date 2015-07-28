@@ -1,6 +1,5 @@
 'use strict';
 
-
 function WICard(obj) {
   this.objNAME = obj;
   this.DATA = null;
@@ -20,15 +19,28 @@ function WICard(obj) {
       this.widjetObj.attr('data-badge', '0');
     } else {
       this.reCalc();
+      var idkey = null;
+
+      for (idkey in this.DATA) {
+        if (this.DATA.hasOwnProperty(idkey)) {
+          $('[data-id=' + idkey + ']').attr('disabled', true);
+          $('[data-tooltipID=' + idkey + ']').html('Добавлено');
+          // sum += parseFloat(parseInt(this.DATA[idkey].num, 10) * parseFloat(this.DATA[idkey].price, 10));
+        }
+      }
     }
   };
 
-  this.addToCart = function (id, name, price, render) {
+  this.addToCart = function (id, name, price) {
     id = ($.isNumeric(id)) ? 'ID' + id.toString() : id;
 
     // Нужно убрать проверку  === true и передавать '' вместо false
     // И вообще, какая-то здесь ерунда с render
-    render = render || true;
+    // render = render || true;
+
+    // var curBtn = $('[data-id='+id+']');
+    $('[data-id=' + id + ']').attr('disabled', true);
+    $('[data-tooltipID=' + id + ']').html('Добавлено');
 
     var goodieLine = {
       'id': id,
@@ -60,40 +72,40 @@ function WICard(obj) {
     this.reCalc();
 
 
-    if (render === true) {
-      this.renderBasketTable();
-    }
+    // if (render === true) {
+    //   this.renderBasketTable();
+    // }
   };
 
-  this.delItem = function (id, count) {
+  this.delItem = function (id) {
     id = ($.isNumeric(id)) ? 'ID' + id.toString() : id;
-    switch (count) {
-    case "all":
+    // switch (count) {
+    // case "all":
       delete this.DATA[id];
       var ind = $.inArray(id, this.IDS);
       if (ind >= 0) {
         this.IDS.splice(ind, 1);
       }
-      break;
-    case "one":
-      var idKey;
-      for (idKey in this.DATA) {
-        if (this.DATA.hasOwnProperty(idKey)) {
-          if (idKey === id) {
-            if (this.DATA[idKey].num === 1) {
-              delete this.DATA[id];
-              this.IDS.splice($.inArray(id, this.IDS), 1);
-            } else {
-              this.DATA[idKey].num -= 1;
-            }
-          }
-        }
-      }
-      break;
-    default:
-      console.log('Error, please add one/all');
-      break;
-    }
+    //   break;
+    // case "one":
+    //   var idKey;
+    //   for (idKey in this.DATA) {
+    //     if (this.DATA.hasOwnProperty(idKey)) {
+    //       if (idKey === id) {
+    //         if (this.DATA[idKey].num === 1) {
+    //           delete this.DATA[id];
+    //           this.IDS.splice($.inArray(id, this.IDS), 1);
+    //         } else {
+    //           this.DATA[idKey].num -= 1;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   break;
+    // default:
+    //   console.log('Error, please add one/all');
+    //   break;
+    // }
 
     this.reCalc();
     this.renderBasketTable();
@@ -104,7 +116,6 @@ function WICard(obj) {
 
   this.reCalc = function () {
     var num = 0,
-      // sum = 0,
       counter = 0,
       idkey = null;
 
@@ -112,6 +123,7 @@ function WICard(obj) {
       if (this.DATA.hasOwnProperty(idkey)) {
         counter++;
         num += parseInt(this.DATA[idkey].num, 10);
+        // $('[data-id='+idkey+']').attr('disabled', true);
         // sum += parseFloat(parseInt(this.DATA[idkey].num, 10) * parseFloat(this.DATA[idkey].price, 10));
       }
     }
@@ -127,49 +139,54 @@ function WICard(obj) {
     var sum = 0,
       counter = 0,
       idkey = null,
-      productLine = null;
-      // tableCaption = null;
+      tBody = null,
+      tmpStr = null;
 
     $('#popup_cart').html('');
 
-  // if ($('#popup_cart').length === 0) {
-    $('#popup_cart').append(
-      '<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="cart-table"> \
-      <tr class="cart-table-caption"> \
-        <td>№</td><td>Название</td><td>Цена</td><td></td><td></td> \
-      </tr> \
-      </table> \
-      <div class="cart-footer"> \
-        <span id="cart-sum" class="cart-sum"></span> \
-      </div> \
-      ');
-    // }
+    tmpStr = '<table class="cart-table mdl-data-table mdl-js-data-table">';
+      tmpStr += '<thead>';
+        tmpStr += '<tr>';
+          tmpStr += '<th>№</th>';
+          tmpStr += '<th class="mdl-data-table__cell--non-numeric">Название</th>';
+          tmpStr += '<th >Цена</th>';
+          tmpStr += '<th></th>';
+        tmpStr += '</tr>';
+      tmpStr += '</thead>';
+      tmpStr += '<tbody id="cart-table--body">'
+        // tBody
+      tmpStr += '</tbody>'
+    tmpStr += '</table>';
+    tmpStr += '<div>';
+      tmpStr += '<span id="cart-sum"></span>';
+    tmpStr += '</div>';
 
-              // <button id="btnSubmitMenuReservation" class="mdl-button" name="btnSubmitMenuReservation">Отправить на утверждение</button> \
-          // <input type="hidden" name="event" value="sendMenuReservation"> \
-
-    // $('#cart-table').html('');
-
-    // tableCaption = '<tr class="cart-table-caption"><td>№</td><td>Название</td><td>Цена</td><td>Количество</td><td>Сумма</td></tr>';
-
-    // $('#cart-table').append(tableCaption);
+    $('#popup_cart').append(tmpStr);
 
     for (idkey in this.DATA) {
       if (this.DATA.hasOwnProperty(idkey)) {
         sum += parseFloat(this.DATA[idkey].price * this.DATA[idkey].num);
         counter++;
-        productLine = '<tr class="cart-table-item"> \
-        <td>' + counter + '</td> \
-        <td>' + this.DATA[idkey].name + '</td> \
-        <td class="wigoodprice">' + this.DATA[idkey].price + ' <span class="fa fa-rub"></span></td> \
-        <td> \
-        <td><a id="btnDelItem' + this.DATA[idkey].id + '" class="mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect" onclick="' + this.objNAME + '.delItem(\'' + this.DATA[idkey].id + '\', \'all\')"><i class="icon material-icons">delete</i></a><div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id +'">Удалить</div></td> \
-        </tr>';
-        $('#cart-table').append(productLine);
+        tBody += '<tr>';
+          tBody += '<td> ' + counter + '</td>';
+          tBody += '<td class="mdl-data-table__cell--non-numeric">' + this.DATA[idkey].name + '</td>';
+          tBody += '<td>' + this.DATA[idkey].price + '</td>';
+          tBody += '<td>';
+            tBody += '<button id="btnDelItem' + this.DATA[idkey].id + '" \
+                      class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" \
+                      onclick="' + this.objNAME + '.delItem(\'' + this.DATA[idkey].id + '\')">';
+              tBody += '<i class="icon material-icons">delete</i>';
+            tBody += '</button>';
+            tBody += '<div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id + '">';
+              tBody += 'Удалить';
+            tBody += '</div>';
+          tBody += '</td>';
+        tBody += '</tr>';
       }
     }
-    $('#cart-table').append('<tr>><td></td>><td></td><td id="cart-sum"></td>><td></td>><td></td></tr>');
-    $('#cart-sum').html('Общая сумма: ' + sum + ' <span class="fa fa-rub"></span>');
+    tBody += '<tr><td id="cart-sum" colspan=3>Общая сумма: ' + sum + '</td><td></td></tr>';
+
+    $('#cart-table--body').append(tBody);
   };
 
   this.getItems = function () {
@@ -183,16 +200,11 @@ function WICard(obj) {
       if (this.DATA.hasOwnProperty(idkey)) {
         sum += parseFloat(this.DATA[idkey].price * this.DATA[idkey].num);
         counter++;
-        productLine = counter + ' ' + this.DATA[idkey].name + ' ' + this.DATA[idkey].price + ' ' + this.DATA[idkey].num + ' :' + parseFloat(this.DATA[idkey].price * this.DATA[idkey].num) + '\n';
+        productLine = '№' + counter + ' «' + this.DATA[idkey].name + '» ' + this.DATA[idkey].price + '\n';
         items += productLine;
       }
     }
     items += '\nИтого:' + sum;
     return items;
   };
-
-  // this.showWinow = function () {
-  //   this.renderBasketTable();
-  //   $("#popup_cart").toggleClass("visible");
-  // };
 }

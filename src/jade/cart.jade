@@ -8,75 +8,56 @@ html
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
-    //- Bootstrap
-    //- link(rel="stylesheet" href="css/vendor/bootstrap.min.css")
-    //- link(rel="stylesheet" href="css/vendor/bootstrap-theme.min.css")
-    //- script(src="js/vendor/bootstrap.min.js")
     //- Material Design Lite
     script(src="js/vendor/material.min.js")
     link(rel="stylesheet" href="css/vendor/material.min.css")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-    //- OwlCarousel
-    //- script(src="js/vendor/owl.carousel.min.js")
-    //- link(rel="stylesheet" href="css/vendor/owl.carousel.min.css")
-    //- link(rel="stylesheet" href="css/vendor/owl.theme.default.min.css")
-    
-
     //- Partials
     link(rel="stylesheet" href="css/style.min.css")
     script(src="js/partials/cart.js")
-    //- script.
-      $(document).ready(function(){
-        $('.owl-carousel').owlCarousel({
-                                       items: 1,
-                                       loop: true,
-                                       //- center: true,
-                                       nav: true,
-                                       dots: true,
-                                       //- lazyLoad: true,
-                                       autoplay: true,
-                                       autoplayTimeout: 3000,
-                                       autoplayHoverPause: true,
-                                       responsiveRefreshRate: 100,
-                                       animateOut: 'fadeOut'
-                                       });
-        
-      });
+
     script.
+      function formSubmit() {
+        var scriptFilePath = 'scripts/mailSender.php';
+        $('#fOrderReservation').on('submit', function () {
+          var msg  = $("#userContact").val();
+          if ((msg === '') || (msg === 'Спасибо, мы вам перезвоним!')) {
+            alert("Введите контактные данные, пожалуйста.");
+            return false;
+          }
+          var cartItems = cart.getItems();
+          $.ajax({
+            type: 'POST',
+            url: scriptFilePath,
+            data: $(this).serialize() + '&formBody=Имя и контактные данные: ' + msg + '\n\nЗАКАЗ\n' + cartItems,
+            success: function (answer) {
+              $('#userContact').val(answer);
+            }
+          });
+          return false;
+        });
+      }
+
       var cart;
+      
       $(function(){
           cart = new WICard("cart");
           cart.init("cart-widjet");
           cart.renderBasketTable();
+          formSubmit();
         });
-    //- script.
-      $(document).ready(function(){
-                                  var cart = new WICard("cart");
-                                  cart.init("toys-cart-widjet");
-      });
+
     title Сундучок игрушек
   body
     div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--fixed-header
-      //- header.mdl-layout__header
-        div.mdl-layout__header-row
-          //- span.mdl-layout-title «Сундучок игрушек»
-          a.material-icons.mdl-navigation__link(href="#") shopping_cart
-          div.mdl-layout-spacer
-          nav.mdl-navigation.mdl-layout--large-screen-only
-            a.material-icons.mdl-navigation__link(href="#") shopping_cart
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
-
       div.mdl-layout__drawer
         nav.mdl-navigation
           a.mdl-navigation__link(href="index.html") Главная страница
         hr
         nav.mdl-navigation
-          - var links = [{name:"Памятка", url:"#"}, {name:"Вопросы и ответы", url: "#"}, {name:"Гарантия чистоты", url:"#"}, {name:"Условия проката", url:"#"}]
+          include ./_includes/_incl--menu.jade
           each link in links
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
         
@@ -90,59 +71,23 @@ html
             div#cart-widjet.material-icons.mdl-badge(data-badge="61") shopping_cart
     
       div.mdl-layout__content
-        //- carousel
-        //- div.owl-carousel.mdl-shadow--4dp
-          //- div: img(src="img/img (5).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-        //- div#main-carousel.carousel.slide(data-ride="carousel")
-              //- <!-- Indicators -->
-              ol.carousel-indicators
-                li.active(data-target="#main-carousel", data-slide-to="0")
-                li(data-target="#main-carousel", data-slide-to="1")
-
-              //- <!-- Wrapper for slides -->
-              div.carousel-inner(role="listbox")
-                div.item.active
-                  img(src="img/img (5).jpg", alt="IMG2")
-                div.item
-                  img(src="img/img (4).jpg", alt="IMG2")
-                  //- div.carousel-caption Caption 2
-
-              //- <!-- Controls -->
-              //- a.left.carousel-control(href="#main-carousel", role="button", data-slide="prev")
-                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
-                //- span.sr-only Previous
-              //- a.right.carousel-control(href="#main-carousel", role="button", data-slide="next")
-                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
-                //- span.sr-only Next
-        //- carousel
-
         div.mdl-grid
           div.mdl-cell.mdl-cell--2-col
-          div.mdl-cell.mdl-cell--8-col
+          div.mdl-cell.mdl-cell--8-col.mdl-shadow--2dp
             div.mdl-card.mdl-shadow--2dp
               div.mdl-card__title
                 h2.mdl-card__title-text
                   |Корзина
-              div#popup_cart.mdl-card__supporting-text
+              div#popup_cart.mdl-card__supporting-text.mdl-cell.mdl-cell--12-col
                 //- |Краткое описание.
               div.mdl-card__actions.mdl-card--border
-                form#fMenuReservation
+                form#fOrderReservation
                   div.mdl-textfield.mdl-js-textfield
                     input.mdl-textfield__input(type="text" id="userContact" name="message" required)
                     label.mdl-textfield__label(for="userContact") Ваше имя и телефон
                     span.mdl-textfield__error Не забудьте оставить контактные данные
-                  button.mdl-button.mdl-js-button.mdl-js-ripple-effect Оформить заказ
+                    input(type="hidden" name="event" value="sendOrderReservation")
+                  button.mdl-button.mdl-js-button.mdl-js-ripple-effect(type="submit") Оформить заказ
 
-        footer.mdl-mini-footer
-          .mdl-mini-footer--left-section
-            .mdl-logo «Сундучок игрушек»
-          .mdl-mini-footer--right-section
-            //- .mdl-logo «Сундучок игрушек»
-            ul.mdl-mini-footer--link-list
-              - var links = [{name:"Памятка", url:"#"}, {name:"Вопросы и ответы", url: "#"}, {name:"Гарантия чистоты", url:"#"}, {name:"Условия проката", url:"#"}]
-              each link in links
-                li: a(href="#{link.url}") #{link.name}
+        //- footer
+        include ./_includes/_incl--footer.jade

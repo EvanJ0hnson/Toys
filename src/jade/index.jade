@@ -45,32 +45,46 @@ html
         
       });
     script.
-      function tplCatalogue () {
+      function smoothScroll() {
+        $('a[href^="#"], a[href^="."]').click(function () {
+        // если в href начинается с # или ., то ловим клик
+          var scroll_el = $(this).attr('href');
+          // возьмем содержимое атрибута href
+          //- if ($(scroll_el).length !== 0) {
+          // проверим существование элемента чтобы избежать ошибки
+            $('.mdl-layout__content').animate({ scrollTop: $(scroll_el).offset().top }, 150); // анимируем скроолинг к элементу scroll_el
+          //- }
+          return false; // выключаем стандартное действие
+        });
+      }
+
+      function renderCatalogue () {
         $.getJSON( 'json/items.json', function(menuItems) {
           var tmp = '';
           $.each(menuItems, function(key, value) {
             $.each(value.items, function(key2, value2) {
               tmp += '<div class="mdl-cell mdl-cell--4-col">';
                 tmp += '<div class="mdl-card mdl-shadow--2dp">';
-                  tmp += '<div class="mdl-card__title">';
+                  tmp += '<div class="mdl-card__title toys-card" style="background: url(img/catalogue/' + value2.id + '.jpg) center center / cover no-repeat;">';
                     tmp += '<h2 class="mdl-card__title-text">'
                       tmp += value2.title;
                     tmp += '</h2>';
                   tmp += '</div>';
                   tmp += '<div class="mdl-card__supporting-text">';
-                    tmp += value2.price;
+                    tmp += value2.age;
+                    tmp += '<br>';
+                    tmp += 'Можно заказать: ' + value2.date;
                   tmp += '</div>';
                   tmp += '<div class="mdl-card__actions mdl-card--border">';
-                    tmp += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect">';
+                    tmp += '<a class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
                       tmp += 'Подробнее';
-                    tmp += '</button>';
+                    tmp += '</a>';
                   tmp += '</div>';
                 tmp += '<div class="mdl-card__menu">';
-                  tmp += '<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price + '\', \'false\')">';
-                    tmp += '<i class="material-icons">';
-                      tmp += 'add';
-                    tmp += '</i>';
-                  tmp += '</button>';
+                  tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\')" data-id="ID' + value2.id + '">';
+                    tmp += '<i class="material-icons">add</i>';
+                  tmp += '</span>';
+                  tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
                 tmp += '</div>';
                 tmp += '</div>';
               tmp += '</div>';
@@ -80,12 +94,17 @@ html
           });
         });
       };
-    script.
+
       var cart;
-      $(function(){
-        tplCatalogue();
+      function initCart () {
         cart = new WICard("cart");
         cart.init("cart-widjet");
+      };
+      $(function(){
+        renderCatalogue();
+        setTimeout(initCart, 150);
+        //- setTimeout(smoothScroll, 150);
+        //- smoothScroll();
       });
     //- script.
       $(document).ready(function(){
@@ -157,7 +176,6 @@ html
         //- carousel
 
         div.mdl-grid
-          //- - var category = [{id:"cat__main", name:"Все игрушки"}, {id:"cat__sport", name:"Спорт и Активность"}, {id:"cat__world", name:"Познаю мир"}]
           each val in category
             div(id="#{val.id}").mdl-cell.mdl-cell--12-col
               h1 #{val.name}
@@ -177,12 +195,5 @@ html
                     button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(onclick="cart.addToCart('#{n-1}', 'Игрушка #{n-1}', '100', 'false')")
                       i.material-icons add
 
-        footer.mdl-mini-footer
-          .mdl-mini-footer--left-section
-            .mdl-logo «Сундучок игрушек»
-          .mdl-mini-footer--right-section
-            //- .mdl-logo «Сундучок игрушек»
-            ul.mdl-mini-footer--link-list
-              include ./_includes/_incl--menu.jade
-              each link in links
-                li: a(href="#{link.url}") #{link.name}
+        //- footer
+        include ./_includes/_incl--footer.jade

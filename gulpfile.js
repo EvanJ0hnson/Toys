@@ -91,10 +91,17 @@ gulp.task('json-watch', function() {
   $.runSequence('json', bs.reload);
 });
 
-gulp.task('copy:php', function() {
+gulp.task('php', function() {
     gulp.src(config.srcRoot + 'php/*.php')
     .pipe($.newer('./www'))
-    .pipe(gulp.dest(config.buildRoot));
+    .pipe(gulp.dest(config.buildRoot + 'scripts'))
+    .on('end', bs.reload);
+});
+
+gulp.task('build__php', function() {
+    gulp.src(config.srcRoot + 'php/*.php')
+    .pipe($.newer('./www'))
+    .pipe(gulp.dest(config.buildRoot + 'scripts'));
 });
 
 gulp.task('copy:vendor__js', function () {
@@ -155,7 +162,7 @@ gulp.task('watch', ['sync'], function() {
   gulp.watch(config.srcRoot + 'js/**/[^!]*.js', ['js-watch']);
   gulp.watch(config.srcRoot + 'json/[^!]*.json', ['json-watch']);
   // gulp.watch(config.srcRoot + 'img/*', ['images']);
-  // gulp.watch('src/php/[^!]*.php', ['php']);
+  gulp.watch('src/php/[^!]*.php', ['php']);
   // gulp.watch('www/**/*').on('change', bs.reload);
 });
 
@@ -170,7 +177,8 @@ gulp.task('clean', function () {
       js_partials: config.buildRoot + 'js/partials/*.*',
       json: config.buildRoot + 'json/*.*',
       fonts: config.buildRoot + 'fonts/*.*',
-      images: config.buildRoot + 'img/*.*'
+      images: config.buildRoot + 'img/*.*',
+      php: config.buildRoot + 'php/*.*'
     };
   $.del([path.root,
         path.css,
@@ -181,11 +189,20 @@ gulp.task('clean', function () {
         path.js_partials,
         path.json,
         path.fonts,
-        path.images]);
+        path.images,
+        path.php]);
 });
 
 gulp.task('build', function () {
-  $.runSequence('clean', ['copy:vendor__js', 'copy:vendor__css', 'copy:vendor__fonts', 'build__jade', 'stylus', 'images', 'js', 'json']);
+  $.runSequence('clean', ['copy:vendor__js',
+                          'copy:vendor__css',
+                          'copy:vendor__fonts',
+                          'build__jade',
+                          'stylus',
+                          'images',
+                          'js',
+                          'json',
+                          'build__php']);
 });
 
 gulp.task('default', ['watch']);

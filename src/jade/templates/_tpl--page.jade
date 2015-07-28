@@ -52,12 +52,4 @@ html
               div.mdl-card__supporting-text
                 block article
 
-        footer.mdl-mini-footer
-          .mdl-mini-footer--left-section
-            .mdl-logo «Сундучок игрушек»
-          .mdl-mini-footer--right-section
-            ul.mdl-mini-footer--link-list
-              include ../_includes/_incl--menu.jade
-              //- - var links = [{name:"О прокате", url:"about.html"}, {name:"Как сделать заказ", url: "order.html"}, {name:"Условия проката", url:"conditions.html"}, {name:"Гарантия чистоты", url:"guarantee.html"}, {name:"Вопросы и ответы", url:"faq.html"}, {name:"Памятка", url:"notes.html"}, {name:"Контактная информация", url:"contact.html"}]
-              each link in links
-                li: a(href="#{link.url}") #{link.name}
+        include ../_includes/_incl--footer.jade
