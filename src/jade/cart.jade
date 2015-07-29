@@ -1,4 +1,4 @@
-doctype basic
+doctype html
 html
   head
     meta(charset="utf-8")
@@ -62,23 +62,26 @@ html
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
     
       div.mdl-layout__content
-        div.mdl-grid
-          div.mdl-cell.mdl-cell--2-col
-          div.mdl-cell.mdl-cell--8-col.mdl-shadow--2dp
-            div.mdl-card.mdl-shadow--2dp
-              div.mdl-card__title
-                h2.mdl-card__title-text
-                  |Корзина
-              div#popup_cart.mdl-card__supporting-text.mdl-cell.mdl-cell--12-col
-                //- #popup_cart inserts here
-              div.mdl-card__actions.mdl-card--border
-                form#fOrderReservation
-                  div.mdl-textfield.mdl-js-textfield
-                    input.mdl-textfield__input(type="text" id="userContact" name="message" required)
-                    label.mdl-textfield__label(for="userContact") Ваше имя и телефон
-                    span.mdl-textfield__error Не забудьте оставить контактные данные
-                    input(type="hidden" name="event" value="sendOrderReservation")
-                  button.mdl-button.mdl-js-button.mdl-js-ripple-effect(type="submit") Оформить заказ
+        div.page-content
+          div.mdl-grid
+            div.mdl-cell.mdl-cell--2-col
+            div.mdl-cell.mdl-cell--8-col.mdl-shadow--2dp
+              div.mdl-card.mdl-shadow--2dp
+                div.mdl-card__title
+                  h2.mdl-card__title-text
+                    |Корзина
+                div#popup_cart.mdl-card__supporting-text.mdl-cell.mdl-cell--12-col
+                  //- #popup_cart inserts here
+                div.mdl-card__actions.mdl-card--border
+                  form#fOrderReservation
+                    div.mdl-textfield.mdl-js-textfield
+                      input.mdl-textfield__input(type="text" id="userContact" name="message" required)
+                      label.mdl-textfield__label(for="userContact") Ваше имя и телефон
+                      span.mdl-textfield__error Не забудьте оставить контактные данные
+                      input(type="hidden" name="event" value="sendOrderReservation")
+                    button.mdl-button.mdl-js-button.mdl-js-ripple-effect(type="submit") Оформить заказ
+
+        //- div.mdl-layout-spacer
 
         //- footer
-        include ./_includes/_incl--footer.jade
+        //- include ./_includes/_incl--footer.jade

@@ -81,9 +81,6 @@ html
       };
 
       function renderItemDescription (desc) {
-        //- requireItemDescription (id);
-        //- var stateObj = { id: desc.id };
-        //- history.pushState(stateObj, desc.id, desc.id + '.html');
         //- $('#main-carousel').remove();
         //- if ($("div").is("#item")) {
           //- $('#item').remove();
@@ -103,9 +100,16 @@ html
               tmp += '<div class="mdl-card__supporting-text">';
                 tmp += desc.age;
                 tmp += '<br>';
+                tmp += '<br>';
                 tmp += 'Можно заказать: ' + desc.date;
+                tmp += '<br>';
+                tmp += '<br>';
+                tmp += desc.description;
               tmp += '</div>';
               tmp += '<div class="mdl-card__actions mdl-card--border">';
+                tmp += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + desc.id + '\', \'' + desc.title + '\', \'' + desc.price1 + '\')" data-id="ID' + desc.id + '">';
+                  tmp += 'Добавить в корзину';
+                tmp += '</button>';
               tmp += '</div>';
             tmp += '</div>';
           tmp += '</div>';
@@ -119,7 +123,6 @@ html
       function requireItemDescription () {
         var scriptPath = 'scripts/itemsRouter.php';
         var params = location.search.substring(1).split('=');
-        //- console.log(params[1]);
         $.post(scriptPath, {itemId: params[1]}, function(serverResponse) {
               renderItemDescription(serverResponse);
           } ,"json");
@@ -134,7 +137,6 @@ html
 
     title «Сундучок игрушек»
   body
-    //- button(onclick="requireItemDescription('001');") TEST
     include ./_includes/_incl--flowCart.jade
 
     div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
@@ -149,9 +151,9 @@ html
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
         hr
         nav.mdl-navigation
-          - var category = [{id:"cat__main", name:"Все игрушки"}, {id:"cat__sport", name:"Спорт и Активность"}, {id:"cat__world", name:"Познаю мир"}]
-          each link in category
-            a.mdl-navigation__link(href="##{link.id}") #{link.name}
+          include ./_includes/_incl--categories.jade
+          each item in category
+            a.mdl-navigation__link(href="##{item.id}") #{item.name}
     
       main.mdl-layout__content
 
@@ -163,4 +165,4 @@ html
             //- Catalogue of toys goes here by JS
 
         //- footer
-        include ./_includes/_incl--footer.jade
+        //- include ./_includes/_incl--footer.jade

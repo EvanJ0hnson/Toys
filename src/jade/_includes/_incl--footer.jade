@@ -1,4 +1,21 @@
-footer.mdl-mini-footer
+- var links = [{name:"Вопросы и ответы", url:"faq.html"}, {name:"Как сделать заказ", url: "order.html"}, {name:"Условия проката", url:"conditions.html"}, {name:"Гарантия чистоты", url:"guarantee.html"}, {name:"Памятка", url:"notes.html"}]
+- var links2 = [{name:"О прокате", url:"about.html"}, {name:"Контактная информация", url:"contact.html"}]
+
+footer.mdl-mega-footer
+  .mdl-mega-footer--middle-section
+    .mdl-mega-footer--drop-down-section
+      input.mdl-mega-footer--heading-checkbox(type="checkbox" checked)
+      h1.mdl-mega-footer--heading Информация
+      ul.mdl-mega-footer--link-list
+        each link in links
+          li: a(href="#{link.url}") #{link.name}
+  .mdl-mega-footer--bottom-section
+    .mdl-logo «Сундучок игрушек»
+    ul.mdl-mega-footer--link-list
+      each link in links2
+        li: a(href="#{link.url}") #{link.name}
+
+//- footer.mdl-mini-footer
   .mdl-mini-footer--left-section
     .mdl-logo «Сундучок игрушек»
   .mdl-mini-footer--right-section

@@ -1,5 +1,5 @@
 block vars
-doctype basic
+doctype html
 html
   head
     meta(charset="utf-8")
@@ -45,13 +45,14 @@ html
             div#cart-widjet.material-icons.mdl-badge(data-badge="61") shopping_cart
     
       div.mdl-layout__content
-        div.mdl-grid
-          div.mdl-cell.mdl-cell--2-col
-          div.mdl-cell.mdl-cell--8-col
-            div.mdl-card.mdl-shadow--2dp
-              div.mdl-card__title
-                h2.mdl-card__title-text #{title}
-              div.mdl-card__supporting-text
-                block article
-
-        include ../_includes/_incl--footer.jade
+        div.page-content
+          div.mdl-grid
+            div.mdl-cell.mdl-cell--2-col
+            div.mdl-cell.mdl-cell--8-col
+              div.mdl-card.mdl-shadow--2dp
+                div.mdl-card__title
+                  h2.mdl-card__title-text #{title}
+                div.mdl-card__supporting-text
+                  block article
+        //- div.mdl-layout-spacer
+        //- include ../_includes/_incl--footer.jade

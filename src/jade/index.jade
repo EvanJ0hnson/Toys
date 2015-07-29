@@ -1,4 +1,4 @@
-doctype basic
+doctype html
 html
   head
     meta(charset="utf-8")
@@ -45,21 +45,11 @@ html
         
       });
     script.
-      function smoothScroll() {
-        $('a[href^="#"], a[href^="."]').click(function () {
-        // если в href начинается с # или ., то ловим клик
-          var scroll_el = $(this).attr('href');
-          // возьмем содержимое атрибута href
-          //- if ($(scroll_el).length !== 0) {
-          // проверим существование элемента чтобы избежать ошибки
-            $('.mdl-layout__content').animate({ scrollTop: $(scroll_el).offset().top }, 150); // анимируем скроолинг к элементу scroll_el
-          //- }
-          return false; // выключаем стандартное действие
-        });
-      }
-
-      function renderCatalogue () {
-        $.getJSON( 'json/items.json', function(menuItems) {
+      function renderCatalogue (json) {
+        //- Считываем данные из json.
+        //- Для каждой категории создаём строку и в конце цикла
+        //- добавляем её на страницу.
+        $.getJSON(json, function(menuItems) {
           var tmp = '';
           $.each(menuItems, function(key, value) {
             $.each(value.items, function(key2, value2) {
@@ -81,6 +71,8 @@ html
                     tmp += '</a>';
                   tmp += '</div>';
                 tmp += '<div class="mdl-card__menu">';
+                //- Посмотреть, зачем присваивается ID.
+                //- Удалить, если не нужен.
                   tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\')" data-id="ID' + value2.id + '">';
                     tmp += '<i class="material-icons">add</i>';
                   tmp += '</span>';
@@ -96,16 +88,15 @@ html
       };
 
       var cart;
+      var cataloguePath = 'json/items.json';
       function initCart () {
         cart = new WICard("cart");
         cart.init("cart-widjet");
       };
 
       $(function(){
-        renderCatalogue();
+        renderCatalogue(cataloguePath);
         setTimeout(initCart, 150);
-        //- setTimeout(smoothScroll, 150);
-        //- smoothScroll();
       });
 
     title «Сундучок игрушек»
@@ -129,53 +120,55 @@ html
         nav.mdl-navigation 
           a.mdl-navigation__link(href="/") «Сундучок игрушек»
         hr
-        nav.mdl-navigation 
+        nav.mdl-navigation
           include ./_includes/_incl--menu.jade
           each link in links
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
         hr
         nav.mdl-navigation
-          - var category = [{id:"cat__main", name:"Все игрушки"}, {id:"cat__sport", name:"Спорт и Активность"}, {id:"cat__world", name:"Познаю мир"}]
-          each link in category
-            a.mdl-navigation__link(href="##{link.id}") #{link.name}
+          include ./_includes/_incl--categories.jade
+          each item in category
+            a.mdl-navigation__link(href="##{item.id}") #{item.name}
     
       main.mdl-layout__content
-        //- carousel
-        //- div.owl-carousel.mdl-shadow--4dp
-          //- div: img(src="img/img (5).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-        div#main-carousel.carousel.slide(data-ride="carousel")
-              //- <!-- Indicators -->
-              ol.carousel-indicators
-                li.active(data-target="#main-carousel", data-slide-to="0")
-                li(data-target="#main-carousel", data-slide-to="1")
+        div.page-content
+          //- carousel
+          //- div.owl-carousel.mdl-shadow--4dp
+            //- div: img(src="img/img (5).jpg", alt="IMG2")
+            div: img(src="img/img (4).jpg", alt="IMG2")
+            div: img(src="img/img (4).jpg", alt="IMG2")
+            div: img(src="img/img (4).jpg", alt="IMG2")
+            div: img(src="img/img (4).jpg", alt="IMG2")
+          div#main-carousel.carousel.slide(data-ride="carousel")
+                //- <!-- Indicators -->
+                ol.carousel-indicators
+                  li.active(data-target="#main-carousel", data-slide-to="0")
+                  li(data-target="#main-carousel", data-slide-to="1")
 
-              //- <!-- Wrapper for slides -->
-              div.carousel-inner.mdl-shadow--4dp(role="listbox")
-                div.item.active
-                  img(src="img/img (5).jpg", alt="IMG2")
-                div.item
-                  img(src="img/img (4).jpg", alt="IMG2")
-                  //- div.carousel-caption Caption 2
+                //- <!-- Wrapper for slides -->
+                div.carousel-inner.mdl-shadow--4dp(role="listbox")
+                  div.item.active
+                    img(src="img/img (5).jpg", alt="IMG2")
+                  div.item
+                    img(src="img/img (4).jpg", alt="IMG2")
+                    //- div.carousel-caption Caption 2
 
-              //- <!-- Controls -->
-              //- a.left.carousel-control(href="#main-carousel", role="button", data-slide="prev")
-                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
-                //- span.sr-only Previous
-              //- a.right.carousel-control(href="#main-carousel", role="button", data-slide="next")
-                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
-                //- span.sr-only Next
-        //- carousel
+                //- <!-- Controls -->
+                //- a.left.carousel-control(href="#main-carousel", role="button", data-slide="prev")
+                  span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+                  //- span.sr-only Previous
+                //- a.right.carousel-control(href="#main-carousel", role="button", data-slide="next")
+                  span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+                  //- span.sr-only Next
+          //- carousel
 
-        div.mdl-grid
-          div#item-description.mdl-cell.mdl-cell--12-col
-          each val in category
-            div(id="#{val.id}").mdl-cell.mdl-cell--12-col
-              h1 #{val.name}
-            //- Catalogue of toys goes here by JS
-
+          div.mdl-grid
+            div#item-description.mdl-cell.mdl-cell--12-col
+            each val in category
+              div(id="#{val.id}").mdl-cell.mdl-cell--12-col
+                h1 #{val.name}
+              //- Catalogue of toys goes here by JS
+        
+        //- div.mdl-layout-spacer
         //- footer
-        include ./_includes/_incl--footer.jade
+        //- include ./_includes/_incl--footer.jade

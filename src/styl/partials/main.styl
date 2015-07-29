@@ -1,3 +1,44 @@
+.cart-table
+  width: 100%
+  
+html {
+  position: relative;
+  min-height: 100%;
+  height: auto;
+}
+
+// Fix for Bootstrap
+a:hover
+  text-decoration: none
+  color: inherit
+
+$carouselMaxHeight = 100 vh
+.carousel
+  max-height: $carouselMaxHeight
+  
+.carousel-inner
+  max-height: $carouselMaxHeight
+
+// MDL
+#view-source 
+  position: fixed
+  right: 0
+  bottom: 0
+  margin-right: 2.5%
+  margin-bottom: 2%
+  z-index: 900
+  width: 60px
+  height: 60px
+
+.mdl-badge[data-badge]:after
+  font-size: 1rem
+  width: 18px
+  height: 18px
+
+.mdl-layout__drawer-button
+  color: #757575
+  background-color: #fafafa
+  
 .mdl-card
   width: 100%
 
@@ -12,55 +53,12 @@
   color: grey
 
 .mdl-layout__content
+  // display: flex
+  // flex-direction: column
   background: url(../img/bg.jpg) repeat
-
-// Fix for Bootstrap
-a:hover
-  text-decoration: none
-  color: inherit
-
-$carouselMaxHeight = 90 vh
-.carousel
-  max-height: $carouselMaxHeight
   
-.carousel-inner
-  max-height: $carouselMaxHeight
-  
-#view-source 
-  position: fixed
-  right: 0
-  bottom: 0
-  margin-right: 2.5%
-  margin-bottom: 2%
-  z-index: 900
-  width: 60px
-  height: 60px
-  
-.mdl-badge[data-badge]:after
-  font-size: 1rem
-  width: 18px
-  height: 18px
-
-.cart-table
-  width: 100%
-  
-.mdl-layout__drawer-button
-  color: #757575
-  background-color: #fafafa
-
-.mdl-grid
-  // position: relative
-  // box-sizing: border-box
-  // padding-bottom: 8rem;
-  // padding-bottom: 90px
-
 footer
-  // position: absolute;
-  // left: 0;
-  // bottom: 0;
-  // width: 87%;
-  // z-index:10;
-  // height: 80px;
+  // margin-top: 1rem
 
 // $clrBodyBackground = #fafafa
 // $clrBlueMain = #005689
