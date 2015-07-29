@@ -12,7 +12,7 @@ $EMPTY_BODY = 'Введите текст';
 $event = $_REQUEST['event'];
 $body = $_REQUEST['formBody'];
 
-$to = 'ivangerasimow@gmail.com';
+$to = 'zipped@mail.ru';
 
 switch ($event) {
   case 'SendReview':
@@ -36,8 +36,10 @@ switch ($event) {
     break;
 }
 
+$headers = 'From: Бронирование <sunduchok@igrushek.ru';
+
 if ($body != ''){
-	if (mail ($to, $subject, $body)){
+	if (mail ($to, $subject, $body, $headers)){
 		echo $answer;
 	}
 	else {

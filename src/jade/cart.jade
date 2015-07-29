@@ -4,7 +4,7 @@ html
     meta(charset="utf-8")
     meta(name="keywords" content="")
     meta(name="description" content="")
-    //- meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
@@ -41,7 +41,7 @@ html
       }
 
       var cart;
-      
+
       $(function(){
           cart = new WICard("cart");
           cart.init("cart-widjet");
@@ -51,7 +51,7 @@ html
 
     title Сундучок игрушек
   body
-    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--fixed-header
+    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
       div.mdl-layout__drawer
         nav.mdl-navigation
           a.mdl-navigation__link(href="index.html") Главная страница

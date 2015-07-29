@@ -5,7 +5,7 @@ html
     meta(charset="utf-8")
     meta(name="keywords" content="")
     meta(name="description" content="")
-    //- meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
@@ -27,7 +27,9 @@ html
         });
     title Сундучок игрушек
   body
-    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--fixed-header
+    include ../_includes/_incl--flowCart.jade
+
+    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
       div.mdl-layout__drawer
         nav.mdl-navigation
           a.mdl-navigation__link(href="index.html") Главная страница
@@ -37,8 +39,8 @@ html
           //- - var links = [{name:"О прокате", url:"about.html"}, {name:"Как сделать заказ", url: "order.html"}, {name:"Условия проката", url:"conditions.html"}, {name:"Гарантия чистоты", url:"guarantee.html"}, {name:"Вопросы и ответы", url:"faq.html"}, {name:"Памятка", url:"notes.html"}, {name:"Контактная информация", url:"contact.html"}]
           each link in links
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
-        div.mdl-layout-spacer
-        nav.mdl-navigation
+        //- div.mdl-layout-spacer
+        //- nav.mdl-navigation
           a.mdl-navigation__link(href="cart.html")
             div#cart-widjet.material-icons.mdl-badge(data-badge="61") shopping_cart
     
