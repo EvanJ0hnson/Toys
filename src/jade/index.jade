@@ -104,17 +104,6 @@ html
     include ./_includes/_incl--flowCart.jade
 
     div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
-      //- header.mdl-layout__header
-        div.mdl-layout__header-row
-          //- span.mdl-layout-title «Сундучок игрушек»
-          a.material-icons.mdl-navigation__link(href="#") shopping_cart
-          div.mdl-layout-spacer
-          nav.mdl-navigation.mdl-layout--large-screen-only
-            a.material-icons.mdl-navigation__link(href="#") shopping_cart
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
 
       div.mdl-layout__drawer
         nav.mdl-navigation 
@@ -131,44 +120,42 @@ html
             a.mdl-navigation__link(href="##{item.id}") #{item.name}
     
       main.mdl-layout__content
-        div.page-content
-          //- carousel
-          //- div.owl-carousel.mdl-shadow--4dp
-            //- div: img(src="img/img (5).jpg", alt="IMG2")
-            div: img(src="img/img (4).jpg", alt="IMG2")
-            div: img(src="img/img (4).jpg", alt="IMG2")
-            div: img(src="img/img (4).jpg", alt="IMG2")
-            div: img(src="img/img (4).jpg", alt="IMG2")
-          div#main-carousel.carousel.slide(data-ride="carousel")
-                //- <!-- Indicators -->
-                ol.carousel-indicators
-                  li.active(data-target="#main-carousel", data-slide-to="0")
-                  li(data-target="#main-carousel", data-slide-to="1")
+        //- carousel
+        //- div.owl-carousel.mdl-shadow--4dp
+          //- div: img(src="img/img (5).jpg", alt="IMG2")
+          div: img(src="img/img (4).jpg", alt="IMG2")
+          div: img(src="img/img (4).jpg", alt="IMG2")
+          div: img(src="img/img (4).jpg", alt="IMG2")
+          div: img(src="img/img (4).jpg", alt="IMG2")
+        div#main-carousel.carousel.slide(data-ride="carousel")
+              //- <!-- Indicators -->
+              ol.carousel-indicators
+                li.active(data-target="#main-carousel", data-slide-to="0")
+                li(data-target="#main-carousel", data-slide-to="1")
 
-                //- <!-- Wrapper for slides -->
-                div.carousel-inner.mdl-shadow--4dp(role="listbox")
-                  div.item.active
-                    img(src="img/img (5).jpg", alt="IMG2")
-                  div.item
-                    img(src="img/img (4).jpg", alt="IMG2")
-                    //- div.carousel-caption Caption 2
+              //- <!-- Wrapper for slides -->
+              div.carousel-inner.mdl-shadow--4dp(role="listbox")
+                div.item.active
+                  img(src="img/img (5).jpg", alt="IMG2")
+                div.item
+                  img(src="img/img (4).jpg", alt="IMG2")
+                  //- div.carousel-caption Caption 2
 
-                //- <!-- Controls -->
-                //- a.left.carousel-control(href="#main-carousel", role="button", data-slide="prev")
-                  span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
-                  //- span.sr-only Previous
-                //- a.right.carousel-control(href="#main-carousel", role="button", data-slide="next")
-                  span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
-                  //- span.sr-only Next
-          //- carousel
+              //- <!-- Controls -->
+              //- a.left.carousel-control(href="#main-carousel", role="button", data-slide="prev")
+                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+                span.sr-only Previous
+              //- a.right.carousel-control(href="#main-carousel", role="button", data-slide="next")
+                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+                span.sr-only Next
+        //- carousel
 
-          div.mdl-grid
-            div#item-description.mdl-cell.mdl-cell--12-col
-            each val in category
-              div(id="#{val.id}").mdl-cell.mdl-cell--12-col
-                h1 #{val.name}
-              //- Catalogue of toys goes here by JS
-        
-        //- div.mdl-layout-spacer
-        //- footer
-        //- include ./_includes/_incl--footer.jade
+        div.mdl-grid
+          each val in category
+            div(id="#{val.id}").mdl-cell.mdl-cell--12-col
+              h1 #{val.name}
+            //- Catalogue of toys goes here by JS
+      
+      //- div.mdl-layout-spacer
+      //- footer
+      //- include ./_includes/_incl--footer.jade
