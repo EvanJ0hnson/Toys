@@ -18,32 +18,11 @@ html
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-    //- OwlCarousel
-    //- script(src="js/vendor/owl.carousel.min.js")
-    //- link(rel="stylesheet" href="css/vendor/owl.carousel.min.css")
-    //- link(rel="stylesheet" href="css/vendor/owl.theme.default.min.css")
-    
 
     //- Partials
     link(rel="stylesheet" href="css/style.min.css")
     script(src="js/partials/cart.js")
-    //- script.
-      $(document).ready(function(){
-        $('.owl-carousel').owlCarousel({
-                                       items: 1,
-                                       loop: true,
-                                       //- center: true,
-                                       nav: true,
-                                       dots: true,
-                                       //- lazyLoad: true,
-                                       autoplay: true,
-                                       autoplayTimeout: 3000,
-                                       autoplayHoverPause: true,
-                                       responsiveRefreshRate: 100,
-                                       animateOut: 'fadeOut'
-                                       });
-        
-      });
+
     script.
       function smoothScroll() {
         $('a[href^="#"], a[href^="."]').click(function () {
@@ -76,7 +55,7 @@ html
                     tmp += 'Можно заказать: ' + value2.date;
                   tmp += '</div>';
                   tmp += '<div class="mdl-card__actions mdl-card--border">';
-                    tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
+                    tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '" onclick="requireItemDescription(\'' + value2.id + '\');">';
                       tmp += 'Подробнее';
                     tmp += '</a>';
                   tmp += '</div>';
@@ -101,29 +80,64 @@ html
         cart.init("cart-widjet");
       };
 
+      function renderItemDescription (desc) {
+        //- requireItemDescription (id);
+        //- var stateObj = { id: desc.id };
+        //- history.pushState(stateObj, desc.id, desc.id + '.html');
+        //- $('#main-carousel').remove();
+        //- if ($("div").is("#item")) {
+          //- $('#item').remove();
+          //- }
+
+        var tmp = null;
+        tmp = '<div id="item" class="mdl-grid">';
+          tmp += '<div class="mdl-cell mdl-cell--2-col">';
+          tmp += '</div>';
+          tmp += '<div class="mdl-cell mdl-cell--8-col">';
+            tmp += '<div class="mdl-card mdl-shadow--2dp">';
+              tmp += '<div class="mdl-card__title">';
+                tmp += '<h2 class="mdl-card__title-text">'
+                  tmp += desc.title;
+                tmp += '</h2>';
+              tmp += '</div>';
+              tmp += '<div class="mdl-card__supporting-text">';
+                tmp += desc.age;
+                tmp += '<br>';
+                tmp += 'Можно заказать: ' + desc.date;
+              tmp += '</div>';
+              tmp += '<div class="mdl-card__actions mdl-card--border">';
+              tmp += '</div>';
+            tmp += '</div>';
+          tmp += '</div>';
+        tmp += '</div>';
+        
+        $('#item-description').append(tmp);
+        
+        //- $('.mdl-layout__content').animate({ scrollTop: 0 }, 300);
+      };
+
+      function requireItemDescription () {
+        var scriptPath = 'scripts/itemsRouter.php';
+        var params = location.search.substring(1).split('=');
+        //- console.log(params[1]);
+        $.post(scriptPath, {itemId: params[1]}, function(serverResponse) {
+              renderItemDescription(serverResponse);
+          } ,"json");
+      };
+
       $(function(){
+        requireItemDescription();
         renderCatalogue();
         setTimeout(initCart, 150);
-        //- setTimeout(smoothScroll, 150);
         //- smoothScroll();
       });
 
     title «Сундучок игрушек»
   body
+    //- button(onclick="requireItemDescription('001');") TEST
     include ./_includes/_incl--flowCart.jade
 
     div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
-      //- header.mdl-layout__header
-        div.mdl-layout__header-row
-          //- span.mdl-layout-title «Сундучок игрушек»
-          a.material-icons.mdl-navigation__link(href="#") shopping_cart
-          div.mdl-layout-spacer
-          nav.mdl-navigation.mdl-layout--large-screen-only
-            a.material-icons.mdl-navigation__link(href="#") shopping_cart
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
-            a.mdl-navigation__link(href="#") Item
 
       div.mdl-layout__drawer
         nav.mdl-navigation 
@@ -140,35 +154,6 @@ html
             a.mdl-navigation__link(href="##{link.id}") #{link.name}
     
       main.mdl-layout__content
-        //- carousel
-        //- div.owl-carousel.mdl-shadow--4dp
-          //- div: img(src="img/img (5).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-          div: img(src="img/img (4).jpg", alt="IMG2")
-        div#main-carousel.carousel.slide(data-ride="carousel")
-              //- <!-- Indicators -->
-              ol.carousel-indicators
-                li.active(data-target="#main-carousel", data-slide-to="0")
-                li(data-target="#main-carousel", data-slide-to="1")
-
-              //- <!-- Wrapper for slides -->
-              div.carousel-inner.mdl-shadow--4dp(role="listbox")
-                div.item.active
-                  img(src="img/img (5).jpg", alt="IMG2")
-                div.item
-                  img(src="img/img (4).jpg", alt="IMG2")
-                  //- div.carousel-caption Caption 2
-
-              //- <!-- Controls -->
-              //- a.left.carousel-control(href="#main-carousel", role="button", data-slide="prev")
-                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
-                //- span.sr-only Previous
-              //- a.right.carousel-control(href="#main-carousel", role="button", data-slide="next")
-                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
-                //- span.sr-only Next
-        //- carousel
 
         div.mdl-grid
           div#item-description.mdl-cell.mdl-cell--12-col

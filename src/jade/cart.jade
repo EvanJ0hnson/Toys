@@ -60,15 +60,6 @@ html
           include ./_includes/_incl--menu.jade
           each link in links
             a.mdl-navigation__link(href="#{link.url}") #{link.name}
-        
-        //- nav.mdl-navigation
-          - var links2 = [{name:"Категория 1", url:"#cat1"}, {name:"Категория 2", url: "#cat2"}, {name:"Категория 3", url:"#cat3"}, {name:"Категория 4", url:"#cat4"}]
-          each link in links2
-            a.mdl-navigation__link(href="#{link.url}") #{link.name}
-        //- div.mdl-layout-spacer
-        //- nav.mdl-navigation
-          a.mdl-navigation__link(href="cart.html")
-            div#cart-widjet.material-icons.mdl-badge(data-badge="61") shopping_cart
     
       div.mdl-layout__content
         div.mdl-grid
@@ -79,7 +70,7 @@ html
                 h2.mdl-card__title-text
                   |Корзина
               div#popup_cart.mdl-card__supporting-text.mdl-cell.mdl-cell--12-col
-                //- |Краткое описание.
+                //- #popup_cart inserts here
               div.mdl-card__actions.mdl-card--border
                 form#fOrderReservation
                   div.mdl-textfield.mdl-js-textfield
