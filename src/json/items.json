@@ -10,8 +10,9 @@
     "price1": "300",
     "price2": "400",
     "price3": "650",
-    "available": "true",
-    "date": "сегодня"
+    "available": "да",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "002",
     "photo": "",
@@ -21,8 +22,9 @@
     "price1": "300",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "003",
     "photo": "",
@@ -32,8 +34,9 @@
     "price1": "300",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "004",
     "photo": "",
@@ -43,8 +46,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "005",
     "photo": "",
@@ -54,8 +58,9 @@
     "price1": "",
     "price2": "350",
     "price3": "500",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "006",
     "photo": "",
@@ -65,8 +70,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "007",
     "photo": "",
@@ -76,8 +82,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "008",
     "photo": "",
@@ -87,8 +94,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "009",
     "photo": "",
@@ -98,8 +106,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "010",
     "photo": "",
@@ -109,8 +118,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "011",
     "photo": "",
@@ -120,8 +130,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "012",
     "photo": "",
@@ -131,8 +142,9 @@
     "price1": "",
     "price2": "350",
     "price3": "550",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }]
 }, {
   "title": "Спорт и Активность",
@@ -146,8 +158,9 @@
     "price1": "300",
     "price2": "400",
     "price3": "650",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "102",
     "photo": "",
@@ -157,8 +170,9 @@
     "price1": "300",
     "price2": "400",
     "price3": "650",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }]
 }, {
   "title": "Познаю мир",
@@ -172,8 +186,9 @@
     "price1": "300",
     "price2": "400",
     "price3": "650",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "202",
     "photo": "",
@@ -183,8 +198,9 @@
     "price1": "300",
     "price2": "400",
     "price3": "650",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }]
 }, {
   "title": "Новинки",
@@ -198,8 +214,9 @@
     "price1": "300",
     "price2": "400",
     "price3": "650",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }, {
     "id": "302",
     "photo": "",
@@ -209,7 +226,8 @@
     "price1": "300",
     "price2": "400",
     "price3": "650",
-    "available": "true",
-    "date": "сегодня"
+    "available": "",
+    "date": "сегодня",
+    "comments": ""
   }]
 }]

@@ -53,9 +53,12 @@ html
           var tmp = '';
           $.each(menuItems, function(key, value) {
             $.each(value.items, function(key2, value2) {
+              if (value2.photo == '') {
+                value2.photo = value2.id + '.jpg'
+                }
               tmp += '<div class="mdl-cell mdl-cell--4-col">';
                 tmp += '<div class="mdl-card mdl-shadow--2dp">';
-                  tmp += '<div class="mdl-card__title toys-card" style="background: url(img/catalogue/' + value2.id + '.jpg) center center / cover no-repeat;">';
+                  tmp += '<div class="mdl-card__title toys-card" style="background: url(img/catalogue/' + value2.photo + ') center center / cover no-repeat;">';
                     tmp += '<h2 class="mdl-card__title-text">'
                       tmp += value2.title;
                     tmp += '</h2>';
