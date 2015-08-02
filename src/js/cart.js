@@ -144,12 +144,12 @@ function WICard(obj) {
 
     $('#popup_cart').html('');
 
-    tmpStr = '<table class="cart-table mdl-data-table mdl-js-data-table">';
-      tmpStr += '<thead>';
+    tmpStr = '<table class="cart-table">';
+      tmpStr += '<thead class="cart-table cart-table__header">';
         tmpStr += '<tr>';
           tmpStr += '<th>№</th>';
-          tmpStr += '<th class="mdl-data-table__cell--non-numeric">Название</th>';
-          tmpStr += '<th >Цена</th>';
+          tmpStr += '<th>Название</th>';
+          tmpStr += '<th>Цена</th>';
           tmpStr += '<th></th>';
         tmpStr += '</tr>';
       tmpStr += '</thead>';
@@ -169,7 +169,7 @@ function WICard(obj) {
         counter++;
         tBody += '<tr>';
           tBody += '<td> ' + counter + '</td>';
-          tBody += '<td class="mdl-data-table__cell--non-numeric">' + this.DATA[idkey].name + '</td>';
+          tBody += '<td>' + this.DATA[idkey].name + '</td>';
           tBody += '<td>' + this.DATA[idkey].price + '</td>';
           tBody += '<td>';
             tBody += '<button id="btnDelItem' + this.DATA[idkey].id + '" \

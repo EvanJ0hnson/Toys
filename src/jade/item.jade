@@ -9,12 +9,12 @@ html
     //- JQuery
     script(src="js/vendor/jquery.min.js")
     //- Bootstrap
-    link(rel="stylesheet" href="css/vendor/bootstrap.min.css")
+    //- link(rel="stylesheet" href="css/vendor/bootstrap.min.css")
     //- link(rel="stylesheet" href="css/vendor/bootstrap-theme.min.css")
-    script(src="js/vendor/bootstrap.min.js")
+    //- script(src="js/vendor/bootstrap.min.js")
     //- Material Design Lite
     script(src="js/vendor/material.min.js")
-    link(rel="stylesheet" href="css/vendor/material.min.css")
+    //- link(rel="stylesheet" href="css/vendor/material.min.css")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
@@ -24,19 +24,6 @@ html
     script(src="js/partials/cart.js")
 
     script.
-      function smoothScroll() {
-        $('a[href^="#"], a[href^="."]').click(function () {
-        // если в href начинается с # или ., то ловим клик
-          var scroll_el = $(this).attr('href');
-          // возьмем содержимое атрибута href
-          //- if ($(scroll_el).length !== 0) {
-          // проверим существование элемента чтобы избежать ошибки
-            $('.mdl-layout__content').animate({ scrollTop: $(scroll_el).offset().top }, 150); // анимируем скроолинг к элементу scroll_el
-          //- }
-          return false; // выключаем стандартное действие
-        });
-      }
-
       function renderCatalogue () {
         $.getJSON( 'json/items.json', function(menuItems) {
           var tmp = '';
@@ -90,8 +77,8 @@ html
         tmp = '<div id="item" class="mdl-grid">';
           tmp += '<div class="mdl-cell mdl-cell--2-col">';
           tmp += '</div>';
-          tmp += '<div class="mdl-cell mdl-cell--8-col">';
-            tmp += '<div class="mdl-card mdl-shadow--2dp">';
+          tmp += '<div class="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2d">';
+            //- tmp += '<div class="mdl-card mdl-shadow--2dp">';
               tmp += '<div class="mdl-card__title">';
                 tmp += '<h2 class="mdl-card__title-text">'
                   tmp += desc.title;
@@ -112,7 +99,7 @@ html
                 tmp += '</button>';
               tmp += '</div>';
             tmp += '</div>';
-          tmp += '</div>';
+          //- tmp += '</div>';
         tmp += '</div>';
         
         $('#item-description').append(tmp);

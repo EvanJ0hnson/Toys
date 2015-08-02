@@ -109,9 +109,14 @@ gulp.task('copy:vendor__js', function () {
     jquery: './bower_components/jquery/dist/jquery.min.js',
     material: './bower_components/material-design-lite/material.min.js',
     bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
-    owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js'
+    owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js',
+    flexslider: './bower_components/flexslider/jquery.flexslider-min.js'
     };
-  gulp.src([lib.jquery, lib.material, lib.bootstrap, lib.owlcarousel])
+  gulp.src([lib.jquery,
+           lib.material,
+           lib.bootstrap,
+           lib.owlcarousel,,
+           lib.flexslider])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
 });
@@ -123,14 +128,18 @@ gulp.task('copy:vendor__css', function () {
     bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
     owlcarousel_core: './bower_components/OwlCarousel2/dist/assets/owl.carousel.min.css',
     owlcarousel_theme: './bower_components/OwlCarousel2/dist/assets/owl.theme.default.min.css',
-    owlcarousel_ajaxLoader: './bower_components/OwlCarousel2/dist/assets/ajax-loader.gif'
+    owlcarousel_ajaxLoader: './bower_components/OwlCarousel2/dist/assets/ajax-loader.gif',
+    flexslider: './bower_components/flexslider/flexslider.css',
+    resetcss: './bower_components/reset-css/reset.css'
     };
   gulp.src([lib.material, 
            lib.bootstrap_core, 
            lib.bootstrap_theme, 
            lib.owlcarousel_core, 
            lib.owlcarousel_theme, 
-           lib.owlcarousel_ajaxLoader])
+           lib.owlcarousel_ajaxLoader,
+           lib.flexslider,
+           lib.resetcss])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'css/vendor'));
 });

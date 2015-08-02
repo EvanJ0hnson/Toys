@@ -1,0 +1,73 @@
+body, html, nav, div, h2, ul, li, a
+  padding: 0
+  margin: 0
+  
+.nav-left
+  position: fixed
+  display: none
+  background-color: #FAFAFA
+  width: 250px
+  height: 100vh
+  margin: 0
+  padding: 0
+  z-index: 5
+  // transition: width .3s ease;
+  // transition: height .3s ease;
+  // opacity: 1
+    
+.nav-left__overlay
+  display: none
+  position: fixed
+  background-color: black
+  opacity: .25
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 3
+
+.nav-left__switcher
+  display: none
+  position: fixed
+  left: 250px
+  top: 0
+  margin: 1rem
+  z-index: 5
+
+// @media screen and (max-width: 1360px)
+
+.nav-top
+  position: fixed
+  top: 0
+  width: 100%
+  height: 3.25rem
+  background-color: #2196F3
+  z-index: 2
+  margin: 0
+  padding: 0
+  
+.nav-top__list
+  display: inline-block
+  padding: 0
+  margin: 0
+  list-style: none
+  color: #FAFAFA
+  
+.nav-top__list-item
+  display: inline-block
+  padding: 0
+  margin: 0
+  
+.nav-top__list-item--icon
+  display: inline-block
+  padding: .75
+  margin: 0
+
+.nav-top__list-item--icon:first-child
+  padding-left: 0
+
+.nav-top__link
+  cursor: pointer
+  display: inline-block
+  color: #FAFAFA
+  text-decoration: none

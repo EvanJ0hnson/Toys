@@ -1,8 +1,45 @@
 body
   background: url(../img/bg.jpg) repeat
+  
+.price-table
+  table-layout: fixed
+  width: 100%
+  text-align: center
+  // border-collapse: collapse;
+  td
+    padding: .5rem
+  tr
+    background-color: #FAFAFA
+  
+.price-table__header
+  color: rgba(0,0,0,.6)
+  
+.toys-card__availability
+  background-color: #43A047
+  // GREEN 600
+  color: rgb(255,255,255)
+  border-top: none !important
+  text-align: center
+  padding-top: .75rem
+  padding-bottom: .75rem
+  padding-left: 0
+  padding-right: 0
+
+.toys-card__availability--isReserved
+  background-color: #78909C 
+  // Blue Grey 400
 
 .cart-table
   width: 100%
+  text-align: right
+  border-collapse: collapse;
+  td
+    padding: .5rem
+  tr:nth-child(even)
+    background-color: rgba(0, 0, 0, .025)
+  
+.cart-table__header
+  color: rgba(0,0,0,.6)
   
 .cart 
   position: fixed
@@ -18,20 +55,67 @@ body
   display: block
   width: 100%
   height: auto
+  
+// .top
+  // min-height: 86vh;
+  // max-height: 86vh;
+
+  
+// flexslider
+.cd-topslider-wrapper
+  position: relative
+  // z-index: 1
+  margin-top: 0 auto
+  // margin-right: auto
+  // margin-bottom: 0
+  // margin-left: auto
+
+.cd-topslider:after
+  display: table
+  clear: both
+  content: ''
+
+.cd-topslider > div
+  position: absolute
+  height: 85vh
+  opacity: 0
+  background: no-repeat center center / cover
+
+.cd-topslider > div:first-child
+  position: relative
+  opacity: 1
+  
+.flex-control-nav
+  bottom: .1rem
+
+  li
+    margin: 0 .5rem
+
+.flex-control-paging 
+  li 
+    a
+      background: rgba(255, 255, 255, 0.25);
+
+    a:hover 
+      background: rgba(255, 255, 255, 0.5);
+
+    a
+      &.flex-active
+        background: rgba(255, 255, 255, 0.7);
 
 // Fix for Bootstrap
-a:hover,
-a:visited,
-a:active,
-a:focus
-  text-decoration: none
+// a:hover,
+// a:visited,
+// a:active,
+// a:focus
+//   text-decoration: none
 
-$carouselMaxHeight = 80 vh
-.carousel
-  max-height: $carouselMaxHeight
+// $carouselMaxHeight = 80 vh
+// .carousel
+//   max-height: $carouselMaxHeight
   
-.carousel-inner
-  max-height: $carouselMaxHeight
+// .carousel-inner
+//   max-height: $carouselMaxHeight
 
 // MDL
 .mdl-badge[data-badge]:after
@@ -39,18 +123,34 @@ $carouselMaxHeight = 80 vh
   width: 18px
   height: 18px
 
-.mdl-layout__drawer-button
-  color: #757575
-  background-color: #fafafa
+// .mdl-layout__drawer-button
+  // color: #757575
+  // background-color: #fafafa
   
 .mdl-card
-  width: 100%
+  // min-width: 15rem
+  // width: 100%
 
 .mdl-card__title
+  // height: 150px
+    
+.mdl-card__title--image
+  height: 15rem
+  
+.mdl-card__title--information
   height: 150px
+  // background-color: white
+  // padding: .25rem
 
 .toys-card
-  height: 500px
+  height: 250px
 
 .mdl-card__menu
   color: grey
+  
+.mdl-grid
+  // margin-left: 250px
+  
+@media screen and (max-width: 1360px)
+  .mdl-grid
+    margin-left: 0
