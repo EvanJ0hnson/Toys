@@ -11,7 +11,7 @@ html
     script(src="js/vendor/jquery.min.js")
     //- Material Design Lite
     script(src="js/vendor/material.min.js")
-    link(rel="stylesheet" href="css/vendor/material.min.css")
+    //- link(rel="stylesheet" href="css/vendor/material.min.css")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
@@ -19,39 +19,46 @@ html
     //- Partials
     link(rel="stylesheet" href="css/style.min.css")
     script(src="js/partials/cart.js")
+    script(src="js/partials/scripts.js")
+
     script.
-      var cart;
       $(function(){
-          cart = new WICard("cart");
-          cart.init("cart-widjet");
-        });
-    title Сундучок игрушек
+        setTimeout(initCart, 150);
+      });
+
+    title «Сундучок игрушек»
   body
     include ../_includes/_incl--flowCart.jade
 
-    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
-      div.mdl-layout__drawer
-        nav.mdl-navigation
-          a.mdl-navigation__link(href="index.html") Главная страница
+    div.nav-left.mdl-shadow--4dp
+      ul.nav-left__list
+        li.nav-left__list-item: a.nav-left__link(href="/") «Сундучок игрушек»
         hr
-        nav.mdl-navigation
-          include ../_includes/_incl--menu.jade
-          //- - var links = [{name:"О прокате", url:"about.html"}, {name:"Как сделать заказ", url: "order.html"}, {name:"Условия проката", url:"conditions.html"}, {name:"Гарантия чистоты", url:"guarantee.html"}, {name:"Вопросы и ответы", url:"faq.html"}, {name:"Памятка", url:"notes.html"}, {name:"Контактная информация", url:"contact.html"}]
-          each link in links
-            a.mdl-navigation__link(href="#{link.url}") #{link.name}
-        //- div.mdl-layout-spacer
-        //- nav.mdl-navigation
-          a.mdl-navigation__link(href="cart.html")
-            div#cart-widjet.material-icons.mdl-badge(data-badge="61") shopping_cart
-    
-      div.mdl-layout__content
-        div.mdl-grid
-          div.mdl-cell.mdl-cell--2-col
-          div.mdl-cell.mdl-cell--8-col.mdl-card.mdl-shadow--2dp
-            div.mdl-card__title.mdl-card__title--information
-              h2.mdl-card__title-text #{title}
-            div.mdl-card__supporting-text
-              block article
+        include ../_includes/_incl--menu.jade
+        each link in links
+          li.nav-left__list-item: a.nav-left__link(href="#{link.url}") #{link.name}
+    div.nav-left__overlay
+    a.nav-left__switcher.mdl-button.mdl-js-button.mdl-js-ripple-effect.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
+      i.material-icons close
+
+    nav.nav-top.mdl-shadow--2dp
+      ul.nav-top__list.nav-top__list--menu
+        li.nav-top__list-item
+          a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
+            i.material-icons menu
+      ul.nav-top__list
+        include ../_includes/_incl--categoriesOuter.jade
+        each val in category
+          li.nav-top__list-item
+            a.nav-top__link(href="#{val.id}") #{val.name}
+
+    div.mdl-grid.mdl-grid--information
+      div.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
+      div.mdl-cell.mdl-cell--8-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-card.mdl-shadow--2dp
+        div.mdl-card__title.mdl-card__title--information
+          h2.mdl-card__title-text #{title}
+        div.mdl-card__supporting-text
+          block article
 
       //- footer
       //- include ../_includes/_incl--footer.jade
