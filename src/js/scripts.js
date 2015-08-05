@@ -161,11 +161,12 @@ function renderCatalogue (json) {
           strAvailable += ' C ' + value2.date;
           isReserved = 'toys-card__availability--isReserved';
         }
-        tmp += '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--4dp">';
-          tmp += '<div class="mdl-card__title mdl-card__title--image" style="background: url(img/catalogue/' + value2.photo + ') center center / contain no-repeat;">';
+        tmp += '<div class="col bl mdl-card mdl-shadow--4dp matchheight">';
+          tmp += '<div class="mdl-card__title mdl-card__title--image">';
             // tmp += '<h1 class="mdl-card__title-text">';
               // tmp += value2.title;
             // tmp += '</h1>';
+            tmp += '<img src="img/catalogue/' + value2.photo + '">'
           tmp += '</div>';
           tmp += '<div class="mdl-card__title">';
             tmp += '<h1 class="mdl-card__title-text">';
@@ -190,13 +191,13 @@ function renderCatalogue (json) {
               tmp += '</tbody>';
             tmp += '</table>';
           tmp += '</div>';
-          tmp += '<div class="mdl-card__actions mdl-card--border toys-card__availability ' + isReserved + '">';
-            tmp += strAvailable;
-          tmp += '</div>';
           tmp += '<div class="mdl-card__actions mdl-card--border">';
             tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
               tmp += 'Подробнее';
             tmp += '</a>';
+          tmp += '</div>';
+          tmp += '<div class="mdl-card__actions toys-card__availability ' + isReserved + '">';
+            tmp += strAvailable;
           tmp += '</div>';
           tmp += '<div class="mdl-card__menu">';
           //- Посмотреть, зачем присваивается ID.
@@ -213,132 +214,131 @@ function renderCatalogue (json) {
     });
 
 
-    $.each(menuItems, function(key, value) {
-      $.each(value.items, function(key2, value2) {
-        strAvailable = 'В НАЛИЧИИ';
-        isReserved = '';
-        if (value2.photo == '') {
-          value2.photo = value2.id + '.jpg'
-          }
-        if (value2.available == 'Нет') {
-          strAvailable += ' C ' + value2.date;
-          isReserved = 'toys-card__availability--isReserved';
-        }
-        tmp += '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--4dp">';
-          tmp += '<div class="mdl-card__title mdl-card__title--image" style="background: url(img/catalogue/' + value2.photo + ') center center / contain no-repeat;">';
-            // tmp += '<h1 class="mdl-card__title-text">';
-              // tmp += value2.title;
-            // tmp += '</h1>';
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__title">';
-            tmp += '<h1 class="mdl-card__title-text">';
-              tmp += value2.title;
-            tmp += '</h1>';
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__supporting-text">';
-            tmp += '<table class="price-table">';
-              tmp += '<thead class="price-table__header">';
-                tmp += '<tr>';
-                  tmp += '<td>1 неделя</td>';
-                  tmp += '<td>2 недели</td>';
-                  tmp += '<td>Месяц</td>';
-                tmp += '</tr>';
-              tmp += '</thead>';
-              tmp += '<tbody>';
-                tmp += '<tr>';
-                  tmp += '<td>' + value2.price1 + '</td>';
-                  tmp += '<td>' + value2.price2 + '</td>';
-                  tmp += '<td>' + value2.price3 + '</td>';
-                tmp += '</tr>';
-              tmp += '</tbody>';
-            tmp += '</table>';
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__actions mdl-card--border toys-card__availability ' + isReserved + '">';
-            tmp += strAvailable;
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__actions mdl-card--border">';
-            tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
-              tmp += 'Подробнее';
-            tmp += '</a>';
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__menu">';
-          //- Посмотреть, зачем присваивается ID.
-          //- Удалить, если не нужен.
-            tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '">';
-              tmp += '<i class="material-icons">add</i>';
-            tmp += '</span>';
-            tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
-          tmp += '</div>';
-        tmp += '</div>';
-      });
-      $('#' + value.type).after(tmp);
-      tmp = '';
-    });
+    // $.each(menuItems, function(key, value) {
+    //   $.each(value.items, function(key2, value2) {
+    //     strAvailable = 'В НАЛИЧИИ';
+    //     isReserved = '';
+    //     if (value2.photo == '') {
+    //       value2.photo = value2.id + '.jpg'
+    //       }
+    //     if (value2.available == 'Нет') {
+    //       strAvailable += ' C ' + value2.date;
+    //       isReserved = 'toys-card__availability--isReserved';
+    //     }
+    //     tmp += '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--4dp">';
+    //       tmp += '<div class="mdl-card__title mdl-card__title--image" style="background: url(img/catalogue/' + value2.photo + ') center center / contain no-repeat;">';
+    //         // tmp += '<h1 class="mdl-card__title-text">';
+    //           // tmp += value2.title;
+    //         // tmp += '</h1>';
+    //       tmp += '</div>';
+    //       tmp += '<div class="mdl-card__title">';
+    //         tmp += '<h1 class="mdl-card__title-text">';
+    //           tmp += value2.title;
+    //         tmp += '</h1>';
+    //       tmp += '</div>';
+    //       tmp += '<div class="mdl-card__supporting-text">';
+    //         tmp += '<table class="price-table">';
+    //           tmp += '<thead class="price-table__header">';
+    //             tmp += '<tr>';
+    //               tmp += '<td>1 неделя</td>';
+    //               tmp += '<td>2 недели</td>';
+    //               tmp += '<td>Месяц</td>';
+    //             tmp += '</tr>';
+    //           tmp += '</thead>';
+    //           tmp += '<tbody>';
+    //             tmp += '<tr>';
+    //               tmp += '<td>' + value2.price1 + '</td>';
+    //               tmp += '<td>' + value2.price2 + '</td>';
+    //               tmp += '<td>' + value2.price3 + '</td>';
+    //             tmp += '</tr>';
+    //           tmp += '</tbody>';
+    //         tmp += '</table>';
+    //       tmp += '</div>';
+    //       tmp += '<div class="mdl-card__actions mdl-card--border toys-card__availability ' + isReserved + '">';
+    //         tmp += strAvailable;
+    //       tmp += '</div>';
+    //       tmp += '<div class="mdl-card__actions mdl-card--border">';
+    //         tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
+    //           tmp += 'Подробнее';
+    //         tmp += '</a>';
+    //       tmp += '</div>';
+    //       tmp += '<div class="mdl-card__menu">';
+    //       //- Посмотреть, зачем присваивается ID.
+    //       //- Удалить, если не нужен.
+    //         tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '">';
+    //           tmp += '<i class="material-icons">add</i>';
+    //         tmp += '</span>';
+    //         tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
+    //       tmp += '</div>';
+    //     tmp += '</div>';
+    //   });
+    //   $('#' + value.type).after(tmp);
+    //   tmp = '';
+    // });
 
-    $.each(menuItems, function(key, value) {
-      $.each(value.items, function(key2, value2) {
-        if (value2.new == 'Да') {
-          strAvailable = 'В НАЛИЧИИ';
-          isReserved = '';
-          if (value2.photo == '') {
-            value2.photo = value2.id + '.jpg'
-            }
-          if (value2.available == 'Нет') {
-            strAvailable += ' C ' + value2.date;
-            isReserved = 'toys-card__availability--isReserved';
-          }
-          tmp += '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--4dp">';
-            tmp += '<div class="mdl-card__title mdl-card__title--image" style="background: url(img/catalogue/' + value2.photo + ') center center / contain no-repeat;">';
-              // tmp += '<h1 class="mdl-card__title-text">';
-                // tmp += value2.title;
-              // tmp += '</h1>';
-            tmp += '</div>';
-            tmp += '<div class="mdl-card__title">';
-              tmp += '<h1 class="mdl-card__title-text">';
-                tmp += value2.title;
-              tmp += '</h1>';
-            tmp += '</div>';
-            tmp += '<div class="mdl-card__supporting-text">';
-              tmp += '<table class="price-table">';
-                tmp += '<thead class="price-table__header">';
-                  tmp += '<tr>';
-                    tmp += '<td>1 неделя</td>';
-                    tmp += '<td>2 недели</td>';
-                    tmp += '<td>Месяц</td>';
-                  tmp += '</tr>';
-                tmp += '</thead>';
-                tmp += '<tbody>';
-                  tmp += '<tr>';
-                    tmp += '<td>' + value2.price1 + '</td>';
-                    tmp += '<td>' + value2.price2 + '</td>';
-                    tmp += '<td>' + value2.price3 + '</td>';
-                  tmp += '</tr>';
-                tmp += '</tbody>';
-              tmp += '</table>';
-            tmp += '</div>';
-            tmp += '<div class="mdl-card__actions mdl-card--border toys-card__availability ' + isReserved + '">';
-              tmp += strAvailable;
-            tmp += '</div>';
-            tmp += '<div class="mdl-card__actions mdl-card--border">';
-              tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
-                tmp += 'Подробнее';
-              tmp += '</a>';
-            tmp += '</div>';
-            tmp += '<div class="mdl-card__menu">';
-            //- Посмотреть, зачем присваивается ID.
-            //- Удалить, если не нужен.
-              tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '">';
-                tmp += '<i class="material-icons">add</i>';
-              tmp += '</span>';
-              tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
-            tmp += '</div>';
-          tmp += '</div>';
-        }
-      });
-      $('#cat__new').after(tmp);
-      tmp = '';
-      // strAvailable = '';
-    });
+    // $.each(menuItems, function(key, value) {
+    //   $.each(value.items, function(key2, value2) {
+    //     if (value2.new == 'Да') {
+    //       strAvailable = 'В НАЛИЧИИ';
+    //       isReserved = '';
+    //       if (value2.photo == '') {
+    //         value2.photo = value2.id + '.jpg'
+    //         }
+    //       if (value2.available == 'Нет') {
+    //         strAvailable += ' C ' + value2.date;
+    //         isReserved = 'toys-card__availability--isReserved';
+    //       }
+    //       tmp += '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--4dp">';
+    //         tmp += '<div class="mdl-card__title mdl-card__title--image" style="background: url(img/catalogue/' + value2.photo + ') center center / contain no-repeat;">';
+    //           // tmp += '<h1 class="mdl-card__title-text">';
+    //             // tmp += value2.title;
+    //           // tmp += '</h1>';
+    //         tmp += '</div>';
+    //         tmp += '<div class="mdl-card__title">';
+    //           tmp += '<h1 class="mdl-card__title-text">';
+    //             tmp += value2.title;
+    //           tmp += '</h1>';
+    //         tmp += '</div>';
+    //         tmp += '<div class="mdl-card__supporting-text">';
+    //           tmp += '<table class="price-table">';
+    //             tmp += '<thead class="price-table__header">';
+    //               tmp += '<tr>';
+    //                 tmp += '<td>1 неделя</td>';
+    //                 tmp += '<td>2 недели</td>';
+    //                 tmp += '<td>Месяц</td>';
+    //               tmp += '</tr>';
+    //             tmp += '</thead>';
+    //             tmp += '<tbody>';
+    //               tmp += '<tr>';
+    //                 tmp += '<td>' + value2.price1 + '</td>';
+    //                 tmp += '<td>' + value2.price2 + '</td>';
+    //                 tmp += '<td>' + value2.price3 + '</td>';
+    //               tmp += '</tr>';
+    //             tmp += '</tbody>';
+    //           tmp += '</table>';
+    //         tmp += '</div>';
+    //         tmp += '<div class="mdl-card__actions mdl-card--border toys-card__availability ' + isReserved + '">';
+    //           tmp += strAvailable;
+    //         tmp += '</div>';
+    //         tmp += '<div class="mdl-card__actions mdl-card--border">';
+    //           tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
+    //             tmp += 'Подробнее';
+    //           tmp += '</a>';
+    //         tmp += '</div>';
+    //         tmp += '<div class="mdl-card__menu">';
+    //         //- Посмотреть, зачем присваивается ID.
+    //         //- Удалить, если не нужен.
+    //           tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '">';
+    //             tmp += '<i class="material-icons">add</i>';
+    //           tmp += '</span>';
+    //           tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
+    //         tmp += '</div>';
+    //       tmp += '</div>';
+    //     }
+    //   });
+    //   $('#cat__new').after(tmp);
+    //   tmp = '';
+    // });
   });
 };
 

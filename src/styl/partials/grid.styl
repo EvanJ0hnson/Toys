@@ -1,54 +1,10 @@
-/*  GRID OF FIVE   ============================================================================= */
-
-	
-.span_5_of_5 {
-	width: 100%;
-}
-
-.span_4_of_5 {
-  	width: 79.68%; 
-}
-
-.span_3_of_5 {
-  	width: 59.36%; 
-}
-
-.span_2_of_5 {
-  	width: 39.04%;
-}
-
-.span_1_of_5 {
-  	width: 18.72%;
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span_5_of_5 {
-		width: 100%; 
-	}
-	.span_4_of_5 {
-		width: 100%; 
-	}
-	.span_3_of_5 {
-		width: 100%; 
-	}
-	.span_2_of_5 {
-		width: 100%; 
-	}
-	.span_1_of_5 {
-		width: 100%; 
-	}
-}
-
 
 /*  SECTIONS  ============================================================================= */
 
 .section {
-	clear: both;
-	padding: 0px;
-	margin: 0px;
+  clear: both;
+  padding: 0px;
+  margin: 0px;
 }
 
 /*  GROUPING  ============================================================================= */
@@ -69,18 +25,48 @@
 /*  GRID COLUMN SETUP   ==================================================================== */
 
 .col {
-	display: block;
-	float:left;
-	margin: 1% 0 1% 1.6%;
+  display: block;
+  float:left;
+  margin: 0 0 2% 2%;
 }
 
-.col:first-child { margin-left: 0; } /* all browsers except IE6 and lower */
+// top right bottom left
 
+.bl
+  width: 25%
+  color: red
+  
+.bl--full
+  width: 98%
 
-/*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 480 PIXELS */
+// 1
+@media only screen and (max-width: 320px)
+  .bl
+    width: 96%
+    color: red
+  .col
+    margin: 0 2% 5% 2%;
 
-@media only screen and (max-width: 480px) {
-	.col { 
-		margin: 1% 0 1% 0%;
-	}
-}
+// 2
+@media only screen and (min-width: 321px) and (max-width: 900px)
+  .bl
+    width: 47%
+    color: green
+
+// 3
+@media only screen and (min-width: 901px) and (max-width: 1200px)
+  .bl
+    width: 30.5%
+    color: blue
+
+// 4
+@media only screen and (min-width: 1201px) and (max-width: 1360px)
+  .bl
+    width: 22.5%
+    color: white
+
+// 5
+@media only screen and (min-width: 1361px)
+  .bl
+    width: 17.6%
+    color: black

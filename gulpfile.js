@@ -110,13 +110,15 @@ gulp.task('copy:vendor__js', function () {
     material: './bower_components/material-design-lite/material.min.js',
     bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
     owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js',
-    flexslider: './bower_components/flexslider/jquery.flexslider-min.js'
+    flexslider: './bower_components/flexslider/jquery.flexslider-min.js',
+    matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js'
     };
   gulp.src([lib.jquery,
            lib.material,
            lib.bootstrap,
            lib.owlcarousel,,
-           lib.flexslider])
+           lib.flexslider,
+           lib.matchHeight])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
 });
@@ -154,7 +156,7 @@ gulp.task('copy:vendor__fonts', function () {
 });
 
 gulp.task('images', function() {
-  gulp.src(config.srcRoot + 'img/*.*')
+  gulp.src(config.srcRoot + 'img/**/*.*')
     .pipe($.newer('www/img'))
     .pipe($.imagemin({
       progressive: true,
@@ -179,6 +181,7 @@ gulp.task('clean', function () {
   var path = {
       root: config.buildRoot + '*.*',
       css: config.buildRoot + 'css/*.*',
+      css_fonts: config.buildRoot + 'css/fonts/*.*',
       css_vendor: config.buildRoot + 'css/vendor/*.*',
       css_partials: config.buildRoot + 'css/partials/*.*',
       js: config.buildRoot + 'js/*.*',
@@ -187,10 +190,12 @@ gulp.task('clean', function () {
       json: config.buildRoot + 'json/*.*',
       fonts: config.buildRoot + 'fonts/*.*',
       images: config.buildRoot + 'img/*.*',
+      images_catalogue: config.buildRoot + 'img/catalogue/*.*',
       php: config.buildRoot + 'php/*.*'
     };
   $.del([path.root,
         path.css,
+        path.css_fonts,
         path.css_vendor,
         path.css_partials,
         path.js,
@@ -199,6 +204,7 @@ gulp.task('clean', function () {
         path.json,
         path.fonts,
         path.images,
+        path.images_catalogue,
         path.php]);
 });
 
