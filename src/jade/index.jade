@@ -1,27 +1,20 @@
 doctype html
 html
   head
-    meta(charset="utf-8")
-    meta(name="keywords" content="")
-    meta(name="description" content="")
-    meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+    include ./_includes/_incl--meta.jade
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
-      //- JQuery.matchHeight
+    //- JQuery.matchHeight
     script(src="js/vendor/jquery.matchHeight-min.js")
-    //- reset.css
-    //- link(rel="stylesheet" href="css/vendor/reset.css")
     //- Flexslider
     link(rel="stylesheet" href="css/vendor/flexslider.css")
     script(src="js/vendor/jquery.flexslider-min.js")
     //- Material Design Lite
     script(src="js/vendor/material.min.js")
-    //- link(rel="stylesheet" href="css/vendor/material.min.css")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-    
     //- Partials
     link(rel="stylesheet" href="css/style.min.css")
     script(src="js/partials/cart.js")
@@ -32,25 +25,15 @@ html
         createTopSlider();
         renderCatalogue(cataloguePath);
         setTimeout(initCart, 150);
-        setTimeout(function () {
-                     $('.bl').matchHeight({
-                                          byRow: true
-                                          })
-                   }, 150);
-        smoothScroll();
+        setTimeout(matchCardsHeight, 300);
+        //- smoothScroll();
       });
 
     title «Сундучок игрушек»
   body
     include ./_includes/_incl--flowCart.jade
 
-    //- div.section.group
-      -var i = 0
-      while i < 6
-        div.col.bl
-          |asd
-          =i++
-    //- nav.nav-left.mdl-shadow--4dp
+    nav.nav-left.mdl-shadow--4dp
       ul.nav-left__list
         li.nav-left__list-item: a.nav-left__link(href="/") «Сундучок игрушек»
         hr
@@ -61,7 +44,7 @@ html
       a.nav-left__switcher.mdl-button.mdl-js-button.mdl-js-ripple-effect.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
         i.material-icons close
 
-    //- nav.nav-top.mdl-shadow--2dp
+    nav.nav-top.mdl-shadow--2dp
       ul.nav-top__list.nav-top__list--menu
         li.nav-top__list-item
           a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
@@ -74,7 +57,7 @@ html
           li.nav-top__list-item
             a.nav-top__link(href="##{val.id}") #{val.name}
 
-    //- nav.nav-top.nav-top__hidden-row.mdl-shadow--2dp
+    nav.nav-top.nav-top__hidden-row.mdl-shadow--2dp
       ul.nav-top__list.nav-top__list--menu
         li.nav-top__list-item
           a.nav-top__link.nav-top__link--menu(onclick="switchTopMenu()")
@@ -87,19 +70,12 @@ html
 
     //- Main carousel
     //- flexslider
-    //- div#main-carousel.cd-topslider-wrapper.mdl-shadow--2dp
+    div#main-carousel.cd-topslider-wrapper.mdl-shadow--2dp
       div.cd-topslider
         div(style="background-image: url('img/img (5).jpg');")
         div(style="background-image: url('img/img (6).jpg');")
         div(style="background-image: url('img/img (4).jpg');")
     //- Main carousel
-
-    //- div.mdl-grid
-      include ./_includes/_incl--categories.jade
-      each val in category
-        div(id="#{val.id}").mdl-cell.mdl-cell--12-col
-          h4.title #{val.name}
-        //- Catalogue of toys goes here by JS
     
     div.section.group
       include ./_includes/_incl--categories.jade
@@ -108,6 +84,5 @@ html
           h4.title #{val.name}
         //- Catalogue of toys goes here by JS
 
-    //- div.mdl-layout-spacer
     //- footer
     //- include ./_includes/_incl--footer.jade

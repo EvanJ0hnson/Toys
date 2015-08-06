@@ -1,0 +1,48 @@
+.cd-topslider-wrapper
+  position: relative
+  // z-index: 1
+  margin-top: 0 auto
+  // margin-right: auto
+  // margin-bottom: 0
+  // margin-left: auto
+
+.cd-topslider:after
+  display: table
+  clear: both
+  content: ''
+
+.cd-topslider > div
+  position: absolute
+  height: 85vh
+  opacity: 0
+  background: no-repeat center center / cover
+  
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape)
+  .cd-topslider > div
+    height: 280px
+    
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait)
+  .cd-topslider > div
+    height: 320px
+
+.cd-topslider > div:first-child
+  position: relative
+  opacity: 1
+  
+.flex-control-nav
+  bottom: .1rem
+
+  li
+    margin: 0 .5rem
+
+.flex-control-paging 
+  li 
+    a
+      background: rgba(255, 255, 255, 0.25);
+
+    a:hover 
+      background: rgba(255, 255, 255, 0.5);
+
+    a
+      &.flex-active
+        background: rgba(255, 255, 255, 0.7);

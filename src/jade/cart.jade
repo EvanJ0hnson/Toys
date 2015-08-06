@@ -1,10 +1,7 @@
 doctype html
 html
   head
-    meta(charset="utf-8")
-    meta(name="keywords" content="")
-    meta(name="description" content="")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
+    include ./_includes/_incl--meta.jade
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
@@ -66,12 +63,12 @@ html
           li.nav-top__list-item
             a.nav-top__link.nav-top__hidden-row(href="#{val.id}") #{val.name}
     
-    div.mdl-grid.mdl-grid--information
-      div.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
-      div.mdl-cell.mdl-cell--8-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-card.mdl-shadow--2dp
-        div.mdl-card__title.mdl-card__title--information
-          h2.mdl-card__title-text
+    div.section.group
+      div.col.bl--big.mdl-card.mdl-shadow--2dp
+        div.mdl-card__title
+          h2.mdl-card__title-text.mdl-card__title-text--information
             |Корзина
+
         div#popup_cart.mdl-card__supporting-text
           //- #popup_cart inserts here
         div.mdl-card__actions.mdl-card--border

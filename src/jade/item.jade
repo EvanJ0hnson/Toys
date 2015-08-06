@@ -1,20 +1,17 @@
-doctype basic
+doctype html
 html
   head
-    meta(charset="utf-8")
-    meta(name="keywords" content="")
-    meta(name="description" content="")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
+    include ./_includes/_incl--meta.jade
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
+      //- JQuery.matchHeight
+    script(src="js/vendor/jquery.matchHeight-min.js")
     //- Material Design Lite
     script(src="js/vendor/material.min.js")
-    //- link(rel="stylesheet" href="css/vendor/material.min.css")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-
     //- Partials
     link(rel="stylesheet" href="css/style.min.css")
     script(src="js/partials/cart.js")
@@ -25,7 +22,9 @@ html
         requireItemDescription();
         renderCatalogue(cataloguePath);
         setTimeout(initCart, 150);
-        smoothScroll();
+        //- matchCardsHeight();
+        setTimeout(matchCardsHeight, 3000);
+        //- smoothScroll();
       });
 
     title «Сундучок игрушек»
@@ -67,10 +66,11 @@ html
             li.nav-top__list-item
               a.nav-top__link.nav-top__hidden-row(href="##{val.id}") #{val.name}
     
-    div.mdl-grid.mdl-grid--information
+    div.section.group
+      include ./_includes/_incl--categories.jade
       each val in category
-        div(id="#{val.id}").mdl-cell.mdl-cell--12-col
-          h4 #{val.name}
+        div(id="#{val.id}").col.bl--full
+          h4.title #{val.name}
         //- Catalogue of toys goes here by JS
 
     //- footer

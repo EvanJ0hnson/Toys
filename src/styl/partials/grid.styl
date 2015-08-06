@@ -34,16 +34,18 @@
 
 .bl
   width: 25%
-  color: red
   
 .bl--full
   width: 98%
+  
+.bl--big
+    width: 100%
 
 // 1
 @media only screen and (max-width: 320px)
-  .bl
+  .bl,
+  .bl--big
     width: 96%
-    color: red
   .col
     margin: 0 2% 5% 2%;
 
@@ -51,22 +53,34 @@
 @media only screen and (min-width: 321px) and (max-width: 900px)
   .bl
     width: 47%
-    color: green
 
+  .bl--big
+    width: 96%
+    margin: 7.5% 0 5% 2%;
+    
 // 3
 @media only screen and (min-width: 901px) and (max-width: 1200px)
   .bl
     width: 30.5%
-    color: blue
+    
+  .bl--big
+    width: 60%
+    margin: 7.5% 0 5% 20%;
 
 // 4
 @media only screen and (min-width: 1201px) and (max-width: 1360px)
   .bl
     width: 22.5%
-    color: white
+    
+  .bl--big
+    width: 50%
+    margin: 5% 0 5% 25%;
 
 // 5
 @media only screen and (min-width: 1361px)
   .bl
     width: 17.6%
-    color: black
+    
+  .bl--big
+    width: 40%
+    margin: 5% 0 5% 30%;

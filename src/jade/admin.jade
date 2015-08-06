@@ -1,13 +1,12 @@
 doctype html
 html
   head
-    meta(charset="utf-8")
-    meta(name="keywords" content="")
-    meta(name="description" content="")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
+    include ./_includes/_incl--meta.jade
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
+    //- JQuery.matchHeight
+    script(src="js/vendor/jquery.matchHeight-min.js")
     //- Material Design Lite
     script(src="js/vendor/material.min.js")
     //- link(rel="stylesheet" href="css/vendor/material.min.css")
@@ -21,11 +20,6 @@ html
     script(src="js/partials/scripts.js")
 
     script.
-      function deleteItem (id) {
-        $('#item' + id).remove();
-        console.log('deleted');
-      };
-
       function saveItems () {
         var menuItems = null;
 
@@ -54,7 +48,7 @@ html
           localStorage.setItem('menuItems', JSON.stringify(menuItems));
           $.each(menuItems, function(key, value) {
             $.each(value.items, function(key2, value2) {
-              tmp += '<div id="item' + value2.id + '" class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">';
+              tmp += '<div id="item' + value2.id + '" class="col bl mdl-card mdl-shadow--2dp">';
                 tmp += '<div class="mdl-card__title">';
                   tmp += '<h2 class="mdl-card__title-text">'
                     tmp += value2.title;
@@ -267,6 +261,7 @@ html
       $(function(){
         renderFullCatalogue(cataloguePath);
         setTimeout(dataChange, 150);
+        setTimeout(matchCardsHeight, 300);
       });
 
     title Панель управления
@@ -288,11 +283,29 @@ html
         li.nav-top__list-item
           a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
             i.material-icons menu
+      ul.nav-top__list
+        li.nav-top__list-item
+          a.nav-top__link.nav-top__link--categories(onclick="switchTopMenu()") КАТЕГОРИИ
+        include ./_includes/_incl--categories.jade
+        each val in category
+          li.nav-top__list-item
+            a.nav-top__link(href="##{val.id}") #{val.name}
+
+    nav.nav-top.nav-top__hidden-row.mdl-shadow--2dp
+      ul.nav-top__list.nav-top__list--menu
+        li.nav-top__list-item
+          a.nav-top__link.nav-top__link--menu(onclick="switchTopMenu()")
+            i.material-icons close
+      ul.nav-top__list
+        include ./_includes/_incl--categories.jade
+        each val in category
+          li.nav-top__list-item
+            a.nav-top__link.nav-top__hidden-row(href="##{val.id}") #{val.name}
 
 
-    div.mdl-grid
+    div.section.group
       include ./_includes/_incl--categories.jade
       each val in category
-        div(id="#{val.id}").mdl-cell.mdl-cell--12-col
+        div(id="#{val.id}").col.bl--full
           h4 #{val.name}
         //- Catalogue of toys goes here by JS
