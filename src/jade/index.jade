@@ -2,32 +2,15 @@ doctype html
 html
   head
     include ./_includes/_incl--meta.jade
-    
-    //- JQuery
-    script(src="js/vendor/jquery.min.js")
-    //- JQuery.matchHeight
-    script(src="js/vendor/jquery.matchHeight-min.js")
-    //- Flexslider
-    link(rel="stylesheet" href="css/vendor/flexslider.css")
-    script(src="js/vendor/jquery.flexslider-min.js")
+
+    //-  bxSlider_css
+    link(rel="stylesheet" href="css/vendor/jquery.bxslider.min.css")
     //- Material Design Lite
-    script(src="js/vendor/material.min.js")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-    //- Partials
+    //- Partials_css
     link(rel="stylesheet" href="css/style.min.css")
-    script(src="js/partials/cart.js")
-    script(src="js/partials/scripts.js")
-
-    script.
-      $(function(){
-        createTopSlider();
-        renderCatalogue(cataloguePath);
-        setTimeout(initCart, 150);
-        setTimeout(matchCardsHeight, 300);
-        //- smoothScroll();
-      });
 
     title «Сундучок игрушек»
   body
@@ -41,7 +24,7 @@ html
         each link in links
           li.nav-left__list-item: a.nav-left__link(href="#{link.url}") #{link.name}
       div.nav-left__overlay
-      a.nav-left__switcher.mdl-button.mdl-js-button.mdl-js-ripple-effect.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
+      a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
         i.material-icons close
 
     nav.nav-top.mdl-shadow--2dp
@@ -70,11 +53,16 @@ html
 
     //- Main carousel
     //- flexslider
-    div#main-carousel.cd-topslider-wrapper.mdl-shadow--2dp
+    //- div#main-carousel.cd-topslider-wrapper.mdl-shadow--2dp
       div.cd-topslider
         div(style="background-image: url('img/img (5).jpg');")
         div(style="background-image: url('img/img (6).jpg');")
         div(style="background-image: url('img/img (4).jpg');")
+      //- bxSlider
+    ul.bxslider
+      li: img(src="img/img (5).jpg")
+      li: img(src="img/img (6).jpg")
+      li: img(src="img/img (4).jpg")
     //- Main carousel
     
     div.section.group
@@ -86,3 +74,30 @@ html
 
     //- footer
     //- include ./_includes/_incl--footer.jade
+
+
+
+    //- JQuery
+    script(src="js/vendor/jquery.min.js")
+    //- JQuery.matchHeight
+    script(src="js/vendor/jquery.matchHeight-min.js")
+    //-  bxSlider
+    script(src="js/vendor/jquery.bxslider.min.js")
+    //- Partials
+    script(src="js/partials/cart.js")
+    script(src="js/partials/scripts.js")
+
+    script.
+      $(function(){
+        $('.bxslider').bxSlider({
+                                mode: 'fade',
+                                pager: true,
+                                controls: false,
+                                auto: true,
+                                autoHover: true});
+        //- createTopSlider();
+        renderCatalogue(cataloguePath);
+        setTimeout(initCart, 150);
+        setTimeout(matchCardsHeight, 500);
+        //- smoothScroll();
+      });

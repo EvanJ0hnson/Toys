@@ -96,10 +96,10 @@ function renderItemDescription (desc) {
               tmp += desc.title;
             tmp += '</h1>';
             tmp += '<div class="mdl-card__menu">';
-              tmp += '<span id="btnDelItem' + desc.id + '" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + desc.id + '\', \'' + desc.title + '\', \'' + desc.price1 + '\', \'' + desc.price2 + '\', \'' + desc.price3 + '\')" data-id="ID' + desc.id + '">';
+              tmp += '<span id="btnDelItem' + desc.id + '" class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + desc.id + '\', \'' + desc.title + '\', \'' + desc.price1 + '\', \'' + desc.price2 + '\', \'' + desc.price3 + '\')" data-id="ID' + desc.id + '">';
                 tmp += '<i class="material-icons">add</i>';
               tmp += '</span>';
-              tmp += '<div class="mdl-tooltip" for="btnDelItem' + desc.id + '" data-tooltipID="ID' + desc.id + '">В корзину</div>';
+              // tmp += '<div class="mdl-tooltip" for="btnDelItem' + desc.id + '" data-tooltipID="ID' + desc.id + '">В корзину</div>';
             tmp += '</div>';
           tmp += '</div>';
           tmp += '<div class="mdl-card__title">';
@@ -182,10 +182,10 @@ function renderCatalogue (json) {
               tmp += value2.title;
             tmp += '</h1>';
             tmp += '<div class="mdl-card__menu">';
-              tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '">';
+              tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '">';
                 tmp += '<i class="material-icons">add</i>';
               tmp += '</span>';
-              tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
+              // tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
             tmp += '</div>';
           tmp += '</div>';
           tmp += '<div class="mdl-card__title">';
@@ -215,7 +215,7 @@ function renderCatalogue (json) {
             tmp += '</table>';
           tmp += '</div>';
           tmp += '<div class="mdl-card__actions mdl-card--border">';
-            tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '">';
+            tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button" data-infoID="' + value2.id + '">';
               tmp += 'Подробнее';
             tmp += '</a>';
           tmp += '</div>';

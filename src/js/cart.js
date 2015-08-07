@@ -24,7 +24,7 @@ function WICard(obj) {
       for (idkey in this.DATA) {
         if (this.DATA.hasOwnProperty(idkey)) {
           $('[data-id=' + idkey + ']').attr('disabled', true);
-          $('[data-tooltipID=' + idkey + ']').html('Добавлено');
+          // $('[data-tooltipID=' + idkey + ']').html('Добавлено');
           // sum += parseFloat(parseInt(this.DATA[idkey].num, 10) * parseFloat(this.DATA[idkey].price, 10));
         }
       }
@@ -40,7 +40,7 @@ function WICard(obj) {
 
     // var curBtn = $('[data-id='+id+']');
     $('[data-id=' + id + ']').attr('disabled', true);
-    $('[data-tooltipID=' + id + ']').html('Добавлено');
+    // $('[data-tooltipID=' + id + ']').html('Добавлено');
 
     var goodieLine = {
       'id': id,
@@ -228,13 +228,13 @@ function WICard(obj) {
           tBody += '<td>' + price + '</td>';
           tBody += '<td>';
             tBody += '<button id="btnDelItem' + this.DATA[idkey].id + '" \
-                      class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" \
+                      class="mdl-button mdl-button--icon mdl-button--colored" \
                       onclick="' + this.objNAME + '.delItem(\'' + this.DATA[idkey].id + '\')">';
               tBody += '<i class="icon material-icons">delete</i>';
             tBody += '</button>';
-            tBody += '<div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id + '">';
-              tBody += 'Удалить';
-            tBody += '</div>';
+            // tBody += '<div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id + '">';
+              // tBody += 'Удалить';
+            // tBody += '</div>';
           tBody += '</td>';
         tBody += '</tr>';
       }

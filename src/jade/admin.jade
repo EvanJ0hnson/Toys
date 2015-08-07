@@ -8,8 +8,6 @@ html
     //- JQuery.matchHeight
     script(src="js/vendor/jquery.matchHeight-min.js")
     //- Material Design Lite
-    script(src="js/vendor/material.min.js")
-    //- link(rel="stylesheet" href="css/vendor/material.min.css")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
@@ -267,7 +265,7 @@ html
     title Панель управления
   body
 
-    a.cart.mdl-button.mdl-js-button.mdl-js-ripple-effect.mdl-button--fab.mdl-button--colored(onclick="saveItems();")
+    a.cart.mdl-button.mdl-button--fab.mdl-button--colored(onclick="saveItems();")
       div.material-icons save
 
     nav.nav-left.mdl-shadow--4dp
@@ -275,7 +273,7 @@ html
         li.nav-left__list-item: a.nav-left__link(href="#" onclick="renderFullCatalogue(cataloguePath);") Все товары
         li.nav-left__list-item: a.nav-left__link(href="#" onclick="renderReservedCatalogue(cataloguePath);") Забронированные
       div.nav-left__overlay
-      a.nav-left__switcher.mdl-button.mdl-js-button.mdl-js-ripple-effect.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
+      a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
         i.material-icons close
 
     nav.nav-top.mdl-shadow--2dp

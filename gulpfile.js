@@ -107,41 +107,35 @@ gulp.task('build__php', function() {
 gulp.task('copy:vendor__js', function () {
   var lib = {
     jquery: './bower_components/jquery/dist/jquery.min.js',
-    material: './bower_components/material-design-lite/material.min.js',
+    mdl: './bower_components/material-design-lite/material.min.js',
     bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
     owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js',
     flexslider: './bower_components/flexslider/jquery.flexslider-min.js',
-    matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js'
+    matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js',
+    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js'
     };
   gulp.src([lib.jquery,
-           lib.material,
-           lib.bootstrap,
-           lib.owlcarousel,,
-           lib.flexslider,
-           lib.matchHeight])
+           lib.matchHeight,
+           lib.bxSlider])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
 });
 
 gulp.task('copy:vendor__css', function () {
   var lib = {
-    material: './bower_components/material-design-lite/material.min.css',
+    mdl: './bower_components/material-design-lite/material.min.css',
     bootstrap_core: './bower_components/bootstrap/dist/css/bootstrap.min.css',
     bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
     owlcarousel_core: './bower_components/OwlCarousel2/dist/assets/owl.carousel.min.css',
     owlcarousel_theme: './bower_components/OwlCarousel2/dist/assets/owl.theme.default.min.css',
     owlcarousel_ajaxLoader: './bower_components/OwlCarousel2/dist/assets/ajax-loader.gif',
     flexslider: './bower_components/flexslider/flexslider.css',
-    resetcss: './bower_components/reset-css/reset.css'
+    resetcss: './bower_components/reset-css/reset.css',
+    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.css',
+    bxSlider_ajaxLoader: './bower_components/dw-bxslider-4/dist/images/bx_loader.gif'
     };
-  gulp.src([lib.material, 
-           lib.bootstrap_core, 
-           lib.bootstrap_theme, 
-           lib.owlcarousel_core, 
-           lib.owlcarousel_theme, 
-           lib.owlcarousel_ajaxLoader,
-           lib.flexslider,
-           lib.resetcss])
+  gulp.src([lib.bxSlider,
+           lib.bxSlider_ajaxLoader])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'css/vendor'));
 });
@@ -194,24 +188,24 @@ gulp.task('clean', function () {
       php: config.buildRoot + 'php/*.*'
     };
   $.del([path.root,
-        path.css,
         path.css_fonts,
         path.css_vendor,
         path.css_partials,
-        path.js,
+        path.css,
         path.js_vendor,
         path.js_partials,
+        path.js,
         path.json,
         path.fonts,
-        path.images,
         path.images_catalogue,
+        path.images,
         path.php]);
 });
 
 gulp.task('build', function () {
   $.runSequence('clean', ['copy:vendor__js',
                           'copy:vendor__css',
-                          'copy:vendor__fonts',
+                          // 'copy:vendor__fonts',
                           'build__jade',
                           'stylus',
                           'images',
