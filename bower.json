@@ -21,7 +21,11 @@
   "dependencies": {
     "jquery": "1.11",
     "material-design-lite": "~1.0.0",
-    "OwlCarousel2": "~2.0.0-beta.3"
+    "OwlCarousel2": "~2.0.0-beta.3",
+    "flexslider": "~2.5.0",
+    "reset-css": "~2.0.2011012602",
+    "matchHeight": "~0.6.0",
+    "dw-bxslider-4": "~4.2.5"
   },
   "devDependencies": {
     "bootstrap": "~3.3.5"

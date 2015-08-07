@@ -1,167 +1,77 @@
-doctype basic
+doctype html
 html
   head
-    meta(charset="utf-8")
-    meta(name="keywords" content="")
-    meta(name="description" content="")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
+    include ./_includes/_incl--meta.jade
     
     //- JQuery
     script(src="js/vendor/jquery.min.js")
-    //- Bootstrap
-    link(rel="stylesheet" href="css/vendor/bootstrap.min.css")
-    //- link(rel="stylesheet" href="css/vendor/bootstrap-theme.min.css")
-    script(src="js/vendor/bootstrap.min.js")
+      //- JQuery.matchHeight
+    script(src="js/vendor/jquery.matchHeight-min.js")
     //- Material Design Lite
-    script(src="js/vendor/material.min.js")
-    link(rel="stylesheet" href="css/vendor/material.min.css")
+    //- script(src="js/vendor/material.min.js")
     link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
     link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-
     //- Partials
     link(rel="stylesheet" href="css/style.min.css")
     script(src="js/partials/cart.js")
+    script(src="js/partials/scripts.js")
 
     script.
-      function smoothScroll() {
-        $('a[href^="#"], a[href^="."]').click(function () {
-        // если в href начинается с # или ., то ловим клик
-          var scroll_el = $(this).attr('href');
-          // возьмем содержимое атрибута href
-          //- if ($(scroll_el).length !== 0) {
-          // проверим существование элемента чтобы избежать ошибки
-            $('.mdl-layout__content').animate({ scrollTop: $(scroll_el).offset().top }, 150); // анимируем скроолинг к элементу scroll_el
-          //- }
-          return false; // выключаем стандартное действие
-        });
-      }
-
-      function renderCatalogue () {
-        $.getJSON( 'json/items.json', function(menuItems) {
-          var tmp = '';
-          $.each(menuItems, function(key, value) {
-            $.each(value.items, function(key2, value2) {
-              tmp += '<div class="mdl-cell mdl-cell--4-col">';
-                tmp += '<div class="mdl-card mdl-shadow--2dp">';
-                  tmp += '<div class="mdl-card__title toys-card" style="background: url(img/catalogue/' + value2.id + '.jpg) center center / cover no-repeat;">';
-                    tmp += '<h2 class="mdl-card__title-text">'
-                      tmp += value2.title;
-                    tmp += '</h2>';
-                  tmp += '</div>';
-                  tmp += '<div class="mdl-card__supporting-text">';
-                    tmp += value2.age;
-                    tmp += '<br>';
-                    tmp += 'Можно заказать: ' + value2.date;
-                  tmp += '</div>';
-                  tmp += '<div class="mdl-card__actions mdl-card--border">';
-                    tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-infoID="' + value2.id + '" onclick="requireItemDescription(\'' + value2.id + '\');">';
-                      tmp += 'Подробнее';
-                    tmp += '</a>';
-                  tmp += '</div>';
-                tmp += '<div class="mdl-card__menu">';
-                  tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\')" data-id="ID' + value2.id + '">';
-                    tmp += '<i class="material-icons">add</i>';
-                  tmp += '</span>';
-                  tmp += '<div class="mdl-tooltip" for="btnDelItem' + value2.id + '" data-tooltipID="ID' + value2.id + '">В корзину</div>';
-                tmp += '</div>';
-                tmp += '</div>';
-              tmp += '</div>';
-            });
-            $('#' + value.type).after(tmp);
-            tmp = '';
-          });
-        });
-      };
-
-      var cart;
-      function initCart () {
-        cart = new WICard("cart");
-        cart.init("cart-widjet");
-      };
-
-      function renderItemDescription (desc) {
-        //- $('#main-carousel').remove();
-        //- if ($("div").is("#item")) {
-          //- $('#item').remove();
-          //- }
-
-        var tmp = null;
-        tmp = '<div id="item" class="mdl-grid">';
-          tmp += '<div class="mdl-cell mdl-cell--2-col">';
-          tmp += '</div>';
-          tmp += '<div class="mdl-cell mdl-cell--8-col">';
-            tmp += '<div class="mdl-card mdl-shadow--2dp">';
-              tmp += '<div class="mdl-card__title">';
-                tmp += '<h2 class="mdl-card__title-text">'
-                  tmp += desc.title;
-                tmp += '</h2>';
-              tmp += '</div>';
-              tmp += '<div class="mdl-card__supporting-text">';
-                tmp += desc.age;
-                tmp += '<br>';
-                tmp += '<br>';
-                tmp += 'Можно заказать: ' + desc.date;
-                tmp += '<br>';
-                tmp += '<br>';
-                tmp += desc.description;
-              tmp += '</div>';
-              tmp += '<div class="mdl-card__actions mdl-card--border">';
-                tmp += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + desc.id + '\', \'' + desc.title + '\', \'' + desc.price1 + '\')" data-id="ID' + desc.id + '">';
-                  tmp += 'Добавить в корзину';
-                tmp += '</button>';
-              tmp += '</div>';
-            tmp += '</div>';
-          tmp += '</div>';
-        tmp += '</div>';
-        
-        $('#item-description').append(tmp);
-        
-        //- $('.mdl-layout__content').animate({ scrollTop: 0 }, 300);
-      };
-
-      function requireItemDescription () {
-        var scriptPath = 'scripts/itemsRouter.php';
-        var params = location.search.substring(1).split('=');
-        $.post(scriptPath, {itemId: params[1]}, function(serverResponse) {
-              renderItemDescription(serverResponse);
-          } ,"json");
-      };
-
       $(function(){
         requireItemDescription();
-        renderCatalogue();
+        renderCatalogue(cataloguePath);
         setTimeout(initCart, 150);
+        //- matchCardsHeight();
+        setTimeout(matchCardsHeight, 3000);
         //- smoothScroll();
       });
 
     title «Сундучок игрушек»
   body
     include ./_includes/_incl--flowCart.jade
-
-    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--overlay-drawer-button
-
-      div.mdl-layout__drawer
-        nav.mdl-navigation 
-          a.mdl-navigation__link(href="/") «Сундучок игрушек»
-        hr
-        nav.mdl-navigation 
-          include ./_includes/_incl--menu.jade
-          each link in links
-            a.mdl-navigation__link(href="#{link.url}") #{link.name}
-        hr
-        nav.mdl-navigation
-          include ./_includes/_incl--categories.jade
-          each item in category
-            a.mdl-navigation__link(href="##{item.id}") #{item.name}
     
-      div.mdl-layout__content
-        div.mdl-grid
-          div#item-description.mdl-cell.mdl-cell--12-col
-          each val in category
-            div(id="#{val.id}").mdl-cell.mdl-cell--12-col
-              h1 #{val.name}
-            //- Catalogue of toys goes here by JS
+    nav.nav-left.mdl-shadow--4dp
+      ul.nav-left__list
+        li.nav-left__list-item: a.nav-left__link(href="/") «Сундучок игрушек»
+        hr
+        include ./_includes/_incl--menu.jade
+        each link in links
+          li.nav-left__list-item: a.nav-left__link(href="#{link.url}") #{link.name}
+      div.nav-left__overlay
+      a.nav-left__switcher.mdl-button.mdl-js-button.mdl-js-ripple-effect.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
+        i.material-icons close
 
-        //- footer
-        //- include ./_includes/_incl--footer.jade
+    nav.nav-top.mdl-shadow--2dp
+      ul.nav-top__list.nav-top__list--menu
+        li.nav-top__list-item
+          a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
+            i.material-icons menu
+      ul.nav-top__list
+        li.nav-top__list-item
+          a.nav-top__link.nav-top__link--categories(onclick="switchTopMenu()") КАТЕГОРИИ
+        include ./_includes/_incl--categories.jade
+        each val in category
+          li.nav-top__list-item
+            a.nav-top__link(href="##{val.id}") #{val.name}
+
+      nav.nav-top.nav-top__hidden-row.mdl-shadow--2dp
+        ul.nav-top__list.nav-top__list--menu
+          li.nav-top__list-item
+            a.nav-top__link.nav-top__link--menu(onclick="switchTopMenu()")
+              i.material-icons close
+        ul.nav-top__list
+          include ./_includes/_incl--categories.jade
+          each val in category
+            li.nav-top__list-item
+              a.nav-top__link.nav-top__hidden-row(href="##{val.id}") #{val.name}
+    
+    div.section.group
+      include ./_includes/_incl--categories.jade
+      each val in category
+        div(id="#{val.id}").col.bl--full
+          h4.title #{val.name}
+        //- Catalogue of toys goes here by JS
+
+    //- footer
+    //- include ./_includes/_incl--footer.jade

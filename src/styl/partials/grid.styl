@@ -1,0 +1,91 @@
+
+/*  SECTIONS  ============================================================================= */
+
+.section {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*  GROUPING  ============================================================================= */
+
+
+.group:before,
+.group:after {
+    content:"";
+    display:table;
+}
+.group:after {
+    clear:both;
+}
+.group {
+    zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+/*  GRID COLUMN SETUP   ==================================================================== */
+
+.col {
+  display: block;
+  float:left;
+  margin: 0 0 2% 2%;
+}
+
+// top right bottom left
+
+.bl
+  width: 25%
+  
+.bl--full
+  width: 98%
+  
+.bl--big
+  width: 100%
+  // transition: all .5s ease
+
+// 1
+@media only screen and (max-width: 320px)
+  .bl
+    width: 96%
+
+
+  .col
+    margin: 0 2% 5% 2%
+
+  .bl--big
+    width: 96%
+    margin: 5rem 2%
+
+// 2
+@media only screen and (min-width: 321px) and (max-width: 900px)
+  .bl
+    width: 47%
+
+  .bl--big
+    width: 96%
+    margin: 5rem 2%;
+// 3
+@media only screen and (min-width: 901px) and (max-width: 1200px)
+  .bl
+    width: 30.5%
+    
+  .bl--big
+    width: 65%
+    margin: 5rem 17.5%;
+
+// 4
+@media only screen and (min-width: 1201px) and (max-width: 1360px)
+  .bl
+    width: 22.5%
+    
+  .bl--big
+    width: 47%
+    margin: 5rem 26.5%;
+
+// 5
+@media only screen and (min-width: 1361px)
+  .bl
+    width: 17.6%
+    
+  .bl--big
+    width: 56.8%
+    margin: 5rem 21.6%;

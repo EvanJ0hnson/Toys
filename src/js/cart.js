@@ -24,14 +24,14 @@ function WICard(obj) {
       for (idkey in this.DATA) {
         if (this.DATA.hasOwnProperty(idkey)) {
           $('[data-id=' + idkey + ']').attr('disabled', true);
-          $('[data-tooltipID=' + idkey + ']').html('Добавлено');
+          // $('[data-tooltipID=' + idkey + ']').html('Добавлено');
           // sum += parseFloat(parseInt(this.DATA[idkey].num, 10) * parseFloat(this.DATA[idkey].price, 10));
         }
       }
     }
   };
 
-  this.addToCart = function (id, name, price) {
+  this.addToCart = function (id, name, price1, price2, price3) {
     id = ($.isNumeric(id)) ? 'ID' + id.toString() : id;
 
     // Нужно убрать проверку  === true и передавать '' вместо false
@@ -40,13 +40,16 @@ function WICard(obj) {
 
     // var curBtn = $('[data-id='+id+']');
     $('[data-id=' + id + ']').attr('disabled', true);
-    $('[data-tooltipID=' + id + ']').html('Добавлено');
+    // $('[data-tooltipID=' + id + ']').html('Добавлено');
 
     var goodieLine = {
       'id': id,
       'name': name,
-      'price': price,
-      'num': 1
+      'price': price1,
+      'price2': price2,
+      'price3': price3,
+      'num': 1,
+      'rent': '1 неделя'
     };
     if ($.isEmptyObject(this.DATA)) {
       this.DATA[id] = goodieLine;
@@ -75,6 +78,29 @@ function WICard(obj) {
     // if (render === true) {
     //   this.renderBasketTable();
     // }
+  };
+
+  this.rentDuration = function (id) {
+    id = ($.isNumeric(id)) ? 'ID' + id.toString() : id;
+
+    var rent = $('#cart-rentDuration' + id + ' option:selected').text();
+
+    // $('[data-id=' + id + ']').attr('disabled', true);
+    // $('[data-tooltipID=' + id + ']').html('Добавлено');
+
+    var idKey = null;
+    for (idKey in this.DATA) {
+      if (this.DATA.hasOwnProperty(idKey)) {
+        if (idKey === id) {
+          this.DATA[idKey].rent = rent;
+        }
+      }
+    }
+
+    localStorage.setItem(this.widjetID, JSON.stringify(this.DATA));
+    localStorage.setItem(this.widjetID + '_ids', JSON.stringify(this.IDS));
+
+    this.renderBasketTable();
   };
 
   this.delItem = function (id) {
@@ -140,16 +166,21 @@ function WICard(obj) {
       counter = 0,
       idkey = null,
       tBody = null,
-      tmpStr = null;
+      tmpStr = null,
+      price = 0,
+      selected1 = 'selected',
+      selected2 = '',
+      selected3 = '';
 
     $('#popup_cart').html('');
 
-    tmpStr = '<table class="cart-table mdl-data-table mdl-js-data-table">';
-      tmpStr += '<thead>';
+    tmpStr = '<table class="cart-table">';
+      tmpStr += '<thead class="cart-table cart-table__header">';
         tmpStr += '<tr>';
           tmpStr += '<th>№</th>';
-          tmpStr += '<th class="mdl-data-table__cell--non-numeric">Название</th>';
-          tmpStr += '<th >Цена</th>';
+          tmpStr += '<th>Название</th>';
+          tmpStr += '<th>Срок аренды</th>';
+          tmpStr += '<th>Цена</th>';
           tmpStr += '<th></th>';
         tmpStr += '</tr>';
       tmpStr += '</thead>';
@@ -165,21 +196,45 @@ function WICard(obj) {
 
     for (idkey in this.DATA) {
       if (this.DATA.hasOwnProperty(idkey)) {
-        sum += parseFloat(this.DATA[idkey].price * this.DATA[idkey].num);
+        selected1 = selected2 = selected3 = price = '';
+        switch (this.DATA[idkey].rent) {
+           case '1 неделя':
+              price = this.DATA[idkey].price;
+              selected1 = 'selected';
+              break
+           case '2 недели':
+              price = this.DATA[idkey].price2;
+              selected2 = 'selected';
+              break
+           case 'Месяц':
+              price = this.DATA[idkey].price3;
+              selected3 = 'selected';
+              break
+           default:
+              break
+        };
+        sum += parseFloat(price * this.DATA[idkey].num);
         counter++;
         tBody += '<tr>';
           tBody += '<td> ' + counter + '</td>';
-          tBody += '<td class="mdl-data-table__cell--non-numeric">' + this.DATA[idkey].name + '</td>';
-          tBody += '<td>' + this.DATA[idkey].price + '</td>';
+          tBody += '<td>' + this.DATA[idkey].name + '</td>';
+          tBody += '<td>';
+            tBody += '<select id="cart-rentDuration' + this.DATA[idkey].id + '" onchange="' + this.objNAME + '.rentDuration(\'' + this.DATA[idkey].id + '\')">';
+              tBody += '<option '+ selected1 + ' value="1">1 неделя</option>';
+              tBody += '<option '+ selected2 + ' value="2">2 недели</option>';
+              tBody += '<option '+ selected3 + ' value="3">Месяц</option>';
+            tBody += '</select>';
+          tBody += '</td>';
+          tBody += '<td>' + price + '</td>';
           tBody += '<td>';
             tBody += '<button id="btnDelItem' + this.DATA[idkey].id + '" \
-                      class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" \
+                      class="mdl-button mdl-button--icon mdl-button--colored" \
                       onclick="' + this.objNAME + '.delItem(\'' + this.DATA[idkey].id + '\')">';
               tBody += '<i class="icon material-icons">delete</i>';
             tBody += '</button>';
-            tBody += '<div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id + '">';
-              tBody += 'Удалить';
-            tBody += '</div>';
+            // tBody += '<div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id + '">';
+              // tBody += 'Удалить';
+            // tBody += '</div>';
           tBody += '</td>';
         tBody += '</tr>';
       }
@@ -187,20 +242,36 @@ function WICard(obj) {
     tBody += '<tr><td id="cart-sum" colspan=3>Общая сумма: ' + sum + '</td><td></td></tr>';
 
     $('#cart-table--body').append(tBody);
+
+    // $('#cart-rentDuration option[value=' + + ']').attr('selected','selected');
   };
 
   this.getItems = function () {
-    var items = "",
+    var items = '',
       sum = 0,
       counter = 0,
       idkey = null,
-      productLine = null;
+      productLine = null,
+      price = 0;
 
     for (idkey in this.DATA) {
       if (this.DATA.hasOwnProperty(idkey)) {
-        sum += parseFloat(this.DATA[idkey].price * this.DATA[idkey].num);
+        switch (this.DATA[idkey].rent) {
+           case '1 неделя':
+              price = this.DATA[idkey].price;
+              break
+           case '2 недели':
+              price = this.DATA[idkey].price2;
+              break
+           case 'Месяц':
+              price = this.DATA[idkey].price3;
+              break
+           default:
+              break
+        };
+        sum += parseFloat(price * this.DATA[idkey].num);
         counter++;
-        productLine = '№' + counter + ' «' + this.DATA[idkey].name + '» ' + this.DATA[idkey].price + '\n';
+        productLine = '№' + counter + ' «' + this.DATA[idkey].name + '» ' + this.DATA[idkey].rent + ' ' + price + '\n';
         items += productLine;
       }
     }

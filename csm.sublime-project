@@ -3,7 +3,7 @@
 	[
 		{
       "name": "root",
-      "folder_exclude_patterns": ["node_modules", "bower_components", "www", "src"],
+      "folder_exclude_patterns": ["node_modules", "www", "src"],
       "file_exclude_patterns": ["*.sublime-project"],
 			"path": "."
 		},{

@@ -11,6 +11,7 @@
     }
 
     echo json_encode(array("id"=>$item->{'id'},
+                          "photo"=>$item->{'photo'},
                           "title"=>$item->{'title'},
                           "age"=>$item->{'age'},
                           "description"=>$item->{'description'},

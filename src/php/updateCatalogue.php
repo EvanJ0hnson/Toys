@@ -20,7 +20,10 @@
 
   $fp = fopen($catalogue_filePath, 'w');
   flock ($fp, LOCK_EX);
-  fwrite($fp, json_encode($newItems));
+  // For php >5.4.0
+  fwrite($fp, json_encode($newItems, JSON_UNESCAPED_UNICODE));
+  // For Denwer
+  // fwrite($fp, json_encode($newItems,)); 
   flock($fp, LOCK_UN);
   fclose($fp);
   echo 'Выполнено';
