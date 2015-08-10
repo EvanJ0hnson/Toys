@@ -21,10 +21,6 @@ html
       $(function(){
         requireItemDescription();
         renderCatalogue(cataloguePath);
-        setTimeout(initCart, 150);
-        //- matchCardsHeight();
-        setTimeout(matchCardsHeight, 3000);
-        //- smoothScroll();
       });
 
     title «Сундучок игрушек»
@@ -67,11 +63,7 @@ html
               a.nav-top__link.nav-top__hidden-row(href="##{val.id}") #{val.name}
     
     div.section.group
-      include ./_includes/_incl--categories.jade
-      each val in category
-        div(id="#{val.id}").col.bl--full
-          h4.title #{val.name}
-        //- Catalogue of toys goes here by JS
+      //- Catalogue of toys goes here by JS
 
     //- footer
     //- include ./_includes/_incl--footer.jade

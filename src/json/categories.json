@@ -1,0 +1,17 @@
+[{
+  "title": "Для самых маленьких",
+  "type": "cat__babies"
+  },{
+  "title": "Познаю мир",
+  "type": "cat__world"
+  },{
+  "title": "Спорт и Активность",
+  "type": "cat__sport"
+  },{
+  "title": "Сюжетно-ролевые игры",
+  "type": "cat__role"
+  },{
+  "title": "Новинки",
+  "type": "cat__new"
+  }
+]
