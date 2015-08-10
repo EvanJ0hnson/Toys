@@ -111,6 +111,9 @@ function renderItemDescription (desc) {
             tmp += '<img class="mdl-card__title-image" src="img/catalogue/' + desc.photo + '">'
           tmp += '</div>';
           tmp += '<div class="mdl-card__supporting-text">';
+            tmp += 'Фирма: <br>' + desc.brand;
+            tmp += '<br>';
+            tmp += '<br>';
             tmp += 'Рекомендуемый возраст: <br>' + desc.age;
             tmp += '<br>';
             tmp += '<br>';
@@ -222,9 +225,9 @@ function renderCatalogue (json) {
         tmp += '</div>';
 
         // $('#cat__main').after(tmp);
-        if (isNew == 'Да') {
-          $('#cat__new').after(tmp);
-          }
+        // if (isNew == 'Да') {
+        //   $('#cat__new').after(tmp);
+        //   }
         $('#' + value.type).after(tmp);
         tmp = '';
       });
