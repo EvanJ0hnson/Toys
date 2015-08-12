@@ -13,6 +13,7 @@
     echo json_encode(array("id"=>$item->{'id'},
                           "photo"=>$item->{'photo'},
                           "title"=>$item->{'title'},
+                          "brand"=>$item->{'brand'},
                           "age"=>$item->{'age'},
                           "description"=>$item->{'description'},
                           "price1"=>$item->{'price1'},

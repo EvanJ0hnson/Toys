@@ -177,7 +177,7 @@ function WICard(obj) {
     tmpStr = '<table class="cart-table">';
       tmpStr += '<thead class="cart-table cart-table__header">';
         tmpStr += '<tr>';
-          tmpStr += '<th>№</th>';
+          // tmpStr += '<th>№</th>';
           tmpStr += '<th>Название</th>';
           tmpStr += '<th>Срок аренды</th>';
           tmpStr += '<th>Цена</th>';
@@ -216,7 +216,7 @@ function WICard(obj) {
         sum += parseFloat(price * this.DATA[idkey].num);
         counter++;
         tBody += '<tr>';
-          tBody += '<td> ' + counter + '</td>';
+          // tBody += '<td> ' + counter + '</td>';
           tBody += '<td>' + this.DATA[idkey].name + '</td>';
           tBody += '<td>';
             tBody += '<select id="cart-rentDuration' + this.DATA[idkey].id + '" onchange="' + this.objNAME + '.rentDuration(\'' + this.DATA[idkey].id + '\')">';
@@ -232,18 +232,13 @@ function WICard(obj) {
                       onclick="' + this.objNAME + '.delItem(\'' + this.DATA[idkey].id + '\')">';
               tBody += '<i class="icon material-icons">delete</i>';
             tBody += '</button>';
-            // tBody += '<div class="mdl-tooltip" for="btnDelItem' + this.DATA[idkey].id + '">';
-              // tBody += 'Удалить';
-            // tBody += '</div>';
           tBody += '</td>';
         tBody += '</tr>';
       }
     }
-    tBody += '<tr><td id="cart-sum" colspan=3>Общая сумма: ' + sum + '</td><td></td></tr>';
+    tBody += '<tr><td id="cart-sum" class="cart-table__total" colspan="4">Общая сумма: ' + sum + '</td></tr>';
 
     $('#cart-table--body').append(tBody);
-
-    // $('#cart-rentDuration option[value=' + + ']').attr('selected','selected');
   };
 
   this.getItems = function () {

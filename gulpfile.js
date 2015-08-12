@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({
       pattern: ['*']
@@ -7,105 +9,8 @@ var bs = $.browserSync.create();
 var config = {
   buildRoot: './www/',
   srcRoot: './src/',
-  proxyAdress: 'toys.loc.ru'
-}
-
-gulp.task('sync', function() {
-  bs.init({
-    proxy: config.proxyAdress,
-    notify: false
-  });
-});
-
-gulp.task('stylus', function() {
-  gulp.src(config.srcRoot + 'styl/style.styl')
-    .pipe($.plumber())
-    .pipe($.stylus({
-      compress: true
-    }))
-    .pipe($.autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    // .pipe(csscomb())
-    .pipe($.rename('style.min.css'))
-    .pipe(gulp.dest(config.buildRoot + 'css'));
-});
-
-gulp.task('stylus-watch', ['stylus'], function () {
-  bs.reload();
-});
-
-gulp.task('jade', function() {
-  gulp.src(config.srcRoot + 'jade/*.jade')
-    .pipe($.plumber())
-    .pipe($.jade({
-      pretty: true
-    }))
-    // .pipe($.htmlmin({
-    //   collapseWhitespace: true,
-    //   removeComments: true,
-    //   minifyJS: true,
-    //   minifyCSS: true
-    // }))
-    .pipe(gulp.dest(config.buildRoot))
-    .on('end', bs.reload);
-});
-
-gulp.task('build__jade', function() {
-  gulp.src(config.srcRoot + 'jade/*.jade')
-    .pipe($.plumber())
-    .pipe($.jade({
-      pretty: true
-    }))
-    // .pipe($.htmlmin({
-    //   collapseWhitespace: true,
-    //   removeComments: true,
-    //   minifyJS: true,
-    //   minifyCSS: true
-    // }))
-    .pipe(gulp.dest(config.buildRoot))
-});
-
-// gulp.task('jade-watch', ['jade'], function() {
-//   bs.reload();
-// });
-
-gulp.task('js', function() {
-  gulp.src(config.srcRoot + 'js/*.js')
-    .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'js/partials'));
-});
-
-gulp.task('js-watch', function() {
-  $.runSequence('js', bs.reload);
-});
-
-gulp.task('json', function() {
-  gulp.src(config.srcRoot + 'json/*.json')
-    .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'json'));
-});
-
-gulp.task('json-watch', function() {
-  $.runSequence('json', bs.reload);
-});
-
-gulp.task('php', function() {
-    gulp.src(config.srcRoot + 'php/*.php')
-    .pipe($.newer('./www'))
-    .pipe(gulp.dest(config.buildRoot + 'scripts'))
-    .on('end', bs.reload);
-});
-
-gulp.task('build__php', function() {
-    gulp.src(config.srcRoot + 'php/*.php')
-    .pipe($.newer('./www'))
-    .pipe(gulp.dest(config.buildRoot + 'scripts'));
-});
-
-gulp.task('copy:vendor__js', function () {
-  var lib = {
+  proxyAdress: 'toys.loc.ru',
+  libVendorJS: {
     jquery: './bower_components/jquery/dist/jquery.min.js',
     mdl: './bower_components/material-design-lite/material.min.js',
     bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
@@ -113,16 +18,8 @@ gulp.task('copy:vendor__js', function () {
     flexslider: './bower_components/flexslider/jquery.flexslider-min.js',
     matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js',
     bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js'
-    };
-  gulp.src([lib.jquery,
-           lib.matchHeight,
-           lib.bxSlider])
-    .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
-});
-
-gulp.task('copy:vendor__css', function () {
-  var lib = {
+    },
+  libVendorCSS: {
     mdl: './bower_components/material-design-lite/material.min.css',
     bootstrap_core: './bower_components/bootstrap/dist/css/bootstrap.min.css',
     bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
@@ -133,25 +30,74 @@ gulp.task('copy:vendor__css', function () {
     resetcss: './bower_components/reset-css/reset.css',
     bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.css',
     bxSlider_ajaxLoader: './bower_components/dw-bxslider-4/dist/images/bx_loader.gif'
-    };
-  gulp.src([lib.bxSlider,
-           lib.bxSlider_ajaxLoader])
-    .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'css/vendor'));
+  }
+}
+
+gulp.task('sync', function(cb) {
+  bs.init({
+    proxy: config.proxyAdress,
+    open: false,
+    notify: false,
+    ghostMode: false
+  }, cb);
 });
 
-gulp.task('copy:vendor__fonts', function () {
-  var lib = {
-    bootstrap: './bower_components/bootstrap/dist/fonts/*.*'
-    };
-  gulp.src(lib.bootstrap)
+gulp.task('stylus', function() {
+  return gulp.src(config.srcRoot + 'styl/style.styl')
     .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'css/fonts'));
+    .pipe($.stylus({
+      compress: true
+    }))
+    .pipe($.autoprefixer({
+      browsers: ['> 1%', 'last 2 versions'],
+      cascade: false
+    }))
+    // .pipe(csscomb())
+    .pipe($.rename('style.min.css'))
+    .pipe(gulp.dest(config.buildRoot + 'css'));
+});
+
+gulp.task('jade', function() {
+  // bs.notify("Compiling JADE, please wait!");
+  return gulp.src(config.srcRoot + 'jade/*.jade')
+    .pipe($.plumber())
+    .pipe($.jade({
+      pretty: false
+    }))
+    .pipe($.htmlmin({
+      collapseWhitespace: true,
+      removeComments: true,
+      minifyJS: true,
+      minifyCSS: true
+    }))
+    .pipe(gulp.dest(config.buildRoot));
+});
+
+gulp.task('js', function() {
+  return gulp.src([config.libVendorJS.jquery,
+                   config.libVendorJS.matchHeight,
+                   config.libVendorJS.bxSlider,
+                   config.srcRoot + 'js/*.js'])
+    .pipe($.plumber())
+    .pipe($.concat('scripts.min.js'))
+    .pipe(gulp.dest(config.buildRoot + 'js/'));
+});
+
+gulp.task('json', function() {
+  return gulp.src(config.srcRoot + 'json/[^!]*.json')
+    .pipe($.plumber())
+    .pipe(gulp.dest(config.buildRoot + 'json'));
+});
+
+gulp.task('php', function() {
+  return gulp.src(config.srcRoot + 'php/*.php')
+    .pipe($.newer('./www'))
+    .pipe(gulp.dest(config.buildRoot + 'scripts'));
 });
 
 gulp.task('images', function() {
-  gulp.src(config.srcRoot + 'img/**/*.*')
-    .pipe($.newer('www/img'))
+  return gulp.src([config.srcRoot + 'img/[^!]**/*',
+           config.srcRoot + 'img/*.*'])
     .pipe($.imagemin({
       progressive: true,
       svgoPlugins: [{
@@ -161,57 +107,79 @@ gulp.task('images', function() {
     .pipe(gulp.dest(config.buildRoot + 'img'));
 });
 
+gulp.task('copy:vendor__js', function () {
+  return gulp.src([config.libVendorJS.jquery,
+           config.libVendorJS.matchHeight,
+           config.libVendorJS.bxSlider])
+    .pipe($.plumber())
+    .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
+});
+
+gulp.task('copy:vendor__css', function () {
+  return gulp.src([config.libVendorCSS.bxSlider_ajaxLoader])
+    .pipe($.plumber())
+    .pipe(gulp.dest(config.buildRoot + 'img'));
+});
+
+gulp.task('copy:vendor__fonts', function () {
+  var lib = {
+    bootstrap: './bower_components/bootstrap/dist/fonts/*.*'
+    };
+  return gulp.src(lib.bootstrap)
+    .pipe($.plumber())
+    .pipe(gulp.dest(config.buildRoot + 'css/fonts'));
+});
+
+gulp.task('stylus-watch', ['stylus'], function () {
+  bs.reload();
+});
+
+gulp.task('jade-watch', ['jade'], function () {
+  bs.reload();
+  // bs.notify("Done");
+});
+
+gulp.task('js-watch', ['js'], function () {
+  bs.reload();
+});
+
+gulp.task('json-watch', ['json'], function () {
+  bs.reload();
+});
+
+gulp.task('php-watch', ['php'], function () {
+  bs.reload();
+});
+
 gulp.task('watch', ['sync'], function() {
+  gulp.watch(config.srcRoot + 'jade/**/[^!]*.jade', ['jade-watch']);
   gulp.watch(config.srcRoot + 'styl/**/[^!]*.styl', ['stylus-watch']);
-  gulp.watch([config.srcRoot + 'jade/**/[^!]*.jade', config.srcRoot + 'jade/templates/[^!]*.jade'], ['jade']);
   gulp.watch(config.srcRoot + 'js/**/[^!]*.js', ['js-watch']);
   gulp.watch(config.srcRoot + 'json/[^!]*.json', ['json-watch']);
-  // gulp.watch(config.srcRoot + 'img/*', ['images']);
-  gulp.watch('src/php/[^!]*.php', ['php']);
-  // gulp.watch('www/**/*').on('change', bs.reload);
+  gulp.watch(config.srcRoot + 'php/[^!]*.php', ['php-watch']);
+  bs.reload();
 });
 
-gulp.task('clean', function () {
-  var path = {
-      root: config.buildRoot + '*.*',
-      css: config.buildRoot + 'css/*.*',
-      css_fonts: config.buildRoot + 'css/fonts/*.*',
-      css_vendor: config.buildRoot + 'css/vendor/*.*',
-      css_partials: config.buildRoot + 'css/partials/*.*',
-      js: config.buildRoot + 'js/*.*',
-      js_vendor: config.buildRoot + 'js/vendor/*.*',
-      js_partials: config.buildRoot + 'js/partials/*.*',
-      json: config.buildRoot + 'json/*.*',
-      fonts: config.buildRoot + 'fonts/*.*',
-      images: config.buildRoot + 'img/*.*',
-      images_catalogue: config.buildRoot + 'img/catalogue/*.*',
-      php: config.buildRoot + 'php/*.*'
-    };
-  $.del([path.root,
-        path.css_fonts,
-        path.css_vendor,
-        path.css_partials,
-        path.css,
-        path.js_vendor,
-        path.js_partials,
-        path.js,
-        path.json,
-        path.fonts,
-        path.images_catalogue,
-        path.images,
-        path.php]);
+gulp.task('clean', function (cb) {
+    $.del([config.buildRoot + '*'], cb);
 });
+// why do we need a cb
+// http://stackoverflow.com/questions/31400418/gulp-sass-del-random-behaviour
 
-gulp.task('build', function () {
-  $.runSequence('clean', ['copy:vendor__js',
-                          'copy:vendor__css',
-                          // 'copy:vendor__fonts',
-                          'build__jade',
-                          'stylus',
-                          'images',
-                          'js',
-                          'json',
-                          'build__php']);
+gulp.task('build', function (cb) {
+  $.runSequence('clean',
+                [
+                  // 'copy:vendor__js',
+                  'copy:vendor__css',
+                  // 'copy:vendor__fonts',
+                  'jade',
+                  'php',
+                  'stylus',
+                  'js',
+                  'json',
+                  'images'
+                ],
+                cb);
 });
 
 gulp.task('default', ['watch']);

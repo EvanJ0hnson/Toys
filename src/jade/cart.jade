@@ -3,13 +3,6 @@ html
   head
     include ./_includes/_incl--meta.jade
 
-    //- Material Design Lite
-    link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
-    link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
-    link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-    //- Partials
-    link(rel="stylesheet" href="css/style.min.css")
-
     title Сундучок игрушек
   body
     nav.nav-left.mdl-shadow--4dp
@@ -53,7 +46,7 @@ html
           h2.mdl-card__title-text.mdl-card__title-text--information
             |Корзина
 
-        div#popup_cart.mdl-card__supporting-text
+        div#popup_cart.cart-table__wrapper
           //- #popup_cart inserts here
         div.mdl-card__actions.mdl-card--border
           form#fOrderReservation
@@ -66,14 +59,10 @@ html
 
     //- footer
     //- include ./_includes/_incl--footer.jade
-
-    //- JQuery
-    script(src="js/vendor/jquery.min.js")
+    
     //- Material Design Lite
     script(src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js")
-    //- Partials
-    script(src="js/partials/cart.js")
-    script(src="js/partials/scripts.js")
+    
     script.
       var cart;
 
