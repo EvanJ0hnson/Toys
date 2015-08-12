@@ -3,25 +3,13 @@ doctype html
 html
   head
     include ../_includes/_incl--meta.jade
+    title «Сундучок игрушек»
 
-    //- Material Design Lite
-    link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
-    link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
-    link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-pink.min.css")
-    //- Partials
-    link(rel="stylesheet" href="css/style.min.css")
-
-    //- JQuery
-    script(src="js/vendor/jquery.min.js")
-    //- Partials
-    script(src="js/partials/cart.js")
-    script(src="js/partials/scripts.js")
     script.
       $(function(){
         setTimeout(initCart, 150);
       });
 
-    title «Сундучок игрушек»
   body
     include ../_includes/_incl--flowCart.jade
 

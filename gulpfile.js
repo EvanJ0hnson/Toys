@@ -9,7 +9,28 @@ var bs = $.browserSync.create();
 var config = {
   buildRoot: './www/',
   srcRoot: './src/',
-  proxyAdress: 'toys.loc.ru'
+  proxyAdress: 'toys.loc.ru',
+  libVendorJS: {
+    jquery: './bower_components/jquery/dist/jquery.min.js',
+    mdl: './bower_components/material-design-lite/material.min.js',
+    bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
+    owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js',
+    flexslider: './bower_components/flexslider/jquery.flexslider-min.js',
+    matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js',
+    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js'
+    },
+  libVendorCSS: {
+    mdl: './bower_components/material-design-lite/material.min.css',
+    bootstrap_core: './bower_components/bootstrap/dist/css/bootstrap.min.css',
+    bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+    owlcarousel_core: './bower_components/OwlCarousel2/dist/assets/owl.carousel.min.css',
+    owlcarousel_theme: './bower_components/OwlCarousel2/dist/assets/owl.theme.default.min.css',
+    owlcarousel_ajaxLoader: './bower_components/OwlCarousel2/dist/assets/ajax-loader.gif',
+    flexslider: './bower_components/flexslider/flexslider.css',
+    resetcss: './bower_components/reset-css/reset.css',
+    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.css',
+    bxSlider_ajaxLoader: './bower_components/dw-bxslider-4/dist/images/bx_loader.gif'
+  }
 }
 
 gulp.task('sync', function(cb) {
@@ -28,7 +49,7 @@ gulp.task('stylus', function() {
       compress: true
     }))
     .pipe($.autoprefixer({
-      browsers: ['last 2 versions'],
+      browsers: ['> 1%', 'last 2 versions'],
       cascade: false
     }))
     // .pipe(csscomb())
@@ -41,21 +62,25 @@ gulp.task('jade', function() {
   return gulp.src(config.srcRoot + 'jade/*.jade')
     .pipe($.plumber())
     .pipe($.jade({
-      pretty: true
+      pretty: false
     }))
-    // .pipe($.htmlmin({
-    //   collapseWhitespace: true,
-    //   removeComments: true,
-    //   minifyJS: true,
-    //   minifyCSS: true
-    // }))
+    .pipe($.htmlmin({
+      collapseWhitespace: true,
+      removeComments: true,
+      minifyJS: true,
+      minifyCSS: true
+    }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
 gulp.task('js', function() {
-  return gulp.src(config.srcRoot + 'js/*.js')
+  return gulp.src([config.libVendorJS.jquery,
+                   config.libVendorJS.matchHeight,
+                   config.libVendorJS.bxSlider,
+                   config.srcRoot + 'js/*.js'])
     .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'js/partials'));
+    .pipe($.concat('scripts.min.js'))
+    .pipe(gulp.dest(config.buildRoot + 'js/'));
 });
 
 gulp.task('json', function() {
@@ -83,38 +108,17 @@ gulp.task('images', function() {
 });
 
 gulp.task('copy:vendor__js', function () {
-  var lib = {
-    jquery: './bower_components/jquery/dist/jquery.min.js',
-    mdl: './bower_components/material-design-lite/material.min.js',
-    bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
-    owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js',
-    flexslider: './bower_components/flexslider/jquery.flexslider-min.js',
-    matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js',
-    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js'
-    };
-  return gulp.src([lib.jquery,
-           lib.matchHeight,
-           lib.bxSlider])
+  return gulp.src([config.libVendorJS.jquery,
+           config.libVendorJS.matchHeight,
+           config.libVendorJS.bxSlider])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
 });
 
 gulp.task('copy:vendor__css', function () {
-  var lib = {
-    mdl: './bower_components/material-design-lite/material.min.css',
-    bootstrap_core: './bower_components/bootstrap/dist/css/bootstrap.min.css',
-    bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-    owlcarousel_core: './bower_components/OwlCarousel2/dist/assets/owl.carousel.min.css',
-    owlcarousel_theme: './bower_components/OwlCarousel2/dist/assets/owl.theme.default.min.css',
-    owlcarousel_ajaxLoader: './bower_components/OwlCarousel2/dist/assets/ajax-loader.gif',
-    flexslider: './bower_components/flexslider/flexslider.css',
-    resetcss: './bower_components/reset-css/reset.css',
-    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.css',
-    bxSlider_ajaxLoader: './bower_components/dw-bxslider-4/dist/images/bx_loader.gif'
-    };
-  return gulp.src([lib.bxSlider_ajaxLoader])
+  return gulp.src([config.libVendorCSS.bxSlider_ajaxLoader])
     .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'css/vendor'));
+    .pipe(gulp.dest(config.buildRoot + 'img'));
 });
 
 gulp.task('copy:vendor__fonts', function () {
@@ -157,14 +161,15 @@ gulp.task('watch', ['sync'], function() {
 });
 
 gulp.task('clean', function (cb) {
-    $.del([config.buildRoot], cb);
+    $.del([config.buildRoot + '*'], cb);
 });
 // why do we need a cb
 // http://stackoverflow.com/questions/31400418/gulp-sass-del-random-behaviour
 
 gulp.task('build', function (cb) {
   $.runSequence('clean',
-                ['copy:vendor__js',
+                [
+                  // 'copy:vendor__js',
                   'copy:vendor__css',
                   // 'copy:vendor__fonts',
                   'jade',
