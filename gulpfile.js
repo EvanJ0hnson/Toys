@@ -13,7 +13,8 @@ var config = {
   libVendorJS: {
     jquery: './bower_components/jquery/dist/jquery.min.js',
     matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js',
-    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js'
+    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js',
+    lazyLoad: './bower_components/jquery.lazyload/jquery.lazyload.js'
     },
   libVendorAssets: {
     bxSlider_ajaxLoader: './bower_components/dw-bxslider-4/dist/images/bx_loader.gif'
@@ -64,6 +65,7 @@ gulp.task('js', function() {
   return gulp.src([config.libVendorJS.jquery,
                    config.libVendorJS.matchHeight,
                    config.libVendorJS.bxSlider,
+                   config.libVendorJS.lazyLoad,
                    config.srcRoot + 'js/*.js'])
     .pipe($.plumber())
     .pipe($.concat('scripts.min.js'))

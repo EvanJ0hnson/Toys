@@ -11,6 +11,12 @@ function matchCardsHeight () {
   $('.bl').matchHeight();
 }
 
+function lazyLoadCatalogueImages () {
+  $('img.lazy').lazyload({
+    threshold : 300
+    });
+}
+
 function switchLeftMenu () {
   $('.nav-left').toggle(100, function () {
     $('.nav-left__switcher').toggle(150);
@@ -192,7 +198,7 @@ function renderCatalogue (json) {
             tmp += '</h1>';
           tmp += '</div>';
           tmp += '<div class="mdl-card__title">';
-            tmp += '<img class="mdl-card__title-image" src="img/catalogue/' + value2.photo + '">'
+            tmp += '<img class="mdl-card__title-image lazy" data-original="img/catalogue/' + value2.photo + '">'
           tmp += '</div>';
           tmp += '<div class="mdl-card__supporting-text mdl-card__actions mdl-card--border">';
             tmp += '<table class="toys-card__price-table">';
@@ -230,6 +236,7 @@ function renderCatalogue (json) {
     $('.section').append(tmp);
     // match Cards Height
     matchCardsHeight ();
+    lazyLoadCatalogueImages ();
     initCart ();
   });
 };

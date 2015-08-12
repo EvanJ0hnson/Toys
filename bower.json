@@ -25,7 +25,8 @@
     "flexslider": "~2.5.0",
     "reset-css": "~2.0.2011012602",
     "matchHeight": "~0.6.0",
-    "dw-bxslider-4": "~4.2.5"
+    "dw-bxslider-4": "~4.2.5",
+    "jquery.lazyload": "~1.9.5"
   },
   "devDependencies": {
     "bootstrap": "~3.3.5"
