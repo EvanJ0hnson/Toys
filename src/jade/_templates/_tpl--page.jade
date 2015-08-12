@@ -11,6 +11,16 @@ html
     //- Partials
     link(rel="stylesheet" href="css/style.min.css")
 
+    //- JQuery
+    script(src="js/vendor/jquery.min.js")
+    //- Partials
+    script(src="js/partials/cart.js")
+    script(src="js/partials/scripts.js")
+    script.
+      $(function(){
+        setTimeout(initCart, 150);
+      });
+
     title «Сундучок игрушек»
   body
     include ../_includes/_incl--flowCart.jade
@@ -47,12 +57,3 @@ html
     //- footer
     //- include ../_includes/_incl--footer.jade
 
-    //- JQuery
-    script(src="js/vendor/jquery.min.js")
-    //- Partials
-    script(src="js/partials/cart.js")
-    script(src="js/partials/scripts.js")
-    script.
-      $(function(){
-        setTimeout(initCart, 150);
-      });

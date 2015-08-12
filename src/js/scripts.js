@@ -70,25 +70,6 @@ function formSubmit() {
   });
 }
 
-// function createTopSlider() {
-//   $('.cd-topslider-wrapper').flexslider({
-//     selector: ".cd-topslider > div",
-//     animation: "slide",
-//     controlNav: true,
-//     directionNav: false,
-//     keyboard: false,
-//     slideshow: true,
-//     animationSpeed: 1000,
-//     slideshowSpeed: 3500,
-//     start: function () {
-//       $('.cd-topslider').children('div').css({
-//         'opacity': 1,
-//         'position': 'relative'
-//       });
-//     }
-//   });
-// }
-
 function renderItemDescription (desc) {
   var tmp = '',
       strAvailable = '',
@@ -152,11 +133,6 @@ function renderItemDescription (desc) {
         tmp += '</tbody>';
       tmp += '</table>';
     tmp += '</div>';
-    // tmp += '<div class="mdl-card__actions mdl-card--border">';
-    //   tmp += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="cart.addToCart(\'' + desc.id + '\', \'' + desc.title + '\', \'' + desc.price1 + '\', \'' + desc.price2 + '\', \'' + desc.price3 + '\')" data-id="ID' + desc.id + '">';
-    //     tmp += 'Добавить в корзину';
-    //   tmp += '</button>';
-    // tmp += '</div>';
   tmp += '</div>';
   
   $('.section').prepend(tmp);
