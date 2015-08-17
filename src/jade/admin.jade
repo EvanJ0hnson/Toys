@@ -141,6 +141,7 @@ html
 
       $(function(){
         renderFullCatalogue(cataloguePath);
+        scrollOffset();
         setTimeout(dataChange, 150);
       });
 
@@ -154,7 +155,7 @@ html
       ul.nav-left__list
         li.nav-left__list-item: a.nav-left__link(href="#" onclick="renderFullCatalogue(cataloguePath);") Все товары
         li.nav-left__list-item: a.nav-left__link(href="#" onclick="renderReservedCatalogue(cataloguePath);") Забронированные
-      div.nav-left__overlay
+      div.nav-left__overlay(onclick="switchLeftMenu()")
       a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
         i.material-icons close
 

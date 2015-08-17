@@ -42,14 +42,15 @@ function bxSliderInit () {
                           autoHover: true});
 }
 
-function smoothScroll() {
-  $('a[href^="#"], a[href^="."]').click(function () {
+function scrollOffset() {
+  $('a[href^="#"], a[href^="."]').on('click' , function () {
   // если в href начинается с # или ., то ловим клик
     var scroll_el = $(this).attr('href');
     // возьмем содержимое атрибута href
     // if ($(scroll_el).length !== 0) {
     // проверим существование элемента чтобы избежать ошибки
-      $('body').animate({ scrollTop: $(scroll_el).offset().top - 30 }, 1200); // анимируем скроолинг к элементу scroll_el
+    history.pushState(null, null, scroll_el);
+    $('body').scrollTop($(scroll_el).offset().top - 30); // анимируем скроолинг к элементу scroll_el
     // }
     return false; // выключаем стандартное действие
   });
@@ -163,11 +164,13 @@ function renderCatalogue (json) {
         isNew = '';
 
     $.each(menuItems, function(key, value) {
-      tmp += '<div id="' + value.type + '" class="col bl--full">';
-        tmp += '<h4>';
-          tmp += value.title;
-        tmp += '</h4>';
-      tmp += '</div>';
+      tmp += 
+      '<div id="' + value.type + '" class="col bl--full"> \
+        <h4>'
+          + value.title +
+        '</h4> \
+      </div>';
+
       $.each(value.items, function(key2, value2) {
         strAvailable = 'В НАЛИЧИИ';
         isReserved = '';
@@ -181,57 +184,51 @@ function renderCatalogue (json) {
           isReserved = 'toys-card__availability--isReserved';
         }
 
-        tmp += '<div class="col bl mdl-card mdl-shadow--4dp">';
-          tmp += '<div class="mdl-card__title toys-card__availability ' + isReserved + '">';
-            tmp += '<h1 class="mdl-card__title-text">';
-              tmp += value2.title;
-            tmp += '</h1>';
-            tmp += '<div class="mdl-card__menu">';
-              tmp += '<span id="btnDelItem' + value2.id + '" class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '">';
-                tmp += '<i class="material-icons">add</i>';
-              tmp += '</span>';
-            tmp += '</div>';
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__title">';
-            tmp += '<h1 class="mdl-card__title-text">';
-              tmp += strAvailable;
-            tmp += '</h1>';
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__title">';
-            tmp += '<img class="mdl-card__title-image lazy" data-original="img/catalogue/' + value2.photo + '">'
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__supporting-text mdl-card__actions mdl-card--border">';
-            tmp += '<table class="toys-card__price-table">';
-              tmp += '<thead class="toys-card__price-table--header">';
-                tmp += '<tr>';
-                  tmp += '<td>1 неделя</td>';
-                  tmp += '<td>2 недели</td>';
-                  tmp += '<td>Месяц</td>';
-                tmp += '</tr>';
-              tmp += '</thead>';
-              tmp += '<tbody>';
-                tmp += '<tr>';
-                  tmp += '<td>' + value2.price1 + '</td>';
-                  tmp += '<td>' + value2.price2 + '</td>';
-                  tmp += '<td>' + value2.price3 + '</td>';
-                tmp += '</tr>';
-              tmp += '</tbody>';
-            tmp += '</table>';
-          tmp += '</div>';
-          tmp += '<div class="mdl-card__actions mdl-card--border">';
-            tmp += '<a href="item.html?id=' + value2.id + '" class="mdl-button" data-infoID="' + value2.id + '">';
-              tmp += 'Подробнее';
-            tmp += '</a>';
-          tmp += '</div>';
-        tmp += '</div>';
-
-        // $('#cat__main').after(tmp);
-        // if (isNew == 'Да') {
-        //   $('#cat__new').after(tmp);
-        //   }
+        tmp += 
+        '<div class="col bl mdl-card mdl-shadow--4dp"> \
+          <div class="mdl-card__title toys-card__availability ' + isReserved + '"> \
+            <h1 class="mdl-card__title-text">'
+               + value2.title +
+            '</h1> \
+            <div class="mdl-card__menu"> \
+              <span id="btnDelItem' + value2.id + '" class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '"> \
+                <i class="material-icons">add</i> \
+              </span> \
+            </div> \
+          </div> \
+          <div class="mdl-card__title"> \
+            <h1 class="mdl-card__title-text">'
+              + strAvailable +
+            '</h1> \
+          </div> \
+          <div class="mdl-card__title"> \
+            <img class="mdl-card__title-image lazy" data-original="img/catalogue/' + value2.photo + '"> \
+          </div> \
+          <div class="mdl-card__supporting-text mdl-card__actions mdl-card--border"> \
+            <table class="toys-card__price-table"> \
+              <thead class="toys-card__price-table--header"> \
+                <tr> \
+                  <td>1 неделя</td> \
+                  <td>2 недели</td> \
+                  <td>Месяц</td> \
+                </tr> \
+              </thead> \
+              <tbody> \
+                <tr> \
+                  <td>' + value2.price1 + '</td> \
+                  <td>' + value2.price2 + '</td> \
+                  <td>' + value2.price3 + '</td> \
+                </tr> \
+              </tbody> \
+            </table> \
+          </div> \
+          <div class="mdl-card__actions mdl-card--border"> \
+            <a href="item.html?id=' + value2.id + '" class="mdl-button" data-infoID="' + value2.id + '"> \
+              Подробнее \
+            </a> \
+          </div> \
+        </div>';
       });
-      // $('#' + value.type).after(tmp);
-      // tmp = '';
     });
     $('.section').append(tmp);
     // match Cards Height

@@ -20,7 +20,7 @@ html
         include ../_includes/_incl--menu.jade
         each link in links
           li.nav-left__list-item: a.nav-left__link(href="#{link.url}") #{link.name}
-      div.nav-left__overlay
+      div.nav-left__overlay(onclick="switchLeftMenu()")
       a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
         i.material-icons close
 
