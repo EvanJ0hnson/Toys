@@ -1,13 +1,15 @@
 doctype html
+-var title = "«Сундучок игрушек»"
 html
   head
     include ./_includes/_incl--meta.jade
-    title «Сундучок игрушек»
+    title #{title}
 
     script.
       $(function(){
         bxSliderInit();
         renderCatalogue(cataloguePath);
+        scrollOffset();
       });
 
   body
@@ -15,21 +17,17 @@ html
 
     nav.nav-left.mdl-shadow--4dp
       ul.nav-left__list
-        li.nav-left__list-item: a.nav-left__link(href="/") «Сундучок игрушек»
-      hr
-      ul.nav-left__list
         include ./_includes/_incl--menu.jade
         each link in links
           li.nav-left__list-item: a.nav-left__link(href="#{link.url}") #{link.name}
-      div.nav-left__overlay
+      div.nav-left__overlay(onclick="switchLeftMenu()")
       a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
         i.material-icons close
 
     nav.nav-top.mdl-shadow--2dp
-      ul.nav-top__list.nav-top__list--menu
-        li.nav-top__list-item
-          a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
-            i.material-icons menu
+      ul.nav-top__list--menu
+        li.nav-top__list-item(onclick="switchLeftMenu()")
+          a.nav-top__link-icon--menu О компании
       ul.nav-top__list
         li.nav-top__list-item
           a.nav-top__link.nav-top__link--categories(onclick="switchTopMenu()") КАТЕГОРИИ
@@ -39,15 +37,14 @@ html
             a.nav-top__link(href="##{val.id}") #{val.name}
 
     nav.nav-top.nav-top__hidden-row.mdl-shadow--2dp
-      ul.nav-top__list.nav-top__list--menu
-        li.nav-top__list-item
-          a.nav-top__link.nav-top__link--menu(onclick="switchTopMenu()")
-            i.material-icons close
+      ul.nav-top__list--menu
+        li.nav-top__list-item(onclick="switchTopMenu()")
+          a.nav-top__link-icon--menu Закрыть
       ul.nav-top__list
         include ./_includes/_incl--categories.jade
         each val in category
           li.nav-top__list-item
-            a.nav-top__link.nav-top__hidden-row(href="##{val.id}") #{val.name}
+            a.nav-top__link.nav-top__hidden-row(href="##{val.id}" onclick="closeCategoriesMenu()") #{val.name}
 
     //- Main carousel
     //- flexslider
@@ -58,10 +55,18 @@ html
         div(style="background-image: url('img/img (4).jpg');")
       //- bxSlider
     ul.bxslider
-      li: img(src="img/img (5).jpg")
-      li: img(src="img/img (6).jpg")
-      li: img(src="img/img (4).jpg")
+      li
+        img(src="img/img (5).jpg")
+        h3.title #{title}
+      li
+        img(src="img/img (6).jpg")
+        h3.title #{title}
+      li
+        img(src="img/img (4).jpg")
+        h3.title #{title}
     //- Main carousel
+    
+      
     
     div.section.group
       //- Catalogue of toys goes here by JS

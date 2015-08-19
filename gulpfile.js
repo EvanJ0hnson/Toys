@@ -12,23 +12,11 @@ var config = {
   proxyAdress: 'toys.loc.ru',
   libVendorJS: {
     jquery: './bower_components/jquery/dist/jquery.min.js',
-    mdl: './bower_components/material-design-lite/material.min.js',
-    bootstrap: './bower_components/bootstrap/dist/js/bootstrap.min.js',
-    owlcarousel: './bower_components/OwlCarousel2/dist/owl.carousel.min.js',
-    flexslider: './bower_components/flexslider/jquery.flexslider-min.js',
     matchHeight: './bower_components/matchHeight/jquery.matchHeight-min.js',
-    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js'
+    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.js',
+    lazyLoad: './bower_components/jquery.lazyload/jquery.lazyload.js'
     },
-  libVendorCSS: {
-    mdl: './bower_components/material-design-lite/material.min.css',
-    bootstrap_core: './bower_components/bootstrap/dist/css/bootstrap.min.css',
-    bootstrap_theme: './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-    owlcarousel_core: './bower_components/OwlCarousel2/dist/assets/owl.carousel.min.css',
-    owlcarousel_theme: './bower_components/OwlCarousel2/dist/assets/owl.theme.default.min.css',
-    owlcarousel_ajaxLoader: './bower_components/OwlCarousel2/dist/assets/ajax-loader.gif',
-    flexslider: './bower_components/flexslider/flexslider.css',
-    resetcss: './bower_components/reset-css/reset.css',
-    bxSlider: './bower_components/dw-bxslider-4/dist/jquery.bxslider.min.css',
+  libVendorAssets: {
     bxSlider_ajaxLoader: './bower_components/dw-bxslider-4/dist/images/bx_loader.gif'
   }
 }
@@ -77,6 +65,7 @@ gulp.task('js', function() {
   return gulp.src([config.libVendorJS.jquery,
                    config.libVendorJS.matchHeight,
                    config.libVendorJS.bxSlider,
+                   config.libVendorJS.lazyLoad,
                    config.srcRoot + 'js/*.js'])
     .pipe($.plumber())
     .pipe($.concat('scripts.min.js'))
@@ -107,28 +96,20 @@ gulp.task('images', function() {
     .pipe(gulp.dest(config.buildRoot + 'img'));
 });
 
-gulp.task('copy:vendor__js', function () {
-  return gulp.src([config.libVendorJS.jquery,
-           config.libVendorJS.matchHeight,
-           config.libVendorJS.bxSlider])
-    .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'js/vendor'));
-});
-
-gulp.task('copy:vendor__css', function () {
-  return gulp.src([config.libVendorCSS.bxSlider_ajaxLoader])
+gulp.task('copy:vendor__assets', function () {
+  return gulp.src([config.libVendorAssets.bxSlider_ajaxLoader])
     .pipe($.plumber())
     .pipe(gulp.dest(config.buildRoot + 'img'));
 });
 
-gulp.task('copy:vendor__fonts', function () {
-  var lib = {
-    bootstrap: './bower_components/bootstrap/dist/fonts/*.*'
-    };
-  return gulp.src(lib.bootstrap)
-    .pipe($.plumber())
-    .pipe(gulp.dest(config.buildRoot + 'css/fonts'));
-});
+// gulp.task('copy:vendor__fonts', function () {
+//   var lib = {
+//     bootstrap: './bower_components/bootstrap/dist/fonts/*.*'
+//     };
+//   return gulp.src(lib.bootstrap)
+//     .pipe($.plumber())
+//     .pipe(gulp.dest(config.buildRoot + 'css/fonts'));
+// });
 
 gulp.task('stylus-watch', ['stylus'], function () {
   bs.reload();
@@ -169,15 +150,14 @@ gulp.task('clean', function (cb) {
 gulp.task('build', function (cb) {
   $.runSequence('clean',
                 [
-                  // 'copy:vendor__js',
-                  'copy:vendor__css',
-                  // 'copy:vendor__fonts',
                   'jade',
                   'php',
                   'stylus',
                   'js',
                   'json',
-                  'images'
+                  'images',
+                  // 'copy:vendor__fonts',
+                  'copy:vendor__assets',
                 ],
                 cb);
 });

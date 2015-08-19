@@ -13,23 +13,24 @@ html
   body
     include ../_includes/_incl--flowCart.jade
 
-    div.nav-left.mdl-shadow--4dp
+    nav.nav-left.mdl-shadow--4dp
       ul.nav-left__list
-        li.nav-left__list-item: a.nav-left__link(href="/") «Сундучок игрушек»
+        li.nav-left__list-item: a.nav-left__link(href="/") Главная страница
         hr
         include ../_includes/_incl--menu.jade
         each link in links
           li.nav-left__list-item: a.nav-left__link(href="#{link.url}") #{link.name}
-    div.nav-left__overlay
-    a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
-      i.material-icons close
+      div.nav-left__overlay(onclick="switchLeftMenu()")
+      a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
+        i.material-icons close
 
     nav.nav-top.mdl-shadow--2dp
-      ul.nav-top__list.nav-top__list--menu
-        li.nav-top__list-item
-          a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
-            i.material-icons menu
+      ul.nav-top__list--menu
+        li.nav-top__list-item(onclick="switchLeftMenu()")
+          a.nav-top__link-icon--menu О компании
       ul.nav-top__list
+        li.nav-top__list-item
+          a.nav-top__link.nav-top__link--categories(href="/index.html") Каталог игрушек
         include ../_includes/_incl--categoriesOuter.jade
         each val in category
           li.nav-top__list-item

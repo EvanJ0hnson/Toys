@@ -24,82 +24,61 @@ html
 
       function renredItem (item) {
         var tmp = '';
-        tmp += '<div id="item' + item.id + '" class="col bl mdl-card">';
-          //- tmp += '<div class="mdl-card__title">';
-          //-   tmp += '<h2 class="mdl-card__title-text">'
-          //-     tmp += item.title;
-          //-   tmp += '</h2>';
-          //- tmp += '</div>';
-          tmp += '<div class="mdl-card__supporting-text">';
-            //- tmp += 'ID: ';
-            //- tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="id" disabled>';
-            //-   tmp += item.id;
-            //- tmp += '</textarea>';
-            //- tmp += '<br>';
-            //- tmp += 'photo: ';
-            //- tmp += '<input type="file" class="admin__textarea">';
-              //- tmp += item.photo;
-            //- tmp += '</textarea>';
-            //- tmp += '<br>';
-            tmp += 'Название: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="title">';
-              tmp += item.title;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Бренд: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="brand">';
-              tmp += item.brand;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Возраст: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="age">';
-              tmp += item.age;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Описание:';
-            tmp += '<br>';
-            tmp += '<i>(поддерживаются html-тэги)</i>';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '"  data-name="description" rows="10">';
-              tmp += item.description;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Цена 1: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="price1">';
-              tmp += item.price1;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Цена 2: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="price2">';
-              tmp += item.price2;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Цена 3: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="price3">';
-              tmp += item.price3;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            //- tmp += 'Новинка: ';
-            //- tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="new">';
-            //-   tmp += item.new;
-            //- tmp += '</textarea>';
-            //- tmp += '<br>';
-            tmp += 'В наличии: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="available">';
-              tmp += item.available;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Забронирована до ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="date">';
-              tmp += item.date;
-            tmp += '</textarea>';
-            tmp += '<br>';
-            tmp += 'Комментарий: ';
-            tmp += '<textarea class="admin__textarea" data-id="' + item.id + '" data-name="comments" rows="10">';
-              tmp += item.comments;
-            tmp += '</textarea>';
-          tmp += '</div>';
-        tmp += '</div>';
-        return tmp;
+        return tmp += '<div id="item' + item.id + '" class="col bl mdl-card">
+          <div class="mdl-card__supporting-text">
+            Название: 
+            <textarea class="admin__textarea" data-id="' + item.id + '" data-name="title">'
+              + item.title +
+           '</textarea>
+           <br>
+           Бренд:
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="brand">'
+              + item.brand +
+           '</textarea>
+           <br>
+           Возраст: 
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="age">'
+              + item.age +
+           '</textarea>
+           <br>
+           Описание:
+           <br>
+           <i>(поддерживаются html-тэги)</i>
+           <textarea class="admin__textarea" data-id="' + item.id + '"  data-name="description" rows="10">'
+              + item.description +
+           '</textarea>
+           <br>
+           Цена 1: 
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="price1">'
+              + item.price1 +
+           '</textarea>
+           <br>
+           Цена 2: 
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="price2">'
+              + item.price2 +
+           '</textarea>
+           <br>
+           Цена 3: 
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="price3">'
+              + item.price3 +
+           '</textarea>
+           <br>
+           В наличии: 
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="available">'
+              + item.available +
+           '</textarea>
+           <br>
+           Забронирована до 
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="date">'
+              + item.date +
+           '</textarea>
+           <br>
+           Комментарий: 
+           <textarea class="admin__textarea" data-id="' + item.id + '" data-name="comments" rows="10">'
+              + item.comments +
+           '</textarea>
+         </div>
+       </div>';
       }
 
       function renderFullCatalogue (json) {
@@ -162,6 +141,7 @@ html
 
       $(function(){
         renderFullCatalogue(cataloguePath);
+        scrollOffset();
         setTimeout(dataChange, 150);
       });
 
@@ -175,15 +155,14 @@ html
       ul.nav-left__list
         li.nav-left__list-item: a.nav-left__link(href="#" onclick="renderFullCatalogue(cataloguePath);") Все товары
         li.nav-left__list-item: a.nav-left__link(href="#" onclick="renderReservedCatalogue(cataloguePath);") Забронированные
-      div.nav-left__overlay
+      div.nav-left__overlay(onclick="switchLeftMenu()")
       a.nav-left__switcher.mdl-button.mdl-button--fab.mdl-button--colored(onclick="switchLeftMenu()")
         i.material-icons close
 
     nav.nav-top.mdl-shadow--2dp
-      ul.nav-top__list.nav-top__list--menu
-        li.nav-top__list-item
-          a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
-            i.material-icons menu
+      ul.nav-top__list--menu
+        li.nav-top__list-item(onclick="switchLeftMenu()")
+          a.nav-top__link-icon--menu Меню
       ul.nav-top__list
         li.nav-top__list-item
           a.nav-top__link.nav-top__link--categories(onclick="switchTopMenu()") КАТЕГОРИИ
@@ -193,15 +172,14 @@ html
             a.nav-top__link(href="##{val.id}") #{val.name}
 
     nav.nav-top.nav-top__hidden-row.mdl-shadow--2dp
-      ul.nav-top__list.nav-top__list--menu
-        li.nav-top__list-item
-          a.nav-top__link.nav-top__link--menu(onclick="switchTopMenu()")
-            i.material-icons close
+      ul.nav-top__list--menu
+        li.nav-top__list-item(onclick="switchTopMenu()")
+          a.nav-top__link-icon--menu Закрыть
       ul.nav-top__list
         include ./_includes/_incl--categories.jade
         each val in category
           li.nav-top__list-item
-            a.nav-top__link.nav-top__hidden-row(href="##{val.id}") #{val.name}
+            a.nav-top__link.nav-top__hidden-row(href="##{val.id}" onclick="closeCategoriesMenu()") #{val.name}
 
 
     div.section.group
