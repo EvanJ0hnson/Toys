@@ -187,9 +187,11 @@ function renderCatalogue (json) {
         tmp += 
         '<div class="col bl mdl-card mdl-shadow--4dp"> \
           <div class="mdl-card__title toys-card__availability ' + isReserved + '"> \
-            <h1 class="mdl-card__title-text">'
-               + value2.title +
-            '</h1> \
+            <h1 class="mdl-card__title-text"> \
+               <a href="item.html?id=' + value2.id + '" class="mdl-card__title-link">'
+                 + value2.title +
+               '</a> \
+            </h1> \
             <div class="mdl-card__menu"> \
               <span id="btnDelItem' + value2.id + '" class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="cart.addToCart(\'' + value2.id + '\', \'' + value2.title + '\', \'' + value2.price1 + '\', \'' + value2.price2 + '\', \'' + value2.price3 + '\')" data-id="ID' + value2.id + '"> \
                 <i class="material-icons">add</i> \
