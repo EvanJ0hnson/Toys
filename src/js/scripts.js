@@ -28,6 +28,10 @@ function switchTopMenu () {
   $('.nav-top__hidden-row').toggle(100);
 }
 
+function closeCategoriesMenu () {
+  $('.nav-top__hidden-row').toggle(100);
+}
+
 function initCart () {
   cart = new WICard("cart");
   cart.init("cart-widjet");
@@ -86,7 +90,7 @@ function renderItemDescription (desc) {
   isReserved = '';
 
   if (desc.photo == '') {
-    desc.photo = desc.id + '.jpg'
+    desc.photo = desc.id + '_desc.jpg'
     }
   if (desc.available == 'Нет') {
     strAvailable += ' C ' + desc.date;
@@ -111,7 +115,7 @@ function renderItemDescription (desc) {
       tmp += '</h1>';
     tmp += '</div>';
     tmp += '<div class="mdl-card__title">';
-      tmp += '<img class="mdl-card__title-image" src="img/catalogue/' + desc.photo + '">'
+      tmp += '<img class="mdl-card__title-image--big" src="img/catalogue/' + desc.photo + '">'
     tmp += '</div>';
     tmp += '<div class="mdl-card__supporting-text">';
       tmp += 'Бренд: <br>' + desc.brand;

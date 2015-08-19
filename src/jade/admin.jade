@@ -160,10 +160,9 @@ html
         i.material-icons close
 
     nav.nav-top.mdl-shadow--2dp
-      ul.nav-top__list.nav-top__list--menu
-        li.nav-top__list-item
-          a.nav-top__link.nav-top__link--menu(onclick="switchLeftMenu()")
-            i.material-icons menu
+      ul.nav-top__list--menu
+        li.nav-top__list-item(onclick="switchLeftMenu()")
+          a.nav-top__link-icon--menu Меню
       ul.nav-top__list
         li.nav-top__list-item
           a.nav-top__link.nav-top__link--categories(onclick="switchTopMenu()") КАТЕГОРИИ
@@ -173,15 +172,14 @@ html
             a.nav-top__link(href="##{val.id}") #{val.name}
 
     nav.nav-top.nav-top__hidden-row.mdl-shadow--2dp
-      ul.nav-top__list.nav-top__list--menu
-        li.nav-top__list-item
-          a.nav-top__link.nav-top__link--menu(onclick="switchTopMenu()")
-            i.material-icons close
+      ul.nav-top__list--menu
+        li.nav-top__list-item(onclick="switchTopMenu()")
+          a.nav-top__link-icon--menu Закрыть
       ul.nav-top__list
         include ./_includes/_incl--categories.jade
         each val in category
           li.nav-top__list-item
-            a.nav-top__link.nav-top__hidden-row(href="##{val.id}") #{val.name}
+            a.nav-top__link.nav-top__hidden-row(href="##{val.id}" onclick="closeCategoriesMenu()") #{val.name}
 
 
     div.section.group
