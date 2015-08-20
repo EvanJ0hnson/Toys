@@ -92,13 +92,13 @@ function renderItemDescription (desc) {
   if (desc.photo == '') {
     desc.photo = desc.id + '_desc.jpg'
     }
-  if (desc.available == 'Нет') {
-    strAvailable += ' C ' + desc.date;
-    isReserved = 'toys-card__availability--isReserved';
-  }
+  // if (desc.available == 'Нет') {
+  //   strAvailable += ' C ' + desc.date;
+  //   isReserved = 'toys-card__availability--isReserved';
+  // }
 
   tmp += '<div class="col bl--big mdl-card mdl-shadow--4dp">';
-    tmp += '<div class="mdl-card__title toys-card__availability ' + isReserved + '">';
+    tmp += '<div class="mdl-card__title toys-card__availability">';
       tmp += '<h1 class="mdl-card__title-text">';
         tmp += desc.title;
       tmp += '</h1>';
@@ -109,11 +109,11 @@ function renderItemDescription (desc) {
         // tmp += '<div class="mdl-tooltip" for="btnDelItem' + desc.id + '" data-tooltipID="ID' + desc.id + '">В корзину</div>';
       tmp += '</div>';
     tmp += '</div>';
-    tmp += '<div class="mdl-card__title">';
-      tmp += '<h1 class="mdl-card__title-text">';
-        tmp += strAvailable;
-      tmp += '</h1>';
-    tmp += '</div>';
+    // tmp += '<div class="mdl-card__title">';
+    //   tmp += '<h1 class="mdl-card__title-text">';
+    //     tmp += strAvailable;
+    //   tmp += '</h1>';
+    // tmp += '</div>';
     tmp += '<div class="mdl-card__title">';
       tmp += '<img class="mdl-card__title-image--big" src="img/catalogue/' + desc.photo + '">'
     tmp += '</div>';
@@ -183,14 +183,14 @@ function renderCatalogue (json) {
         if (value2.photo == '') {
           value2.photo = value2.id + '.jpg';
           }
-        if (value2.available == 'Нет') {
-          strAvailable += ' C ' + value2.date;
-          isReserved = 'toys-card__availability--isReserved';
-        }
+        // if (value2.available == 'Нет') {
+        //   strAvailable += ' C ' + value2.date;
+        //   isReserved = 'toys-card__availability--isReserved';
+        // }
 
         tmp += 
         '<div class="col bl mdl-card mdl-shadow--4dp"> \
-          <div class="mdl-card__title toys-card__availability ' + isReserved + '"> \
+          <div class="mdl-card__title toys-card__availability"> \
             <h1 class="mdl-card__title-text"> \
                <a href="item.html?id=' + value2.id + '" class="mdl-card__title-link">'
                  + value2.title +
@@ -201,11 +201,6 @@ function renderCatalogue (json) {
                 <i class="material-icons">add</i> \
               </span> \
             </div> \
-          </div> \
-          <div class="mdl-card__title"> \
-            <h1 class="mdl-card__title-text">'
-              + strAvailable +
-            '</h1> \
           </div> \
           <div class="mdl-card__title"> \
             <img class="mdl-card__title-image lazy" data-original="img/catalogue/' + value2.photo + '"> \
