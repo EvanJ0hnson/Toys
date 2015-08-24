@@ -12,7 +12,7 @@ $EMPTY_BODY = 'Введите текст';
 $event = $_REQUEST['event'];
 $body = $_REQUEST['formBody'];
 
-$to = 'zipped@mail.ru';
+$to = 'sunduchok-igrushek@mail.ru';
 
 switch ($event) {
   case 'SendReview':
@@ -36,7 +36,7 @@ switch ($event) {
     break;
 }
 
-$headers = 'From: Бронирование <sunduchok@igrushek.ru';
+$headers = 'From: «Сундучок игрушек», бронирование <order@sunduchok-igrushek.ru>';
 
 if ($body != ''){
 	if (mail ($to, $subject, $body, $headers)){

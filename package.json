@@ -1,6 +1,6 @@
 {
   "name": "toys.loc.ru",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Web site for toys-rent company",
   "main": "gulpfile.js",
   "dependencies": {},
