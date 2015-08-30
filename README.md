@@ -1,3 +1,3 @@
 jQuery.lazyLoad
-— Changer «placeholder» value to ""
+— Changed «placeholder» value to ""
 
