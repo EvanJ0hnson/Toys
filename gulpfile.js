@@ -47,7 +47,9 @@ gulp.task('stylus', function() {
 
 gulp.task('jade', function() {
   // bs.notify("Compiling JADE, please wait!");
-  return gulp.src(config.srcRoot + 'jade/*.jade')
+  return gulp.src([config.srcRoot + 'jade/*.jade',
+                  config.srcRoot + 'jade/admin/*.jade'],
+                  { base: config.srcRoot + 'jade'})
     .pipe($.plumber())
     .pipe($.jade({
       pretty: false
